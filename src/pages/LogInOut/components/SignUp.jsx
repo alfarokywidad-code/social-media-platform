@@ -36,7 +36,7 @@ function SignUp() {
             <p>Already have an account <Link>Log in</Link></p>
         </form>
      
-      
+      </div>
         
     )
     

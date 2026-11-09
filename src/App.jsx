@@ -1,13 +1,20 @@
 import './App.css';
-import { BrowserRouter,Link, Route,Routes } from 'react-router-dom';
+import ErrorPage from './pages/Error/Error';
+import { Route, Routes } from 'react-router-dom';
 import SignUp from './pages/LogInOut/components/SignUp';
+
 function App() {
   return (
-    <BrowserRouter>
+
+      <BrowserRouter>
 <Routes>
 <Route   path='/Sign' element={<SignUp/>}/>
+<Route path='*' element={<ErrorPage/>}/>
 </Routes>
     </BrowserRouter>
+   
+  
+
   );
 }
 
