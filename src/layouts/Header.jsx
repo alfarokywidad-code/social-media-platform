@@ -1,6 +1,6 @@
 import "./Header.css";
 import { useNavigate, NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
     FiSearch,
     FiPlusSquare,
@@ -9,11 +9,16 @@ import {
     FiLogIn,
     FiLogOut
 } from "react-icons/fi";
-// import MyContext from "../Until/MyContext";
+import { MyContext } from "../utils/MyContext";
 
 function Header() {
+    const isLoggedIn = false;
     const { search, setSearch } = useContext(MyContext);
+    const[ users ] = useContext(MyContext);
     const navigate = useNavigate();
+    const currentUser = users.find(
+        (user) => user.username === "walid"
+    );
 
     function handleSearch(event) {
         const value = event.target.value;
@@ -25,11 +30,6 @@ function Header() {
 
     return (
         <header className="header">
-            {/* <div className="header-logo">
-                <Link to="/">
-                    logoMoleenGeek
-                </Link>
-            </div> */}
 
             <div className="header-search">
                 <FiSearch />
@@ -43,13 +43,6 @@ function Header() {
             </div>
 
             <div className="header-actions">
-                {/* <button
-                    type="button"
-                    aria-label="Create post"
-                    title="Create post"
-                >
-                    <FiPlusSquare />
-                </button> */}
                 <NavLink
                     to="/messages"
                     aria-label="Messages"
@@ -69,7 +62,11 @@ function Header() {
                     className="header-avatar"
                     aria-label="My profile"
                 >
-                    Walid
+                    <img
+                        src={currentUser.imageProfile}
+                        alt={`{currentUser.username} profile`}
+                        className="profile-image"
+                    />
                 </NavLink>
                 <NavLink
                     to={isLoggedIn ? "/LogOut" : "/LogIn"}
