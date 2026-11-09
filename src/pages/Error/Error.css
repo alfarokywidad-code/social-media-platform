@@ -1,0 +1,21 @@
+.ErrorPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+}
+.ERROR404{
+    font-size: 120px;
+    color: rgb(105, 10, 124);
+}
+.PageNotFound{
+    font-size: 40px;
+    font-weight: 700;
+    color: rgb(105, 10, 124);
+}
+.PageNotFoundPara{
+    color: red;
+    margin-top: 1%;
+}
