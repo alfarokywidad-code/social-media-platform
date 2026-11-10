@@ -3,7 +3,7 @@ export const MyContext = createContext();
 export function MyProvider({ children }) {
 
 // !nawfal code 
-      const [profil,setProfil] = useState(()=>{
+      const [users, setUsers] = useState(()=>{
 
           const theProfil = localStorage.getItem('user');
           if (theProfil && theProfil !== "undefined") {
@@ -14,29 +14,27 @@ export function MyProvider({ children }) {
            {
             id: crypto.randomUUID(),
             isLoggedIn:false,
-            name: "",
-            username: "",
-            age: '',
-            bio: "",
-            location: "",
+            name: "nawfal",
+            username: "nova",
+            age: '20',
+            bio: "hellow",
+            location: "alhoceima",
             imageProfile: "",
             coverImage: "",
             followers: [],
+            following:[],
             posts: []
         },   
            ]
 })
 
        useEffect(()=>{
-        localStorage.setItem('user',JSON.stringify(profil))
-       },[profil])
+        localStorage.setItem('newUser',JSON.stringify(users))
+       },[users])
     
 
 // !nawfal code
 
-
-    // All registered users
-    const [users, setUsers] = useState([]);
 
     // All posts
     const [posts, setPosts] = useState([]);
@@ -52,7 +50,7 @@ export function MyProvider({ children }) {
 
 
     return (
-        <MyContext.Provider value={[profil,setProfil,users, setUsers, posts, setPosts, comments, setComments, likes, setLikes, follows, setFollows
+        <MyContext.Provider value={[users,setUsers, posts, setPosts, comments, setComments, likes, setLikes, follows, setFollows
         ]}>
             {children}
         </MyContext.Provider>
