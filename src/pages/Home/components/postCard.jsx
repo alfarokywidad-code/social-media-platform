@@ -1,22 +1,17 @@
 import './postCard.css';
 import testImage from '../../../assets/img/pic.jpg'
 import testImage2 from '../../../assets/img/photoPc.avif'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as regularHeart} from '@fortawesome/free-regular-svg-icons';
-import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
-import {faMessage} from '@fortawesome/free-regular-svg-icons';
-import {faBookmark} from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
+import CommentsModalCard from './commentsModal';
+import ReactionPost from './reactionsPostCard';
 function PostCard() {
-    const [isLiked,setIsLiked] = useState(false);
-    const [likeCounter,setLikeCounter]= useState(0);
-    let clickLike=()=>{
-        if (isLiked === true) {
-            setLikeCounter(likeCounter-1)
-            setIsLiked(false);
+   // comments btn:
+    const [commentIsClicked,setCommentIsClicked]=useState(false);
+    let clickComments = ()=>{
+        if (commentIsClicked === true) {
+            setCommentIsClicked(false)
         }else{
-            setLikeCounter(likeCounter+1)
-            setIsLiked(true)
+            setCommentIsClicked(true)
         }
     }
     
@@ -41,13 +36,8 @@ function PostCard() {
                 <div className='PostCardPicDiv'>
                     <img className='PostCardPic' src={testImage2} alt="" />
                 </div>
-                <div className='PostCardReactionsDiv'>
-                    <div className='PostCardReactions'>
-                        <p> <FontAwesomeIcon onClick={clickLike} className={isLiked===true &&'reactionHeartIcon'} icon={isLiked?solidHeart:regularHeart} /> {likeCounter}</p>
-                        <p> <FontAwesomeIcon icon={faMessage} />24</p>
-                    </div>
-                    <div><FontAwesomeIcon icon={faBookmark} /></div>
-                </div>
+                <ReactionPost clickComments={clickComments}/>
+                <CommentsModalCard commentIsClicked={commentIsClicked} clickComments={clickComments}/>
             </div>
         </>
     )
