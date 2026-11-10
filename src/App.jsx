@@ -18,10 +18,11 @@ function App() {
             <div className="app-right">
 
                 <Header />
-                <Home/>
+                {/* <Home/> */}
                 <main className="main-content">
                     <Routes>
                     
+                        <Route path="/" element={<Home />} />
                         <Route path="*" element={<ErrorPage />} />
                         
                         <Route path="/Explore" element={<Explore />} />
