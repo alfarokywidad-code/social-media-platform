@@ -1,5 +1,6 @@
 import './commentsModal.css';
 import testImage3 from '../../../assets/img/pic.jpg'
+import UsersComments from './usersComments';
 
 function CommentsModalCard(props) {
     return (
@@ -8,7 +9,11 @@ function CommentsModalCard(props) {
                 <p onClick={props.clickComments}  className='Xbtn'>x</p>
                 <div className='commentModalchildDiv'>
                     <div className='DisplayedComentsDiv'>
-                        <div></div>
+                        <UsersComments/>
+                        <UsersComments/>
+                        <UsersComments/>
+                        <UsersComments/>
+                        <UsersComments/>
                     </div>
                     <form className='commentsForm' action="">
                         <div className='commentUserPicDiv'>
