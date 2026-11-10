@@ -1,6 +1,7 @@
 import './App.css';
 import ErrorPage from './pages/Error/Error';
 import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home/Home'
 import Header from './layouts/Header';
 import Sidebar from './layouts/Sidebar';
 import Footer from './layouts/Footer';
@@ -17,7 +18,7 @@ function App() {
             <div className="app-right">
 
                 <Header />
-
+                <Home/>
                 <main className="main-content">
                     <Routes>
                     
