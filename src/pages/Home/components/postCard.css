@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.PostCardDiv{
+    background-color: rgb(208, 207, 207);
+    margin: 3%;
+    border-radius: 10px;
+    padding: 2%;
+}
+.PostCardProfilPic{
+    height: 100%;
+    width: 100%;
+}
+.PostCardProfilPicDiv{
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    overflow: hidden;
+   
+}
+.PostCardChildDiv1{
+    display: flex;
+    padding: 1% 0%;
+    margin-bottom: 2%;
+    /* justify-content: center;
+    align-items: center; */
+}
+.PostCardChildDiv2{
+    display: flex;
+    width: 80%; 
+    display: flex;
+   align-items: center;
+   gap: 2%;  
+    
+}
+.PostCardChildDiv3{
+    font-size: 40px;
+
+}
+.PostCardChildDiv4{
+    display: flex;
+    justify-content: end;
+    width: 20%;
+}
+.PostCardDivpara1{
+    font-family: poppins;
+    font-weight: 700;
+
+}
+.PostCardDivpara2{
+    color: gray;
+}
+.PostCardPic{
+width: 100%;
+height: 100%;
+}
+.PostCardPicDiv{
+    height: 400px;
+    margin: 2% 0%;
+}
+.PostCardReactionsDiv{
+    display: flex;
+    justify-content: space-between;
+}
+.PostCardReactions{
+    display: flex;  
+   justify-content: space-between;
+    width: 10%;
+}
+.reactionHeartIcon{
+    color: red;
+    cursor: pointer;
+}
