@@ -3,7 +3,7 @@ import ErrorPage from './pages/Error/Error';
 import { Route, Routes } from 'react-router-dom';
 import Header from './layouts/Header';
 import Sidebar from './layouts/Sidebar';
-
+import Profile from './pages/Profile/Profile';
 
 function App() {
     return (
@@ -17,6 +17,7 @@ function App() {
 
                 <main className="main-content">
                     <Routes>
+                        <Route path="/profile/:id" element={<Profile />} />
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>
                 </main>
