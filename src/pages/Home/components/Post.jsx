@@ -1,10 +1,15 @@
 import './Post.css'
 import { useState } from 'react'
+import Comment from './comment'
 
 function Post({posts, setPosts}) {
   const [content, setContent]= useState("")
   const [image, setImage]= useState("")
+  const [openMenu, setOpenMenu]= useState(null)
+  const [editpost,setEditPost]= useState("")
 
+
+  // Add Post------------------------------------------------------------------------------------------------------
   const addPost= (e)=>{
     e.preventDefault()
     if (content.trim()==="" ){
@@ -15,12 +20,39 @@ function Post({posts, setPosts}) {
     const newPost={
       id: Date.now(),
       content: content,
-      image: image
+      image: image,
+      date: new Date().toLocaleDateString()
     }
-    setPosts([...posts, newPost])
+    if (editpost){
+      setPosts(posts.map((p)=> p.id === editpost ? newPost :p))
+      setEditPost("")
+    } else{
+      setPosts([...posts, newPost])
+    }
+    
     setContent("")
     setImage("")
   }
+
+  // Delete--------------------------------------------------------------------------------------------------------
+  const deletePost= (id)=>{
+    const confrimation = window.confirm("Are you sure you want to delete this post?")
+    if(confrimation){
+      setPosts(posts.filter((post)=>post.id !== id))
+    }
+    
+  }
+
+  // Edite-------------------------------------------------------------------------------------------------------
+  const edit =(post) =>{
+    setEditPost(post.id)
+    setContent(post.content)
+    setImage(post.image)
+    
+  }
+
+
+  
   return (
     <section className='postSection'>
       
@@ -37,8 +69,31 @@ function Post({posts, setPosts}) {
               <div key={p.id}>
 
                 <div className='containerNameAcc'>
+                  <div className='userInfo'>
                   <div className='nameAcc'>O</div>
-                  <div><h4>Ouarda</h4></div>
+                  
+                    <div>
+                      <h4>Ouarda</h4>
+                      <p>{p.date} </p>
+                    </div>
+                  </div>
+
+                  <div className='containerMenu'>
+                    <button className='menuBtn' onClick={()=>setOpenMenu(openMenu === p.id ? null : p.id)}>
+                      <i className="fa-solid fa-ellipsis"></i>
+                    </button>
+                    
+                      {openMenu === p.id && (
+                        <div className='dropDownMenu'>
+                          <button onClick={()=>edit(p)}>Edit</button>
+                          <button onClick={()=>deletePost(p.id)}>Delete</button>
+                        </div>
+                      )}
+                  </div>
+                    
+                              
+                  
+                  
                 </div>
               <p className='postContent'> {p.content} </p>
               <img className='postImage' src={p.image} alt="" />
@@ -49,6 +104,10 @@ function Post({posts, setPosts}) {
             
           })}
         </div>
+
+
+       {/* // tst comnt */}
+       <Comment/>
     </section>
   )
 }
