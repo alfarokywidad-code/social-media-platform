@@ -19,23 +19,29 @@ const transfer = useNavigate()
    const[email,setEmail] = useState('');
    const [password,setpassword] = useState('');
 
-   const [profil,setProfil] = useContext(MyContext);
+   const {users,setUsers} = useContext(MyContext);
    
    function Add(e){
     e.preventDefault();
 
-    const srchprfl = profil.find((item)=>item.email===email)
+    const srchprfl = users.find((item)=>item.name===name)
 
     if (srchprfl) {
            setErrorsc("the account already exist");
+       
+//            localStorage.clear();
+// window.location.reload();
         return;
     }
 
+   
     // ar then we use the oj
-        setProfil([...profil,{username:username,name:name,email:email,password:password}]);
+        setUsers([...users,{username:username,name:name,email:email}]);
     setErrorsc('seccuss')
     
-        transfer('/')
+    // setTimeout(()=>{
+    //     transfer('/')
+    // },100)
         
 
     }

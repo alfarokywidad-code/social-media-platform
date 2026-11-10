@@ -5,7 +5,7 @@ export function MyProvider({ children }) {
 // !nawfal code 
       const [users, setUsers] = useState(()=>{
 
-          const theProfil = localStorage.getItem('user');
+          const theProfil = localStorage.getItem('newUser');
           if (theProfil && theProfil !== "undefined") {
               return JSON.parse(theProfil)
           }
@@ -13,9 +13,10 @@ export function MyProvider({ children }) {
          return[
            {
             id: crypto.randomUUID(),
-            isLoggedIn:false,
+            isLoggedIn:true,
             name: "nawfal",
-            username: "nova",
+            username: "NOVA",
+            email:"nawfal@gmail.com",
             age: '20',
             bio: "hellow",
             location: "alhoceima",
@@ -23,7 +24,7 @@ export function MyProvider({ children }) {
             coverImage: "",
             followers: [],
             following:[],
-            posts: []
+             posts: []
         },   
            ]
 })
@@ -50,8 +51,8 @@ export function MyProvider({ children }) {
 
 
     return (
-        <MyContext.Provider value={[users,setUsers, posts, setPosts, comments, setComments, likes, setLikes, follows, setFollows
-        ]}>
+        <MyContext.Provider value={{users,setUsers, posts, setPosts, comments, setComments, likes, setLikes, follows, setFollows
+        }}>
             {children}
         </MyContext.Provider>
     );

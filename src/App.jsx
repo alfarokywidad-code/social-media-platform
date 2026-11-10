@@ -1,28 +1,39 @@
 import './App.css';
 import ErrorPage from './pages/Error/Error';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes,Navigate } from 'react-router-dom';
 import Header from './layouts/Header';
 import Sidebar from './layouts/Sidebar';
 import LogIn from './pages/LogInOut/components/Login';
 import SignUp from './pages/LogInOut/components/SignUp';
-
+import { useContext } from 'react';
+import { MyContext } from './utils/MyContext';
+import { useLocation } from 'react-router-dom';
 
 
 function App() {
+    const {users} = useContext(MyContext);
+const location = useLocation()
+    const Y = location.pathname === '/login' || location.pathname === '/sign'
+  
+
+    const X = users.find((user)=>user.isLoggedIn===true)
     return (
         <div className="app-layout">
 
-            <Sidebar />
+            { Y===false && <Sidebar/>} 
 
             <div className="app-right">
 
-                <Header />
+                {Y===false && <Header />}
 
                 <main className="main-content">
                     <Routes>
-                      <Route   path='/Sign' element={<SignUp/>}/>
+                        {/* // login هنا في الكود أسفله مكان الـ,(Home)عندما تقومون بإنشاء صفحة الرئيسية ،  */}
+                      <Route   path='/' element={X ? <ErrorPage/>: <Navigate to='/sign' replace/>}/>
+                      {/*  */}
                         <Route path="*" element={<ErrorPage />} />
                        <Route path='/login' element={<LogIn/>}/>
+                       <Route path='/sign' element={<SignUp/>}/>
                     </Routes>
                 </main>
 

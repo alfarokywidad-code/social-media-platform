@@ -20,12 +20,12 @@ const thenavigate = useNavigate()
    const[usernamesc,setUsernamesc] = useState("");
    const [passwordsc,setpasswordsc] = useState("");
 
-   const [profil,setProfil] = useContext(MyContext);
+   const {users,setUsers} = useContext(MyContext);
    
    function Regist(e){
     e.preventDefault();
 
-    const srchprfl = profil.find((item)=>item.email===emailsc || item.username === usernamesc)
+    const srchprfl = users.find((item)=>item.email===emailsc || item.username === usernamesc)
 
     if (!srchprfl) {
 
@@ -35,8 +35,9 @@ const thenavigate = useNavigate()
        
         return;
     }
-    if (srchprfl.password !== passwordsc) {
-        setError("the account doesn't exist");
+  
+    if (thechecked === false) {
+        setError("please click on the checkbox ")
         return;
     }
 //    document.querySelector('.error').style.opacity = 1
@@ -81,11 +82,11 @@ return(
 
          <form className="signform" onSubmit={Regist}  action="" >
 
-          <div className="iconinput"><MdOutlineEmail className="theicon"/><input className="inputsSign" type="text"  placeholder="Email Adress or username" value={emailsc} onChange={event=>setEmailsc(event.target.value)}   required /></div>  <br />
+          <div className="iconinput"><MdOutlineEmail className="theicon"/><input className="inputsSign" type="text"  placeholder="Email Adress " value={emailsc} onChange={event=>setEmailsc(event.target.value)}   required /></div>  <br />
           <div className="iconinput"><RiLockPasswordFill className="theicon"/><input className="inputsSign" type="password" placeholder="Password" value={passwordsc} onChange={event=>setpasswordsc(event.target.value)} required  /></div>  <br />
         {/* the checkbox and the text of passwordForgotten */}
         <div className="check">
-           <input type="checkbox" className="thechek" checked={thechecked}  onChange={event=>setIschecked(event.target.value)} />
+           <input type="checkbox" className="thechek" checked={thechecked}  onChange={event=>setIschecked(event.target.checked)} />
             <p style={{color:'violet'}}>Password forgotten</p>
         </div>
            <button type="submit" className="btnsign">Log in</button>
