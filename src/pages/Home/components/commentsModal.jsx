@@ -6,8 +6,8 @@ function CommentsModalCard(props) {
     return (
         <>
             <div className={props.commentIsClicked?'commentModalContenaire':'commentModalContenaire2'}>
-                <p onClick={props.clickComments}  className='Xbtn'>x</p>
                 <div className='commentModalchildDiv'>
+                <p onClick={props.clickComments}  className='Xbtn'>x</p>
                     <div className='DisplayedComentsDiv'>
                         <UsersComments/>
                         <UsersComments/>
@@ -20,7 +20,7 @@ function CommentsModalCard(props) {
                             <img className='commentUserPic' src={testImage3} alt="" />
                         </div>
                         <div className='commentsFormInputDiv'>
-                            <textarea className='commentInputDiv' name="" placeholder='start the conversation ...' id=""></textarea>
+                            <textarea className='commentInputDiv' name="" placeholder='start the conversation ...' id="" ></textarea>
                             <button className='commentBTN'>send</button>
                         </div>
                     </form>
