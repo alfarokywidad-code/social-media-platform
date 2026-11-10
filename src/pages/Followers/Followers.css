@@ -1,0 +1,100 @@
+.followers-page {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px 24px;
+    color: #262626;
+}
+
+.followers-page h2 {
+    font-size: 22px;
+    font-weight: 600;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #dbdbdb;
+    margin-bottom: 20px;
+}
+
+.follower-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+}
+
+.follower-user:hover {
+    background: #fafafa;
+}
+
+.follower-user img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.follower-user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.follower-user-info h3 {
+    font-size: 14px;
+    margin: 0 0 4px;
+}
+
+.follower-user-info p {
+    font-size: 13px;
+    margin: 0 0 5px;
+    color: #555;
+}
+
+.follower-user-info span {
+    font-size: 12px;
+    color: #888;
+}
+
+.follower-user button {
+    border: none;
+    background: #0095f6;
+    color: white;
+    padding: 9px 16px;
+    border-radius: 7px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.follower-user button:hover {
+    background: #1877f2;
+}
+
+.followers-empty {
+    text-align: center;
+    color: #888;
+    padding: 35px 10px;
+}
+
+@media (max-width: 600px) {
+    .followers-page {
+        padding: 20px 12px;
+    }
+
+    .follower-user {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .follower-user img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .follower-user button {
+        padding: 8px 11px;
+        font-size: 12px;
+    }
+}

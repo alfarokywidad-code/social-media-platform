@@ -4,8 +4,9 @@ export function MyProvider({ children }) {
 
     // All registered users
     const [users, setUsers] = useState([
-                {
+        {
             id: crypto.randomUUID(),
+            isLoggedIn: false,
             name: "Ahmed Makrini",
             username: "ahmed",
             age: 22,
@@ -19,6 +20,7 @@ export function MyProvider({ children }) {
         },
         {
             id: crypto.randomUUID(),
+            isLoggedIn: false,
             name: "Walid Tghz",
             username: "walid",
             age: 24,
@@ -32,6 +34,7 @@ export function MyProvider({ children }) {
         },
         {
             id: crypto.randomUUID(),
+            isLoggedIn: false,
             name: "Warda",
             username: "warda",
             age: 21,
@@ -45,6 +48,7 @@ export function MyProvider({ children }) {
         },
         {
             id: crypto.randomUUID(),
+            isLoggedIn: false,
             name: "Widad",
             username: "widad",
             age: 23,
@@ -58,6 +62,7 @@ export function MyProvider({ children }) {
         },
         {
             id: crypto.randomUUID(),
+            isLoggedIn: false,
             name: "Ashraf",
             username: "ashraf",
             age: 22,
@@ -71,6 +76,7 @@ export function MyProvider({ children }) {
         },
         {
             id: crypto.randomUUID(),
+            isLoggedIn: false,
             name: "Nawfal",
             username: "nawfal",
             age: 25,
@@ -84,6 +90,7 @@ export function MyProvider({ children }) {
         },
         {
             id: crypto.randomUUID(),
+            isLoggedIn: true,
             name: "Zakaria",
             username: "zakaria",
             age: 23,
@@ -109,11 +116,94 @@ export function MyProvider({ children }) {
 
     // All follow relationships
     const [follows, setFollows] = useState([]);
+    // search haeder
+    const [search, setSearch] = useState("");
 
+
+    const currentUser = users.find(
+        (user) => user.isLoggedIn === true
+    ) ?? null;
+
+
+    function handleFollow(currentUserId, targetUserId) {
+
+        if (currentUserId === targetUserId) return;
+
+        setUsers((prevUsers) => {
+
+            const currentUser = prevUsers.find(
+                (user) => user.id === currentUserId
+            );
+
+            const targetUser = prevUsers.find(
+                (user) => user.id === targetUserId
+            );
+
+            if (
+                !currentUser ||
+                !targetUser ||
+                currentUser.following.includes(targetUserId)
+            ) {
+                return prevUsers;
+            }
+
+            return prevUsers.map((user) => {
+
+                if (user.id === currentUserId) {
+                    return {
+                        ...user,
+                        following: [...user.following, targetUserId]
+                    };
+                }
+
+                if (user.id === targetUserId) {
+                    return {
+                        ...user,
+                        followers: [...user.followers, currentUserId]
+                    };
+                }
+
+                return user;
+            });
+        });
+    }
+
+    function handleUnfollow(currentUserId, targetUserId) {
+
+        setUsers((prevUsers) => {
+
+            return prevUsers.map((user) => {
+
+                if (user.id === currentUserId) {
+                    return {
+                        ...user,
+                        following: user.following.filter(
+                            (id) => id !== targetUserId
+                        )
+                    };
+                }
+
+                if (user.id === targetUserId) {
+                    return {
+                        ...user,
+                        followers: user.followers.filter(
+                            (id) => id !== currentUserId
+                        )
+                    };
+                }
+
+                return user;
+            });
+        });
+    }
 
     return (
-        <MyContext.Provider value={[users, setUsers, posts, setPosts, comments, setComments, likes, setLikes, follows, setFollows
-        ]}>
+        <MyContext.Provider value={{
+            users, setUsers, search, setSearch,
+            posts, setPosts, comments, setComments,
+            likes, setLikes, follows, setFollows,
+            handleFollow, handleUnfollow, currentUser
+        }}>
             {children}
         </MyContext.Provider>
     );

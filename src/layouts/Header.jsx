@@ -3,7 +3,6 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { useContext, useState } from "react";
 import {
     FiSearch,
-    FiPlusSquare,
     FiSend,
     FiHeart,
     FiLogIn,
@@ -12,13 +11,14 @@ import {
 import { MyContext } from "../utils/MyContext";
 
 function Header() {
-    const isLoggedIn = false;
-    const { search, setSearch } = useContext(MyContext);
-    const[ users ] = useContext(MyContext);
+    const {users, search, setSearch} = useContext(MyContext);
     const navigate = useNavigate();
+
     const currentUser = users.find(
-        (user) => user.username === "walid"
-    );
+        (user) => user.isLoggedIn === true
+    ) ?? null;
+
+    const isLoggedIn = Boolean(currentUser);
 
     function handleSearch(event) {
         const value = event.target.value;
@@ -64,7 +64,7 @@ function Header() {
                 >
                     <img
                         src={currentUser.imageProfile}
-                        alt={`{currentUser.username} profile`}
+                        alt={`${currentUser.username} profile`}
                         className="profile-image"
                     />
                 </NavLink>
