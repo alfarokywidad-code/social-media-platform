@@ -1,42 +1,93 @@
-import React,{useState} from "react";
+import {useContext, useState } from "react";
+import { Link,Navigate, useNavigate } from "react-router-dom";
+import { MyContext } from "../../../utils/MyContext";
+import "../components/Profil.css"
+import MolengIcon from "../../../Assests/molengeekIcon.png"
+import { IoPersonOutline } from "react-icons/io5";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { MdOutlineEmail } from "react-icons/md";
+import { GoDotFill } from "react-icons/go";
 
 function SignUp() {
-   const [Info,setInfo] = useState([]);
+
+const transfer = useNavigate()
+   const [errorsc,setErrorsc] = useState("");
    const [name,setName] = useState('');
+   const [username,setUsername] = useState('');
    const [Descr,SetDescr] = useState('');
+
+   const[email,setEmail] = useState('');
+   const [password,setpassword] = useState('');
+
+   const [profil,setProfil] = useContext(MyContext);
    
-   function Add(){
+   function Add(e){
+    e.preventDefault();
 
-    setInfo({...Info,name:name,descrption:Descr})
+    const srchprfl = profil.find((item)=>item.email===email)
 
-    setName('');
-    SetDescr('');
+    if (srchprfl) {
+           setErrorsc("the account already exist");
+        return;
     }
+
+    // ar then we use the oj
+        setProfil([...profil,{username:username,name:name,email:email,password:password}]);
+    setErrorsc('seccuss')
+    
+        transfer('/')
+        
+
+    }
+
+    
 
 
     return(
-    <div>
+        <section className="themothercontainer">
 
-        <div>
-            <div></div>
+            <div className="signside">
+<div className="siderimg"><img src={MolengIcon} alt="" /></div>
 
+<div className="thelefttext">
+   <div className="h2andicons"><h2>Connect</h2><GoDotFill style={{fontSize:'small',color:'grey'}}/> <h2>Share</h2>  <GoDotFill style={{fontSize:'small',color:'grey'}}/> <h2>Explore</h2>
+   
+   </div>
+    <div className="thelefttext">
+        <p>Join our  community and be part</p> 
+       <p> Of something bigger.</p>
+    </div>
+</div>
+
+            </div>
+            {/* the form part */}
+ <div className="thesigncontainer">
+
+         <div className="signuptext">
+            <div className="theimagebox">
+                <img className="theiconmoleng" src={MolengIcon} alt="" />
             <h1>Create your account</h1>
             <p>Join our community and start sharing your world. </p>
+            </div>
+
         </div>
         
 
-         <form action="" onSubmit={Add}>
+         <form className="signform" action="" onSubmit={Add}>
 
-            <input type="text" placeholder="Full Name" /><br />
-            <input type="text" placeholder="Username" /><br />
-            <input type="email" placeholder="Email Adress" /><br />
-            <input type="password" placeholder="Password" /><br />
-            <button>Sign Up</button>
-
-            <p>Already have an account <Link>Log in</Link></p>
+          <div className="iconinput"><IoPersonOutline className="theicon"/><input className="inputsSign" type="text" placeholder="Full Name" value={name} onChange={event=>setName(event.target.value)}         required/></div> <br />
+          <div className="iconinput"><IoPersonOutline className="theicon"/> <input className="inputsSign" type="text" placeholder="Username" value={username} onChange={event=>setUsername(event.target.value)}  required /></div> <br />
+          <div className="iconinput"><MdOutlineEmail className="theicon"/><input className="inputsSign" type="email" placeholder="Email Adress" value={email} onChange={event=>setEmail(event.target.value)}   required /></div>  <br />
+          <div className="iconinput"><RiLockPasswordFill className="theicon"/><input className="inputsSign" type="password" placeholder="Password" value={password} onChange={event=>setpassword(event.target.value)} required  /></div>  <br />
+           <button type="submit" className="btnsign">Sign Up</button>
+           <p className="error" style={{color: errorsc === "the account already exist" ? 'red' : 'green'}}>{errorsc}</p>
+            <button className="loginlink">Already have an account <Link className="loginspan" to='/login' >Log in</Link></button>
         </form>
      
       </div>
+            {/* the end of the form */}
+        </section>
+   
         
     )
     
