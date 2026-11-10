@@ -40,6 +40,14 @@ const thenavigate = useNavigate()
         setError("please click on the checkbox ")
         return;
     }
+
+    const updatedUsers = users.map(user => {
+        if (user.id === srchprfl.id || user.email === srchprfl.email) {
+            return { ...user, isLoggedIn: true };
+        }
+        return { ...user, isLoggedIn: false }; 
+    });
+    setUsers(updatedUsers);
 //    document.querySelector('.error').style.opacity = 1
         setError("loged seccussfull!");
        
