@@ -1,10 +1,23 @@
-import PostCard from "./components/postCard";
+// import PostCard from "./components/postCard";
 
-function HomePage() {
-    return(
-        <>
-        < PostCard/>
-        </>
-    )
+// function HomePage() {
+//     return(
+//         <>
+//         < PostCard/>
+//         </>
+//     )
+// }
+// export default HomePage ; 
+import Post from "./components/Post"
+import { useState } from "react"
+
+function Home() {
+    const [posts, setPosts]= useState([])
+  return (
+    <div>
+        <Post posts={posts} setPosts={setPosts} />
+    </div>
+  )
 }
-export default HomePage ; 
+
+export default Home
