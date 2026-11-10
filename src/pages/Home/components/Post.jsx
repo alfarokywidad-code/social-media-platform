@@ -1,12 +1,12 @@
 import './Post.css'
 import { useState } from 'react'
-import Comment from './comment'
+import Comment from './Comment'
 
 function Post({posts, setPosts}) {
   const [content, setContent]= useState("")
   const [image, setImage]= useState("")
   const [openMenu, setOpenMenu]= useState(null)
-  const [editpost,setEditPost]= useState("")
+  const [editpost,setEditPost]= useState(null)
 
 
   // Add Post------------------------------------------------------------------------------------------------------
@@ -21,7 +21,9 @@ function Post({posts, setPosts}) {
       id: Date.now(),
       content: content,
       image: image,
-      date: new Date().toLocaleDateString()
+      date: new Date().toLocaleDateString(),
+      author: "ouarda",
+      comment: []
     }
     if (editpost){
       setPosts(posts.map((p)=> p.id === editpost ? newPost :p))
@@ -48,6 +50,7 @@ function Post({posts, setPosts}) {
     setEditPost(post.id)
     setContent(post.content)
     setImage(post.image)
+    setOpenMenu(null)
     
   }
 
@@ -58,7 +61,7 @@ function Post({posts, setPosts}) {
       
         <form onSubmit={addPost}>
           <textarea onChange={(e)=> setContent(e.target.value)} name="" id="" value={content} placeholder="What's on your mind?"></textarea>
-          <input onChange={(e)=> setImage(e.target.value)} value={image} type="url" />
+          <input onChange={(e)=> setImage(e.target.value)} value={image} type="url" placeholder='Add image URL'/>
           <button className='publishBtn' type='submit'>Post</button>
         </form>
 
@@ -97,6 +100,14 @@ function Post({posts, setPosts}) {
                 </div>
               <p className='postContent'> {p.content} </p>
               <img className='postImage' src={p.image} alt="" />
+
+              <div>
+                
+              </div>
+
+              {/* // tst comnt */}
+              <Comment posts={posts} setPosts={setPosts} />
+       
             </div>
             )
             
@@ -106,8 +117,7 @@ function Post({posts, setPosts}) {
         </div>
 
 
-       {/* // tst comnt */}
-       <Comment/>
+       
     </section>
   )
 }

@@ -118,3 +118,18 @@
     background-color: rgb(240, 231, 243);
     color: rgb(92, 29, 151);
 }
+
+
+/* Mobiiile--------------------------------- */
+@media (max-width:600px){
+    .postSection{
+        padding: 10px;
+        margin: 10px auto;
+    }
+    .postSection form{
+        padding: 14px;
+    }
+    .postImage{
+        max-height: 280px;
+    }
+}

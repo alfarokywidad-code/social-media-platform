@@ -15,11 +15,10 @@ function App() {
             <div className="app-right">
 
                 <Header />
-
+                <Home/>
                 <main className="main-content">
                     <Routes>
                         <Route path="*" element={<ErrorPage />} />
-                        <Route path="/" element={<Home />} />
                     </Routes>
                 </main>
 
