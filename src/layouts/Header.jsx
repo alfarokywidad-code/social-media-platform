@@ -14,7 +14,7 @@ import { MyContext } from "../utils/MyContext";
 function Header() {
     const isLoggedIn = false;
     const { search, setSearch } = useContext(MyContext);
-    const[ users ] = useContext(MyContext);
+    const {users } = useContext(MyContext);
     const navigate = useNavigate();
     const currentUser = users.find(
         (user) => user.username === "walid"
@@ -62,11 +62,11 @@ function Header() {
                     className="header-avatar"
                     aria-label="My profile"
                 >
-                    <img
+                    {/* <img
                         src={currentUser.imageProfile}
                         alt={`{currentUser.username} profile`}
                         className="profile-image"
-                    />
+                    /> */}
                 </NavLink>
                 <NavLink
                     to={isLoggedIn ? "/LogOut" : "/LogIn"}
