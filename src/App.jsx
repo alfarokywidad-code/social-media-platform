@@ -15,35 +15,38 @@ import Profile from './pages/Profile/Profile';
 
 
 function App() {
-    const {users} = useContext(MyContext);
-const location = useLocation()
-    const Y = location.pathname === '/LogIn' || location.pathname === '/sign' || location.pathname === '/login'
-  
+    const { users,currentUser } = useContext(MyContext);
+    const location = useLocation();
+    // const Y = location.pathname === '/LogIn' || location.pathname === '/sign' || location.pathname === '/login'
+   
+    const isAuthPage =
+        location.pathname === '/login' ||
+        location.pathname === '/sign';
 
-    const X = users.find((user)=>user.isLoggedIn===true)
+    // const X = users.find((user) => user.isLoggedIn === true)
 
-    
+
     return (
         <div className="app-layout">
 
-            {Y === false && <Sidebar />}
+            {isAuthPage && <Sidebar />}
 
             <div className="app-right">
 
                 {/* <Header /> */}
                 {/* <Home/> */}
-                {Y===false && <Header />}
+                {isAuthPage && <Header />}
 
                 <main className="main-content">
                     <Routes>
                         {/* // login هنا في الكود أسفله مكان الـ,(Home)عندما تقومون بإنشاء صفحة الرئيسية ،  */}
-                      <Route   path='/' element={X ? <Home/>: <Navigate to='/login' replace/>}/>
-                      {/*  */}
-                        <Route path="*" element={<ErrorPage />} />
+                        <Route path='/' element={currentUser ? <Home /> : <Navigate to='/login' replace />} />
+                        {/*  */}
                         <Route path='/login' element={<LogIn />} />
                         <Route path='/sign' element={<SignUp />} />
                         <Route path="/profile/:id" element={<Profile />} />
                         <Route path="/explore" element={<Explore />} />
+                        <Route path="*" element={<ErrorPage />} />
                     </Routes>
                 </main>
 

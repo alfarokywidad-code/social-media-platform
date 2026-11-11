@@ -1,3 +1,11 @@
+.v{
+    color: rgb(125, 56, 218);
+    color: rgb(26, 196, 93);
+    color: rgb(24, 39, 56);
+    color: rgb(242, 236, 254);
+    color: rgb(228, 235, 239);
+}
+
 .sidebar {
     width: 240px;
     min-width: 240px;
@@ -27,7 +35,9 @@
     gap: 15px;
     width: 100%;
     padding: 13px 14px;
-    color: #262626;
+    /* color: #262626; */
+    color: rgb(125, 56, 218);
+
     background: transparent;
     border: none;
     border-radius: 10px;
@@ -47,12 +57,16 @@
     stroke-width: 1.8;
 }
 .sidebar-link:hover {
-    background-color: #f3f4f6;
-    color: #000000;
+    /* background-color: #f3f4f6; */
+    background-color:  rgb(125, 56, 218);
+    /* color: #000000; */
+    color:  rgb(242, 236, 254);
 }
 .sidebar-link.active {
-    background-color: #f0f0f0;
-    color: #000000;
+    /* background-color: #f0f0f0; */
+    background-color:  rgb(125, 56, 218);
+    /* color: #000000; */
+    color:  rgb(242, 236, 254);
     font-weight: 700;
 }
 
@@ -70,8 +84,8 @@
 
 
 .sidebar-logo {
-    padding: 25px 20px;
-    margin-bottom: 20px;
+    padding: 10px 10px;
+    margin-bottom: 15px;
 }
 
 .sidebar-logo a {
@@ -84,7 +98,7 @@
 
 .sidebar-logo img {
     width: 100%;
-    height: 45px;
+    height: 100%;
     object-fit: contain;
     flex-shrink: 0;
     /* background-color: blue; */
