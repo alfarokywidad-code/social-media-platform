@@ -25,13 +25,13 @@ const thenavigate = useNavigate()
    function Regist(e){
     e.preventDefault();
 
-    const srchprfl = users.find((item)=>item.email===emailsc || item.username === usernamesc)
+    const srchprfl = users.find((item)=>(item.email===emailsc || item.username === usernamesc) && item.password===passwordsc )
 
     if (!srchprfl) {
 
         // document.querySelector('.error').style.opacity = 1
         // document.querySelector('.error').textContent="the account doesn't exist"
-        setError("the account doesn't exist");
+        setError("email or password is wrong!");
        
         return;
     }
@@ -98,7 +98,7 @@ return(
             <p style={{color:'violet'}}>Password forgotten</p>
         </div> */}
            <button type="submit" className="btnsign">Log in</button>
-           <p className="error" style={{color: error === "the account doesn't exist" ? 'red' : 'green' }}>{error}</p>
+           <p className="error" style={{color: error === "email or password is wrong!" ? 'red' : 'green' }}>{error}</p>
 
 {/* the or condition with its lines */}
            <div className="divoftheorcondetion"><div className="line"></div><p>or</p><div className="line"></div></div>

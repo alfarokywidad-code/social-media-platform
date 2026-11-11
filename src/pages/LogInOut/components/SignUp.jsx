@@ -25,11 +25,12 @@ const transfer = useNavigate()
    function Add(e){
     e.preventDefault();
 
-    const srchprfl = users.find((item)=>item.name===name)
+    const srchprfl = users.find((item)=>item.name===name || item.email===email)
 
     if (srchprfl) {
            setErrorsc("the account already exist");
-       
+           alert("the account already exist");
+      
 //            localStorage.clear();
 // window.location.reload();
         return;
@@ -39,7 +40,7 @@ const transfer = useNavigate()
     // ar then we use the oj
         setUsers([...users,{
         id: crypto.randomUUID(),
-        isLoggedIn: true, 
+        isLoggedIn: false, 
         name: name,
         username: username,
         email: email,
@@ -59,7 +60,7 @@ const transfer = useNavigate()
     setUsername('')
     setpassword('')
     // setTimeout(()=>{
-        thenavigater('/')
+        thenavigater('/login')
     // },100)
         
 
@@ -105,7 +106,7 @@ const transfer = useNavigate()
           <div className="iconinput"><MdOutlineEmail className="theicon"/><input className="inputsSign" type="email" placeholder="Email Adress" value={email} onChange={event=>setEmail(event.target.value)}   required /></div>  <br />
           <div className="iconinput"><RiLockPasswordFill className="theicon"/><input className="inputsSign" type="password" placeholder="Password" value={password} onChange={event=>setpassword(event.target.value)} required  /></div>  <br />
            <button type="submit" className="btnsign">Sign Up</button>
-           <p className="error" style={{color: errorsc === "the account already exist" ? 'red' : 'green'}}>{errorsc}</p>
+           <p className="error" style={{color: errorsc === "password or email is wrong" ? 'red' : 'green'}}>{errorsc}</p>
             <button className="loginlink">Already have an account <Link className="loginspan" to='/login' >Log in</Link></button>
         </form>
      

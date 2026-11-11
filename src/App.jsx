@@ -35,11 +35,10 @@ const location = useLocation()
 
                 <main className="main-content">
                     <Routes>
-                        {/* // login هنا في الكود أسفله مكان الـ,(Home)عندما تقومون بإنشاء صفحة الرئيسية ،  */}
+                        <Route path='/login' element={<LogIn />} />
                       <Route   path='/' element={X ? <Home/>: <Navigate to='/login' replace/>}/>
                       {/*  */}
                         <Route path="*" element={<ErrorPage />} />
-                        <Route path='/login' element={<LogIn />} />
                         <Route path='/sign' element={<SignUp />} />
                         <Route path="/profile/:id" element={<Profile />} />
                     </Routes>

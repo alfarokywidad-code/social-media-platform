@@ -11,22 +11,22 @@ export function MyProvider({ children }) {
           }
           
          return[
-              {
-            id: crypto.randomUUID(),
-            isLoggedIn:false,
-            name: "nawfal",
-            username: "NOVA",
-            email:"nawfal@gmail.com",
-            age: '20',
-            bio: "hellow",
-            location: "alhoceima",
-            imageProfile: "",
-            coverImage: "",
-            followers: [],
-            following:[],
-             posts: []
-        },   
-           ]
+        //       {
+        //     id: crypto.randomUUID(),
+        //     isLoggedIn:false,
+        //     name: "nawfal",
+        //     username: "NOVA",
+        //     email:"nawfal@gmail.com",
+        //     age: '20',
+        //     bio: "hellow",
+        //     location: "alhoceima",
+        //     imageProfile: "",
+        //     coverImage: "",
+        //     followers: [],
+        //     following:[],
+        //      posts: []
+        // },   
+         ]
 })
 
        useEffect(()=>{
