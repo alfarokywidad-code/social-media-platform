@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import { useContext } from "react";
 import { MyContext } from "../utils/MyContext";
 import {
@@ -14,16 +14,22 @@ import {
     FiUsers,
     FiUserCheck
 } from "react-icons/fi";
-
+import logo from"../Assests/molengeekIcon.png";
 
 function Sidebar() {
 
-    const {users} = useContext(MyContext);
+    const { users } = useContext(MyContext);
     const currentUser = users.find((user) => user.isLoggedIn === true);
 
     return (
         <aside className="sidebar">
-
+            <div className="sidebar-logo">
+                <Link to="/">
+                    <img src={logo} alt="MoleenGeek" />
+                    {/* <span className="logo-name">MolenGeek</span> */}
+                </Link>
+            </div>
+            
             <nav className="sidebar-navigation">
 
                 <NavLink to="/" end className="sidebar-link">

@@ -9,6 +9,7 @@ import SignUp from './pages/LogInOut/components/SignUp';
 import { useContext } from 'react';
 import { MyContext } from './utils/MyContext';
 import { useLocation } from 'react-router-dom';
+import Explore from './pages/Explore/Explore';
 
 import Profile from './pages/Profile/Profile';
 
@@ -42,6 +43,7 @@ const location = useLocation()
                         <Route path='/login' element={<LogIn />} />
                         <Route path='/sign' element={<SignUp />} />
                         <Route path="/profile/:id" element={<Profile />} />
+                        <Route path="/explore" element={<Explore />} />
                     </Routes>
                 </main>
 

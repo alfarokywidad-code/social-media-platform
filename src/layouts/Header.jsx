@@ -3,7 +3,6 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { useContext, useState } from "react";
 import {
     FiSearch,
-    FiPlusSquare,
     FiSend,
     FiHeart,
     FiLogIn,
@@ -13,14 +12,14 @@ import {
 import { MyContext } from "../utils/MyContext";
 
 function Header() {
-    const isLoggedIn = false;
-    const { search, setSearch } = useContext(MyContext);
-    const {users } = useContext(MyContext);
     const navigate = useNavigate();
-    const currentUser = users.find(
-    (user) => user.isLoggedIn === true
-);
+    const { users, search, setSearch, currentUser } = useContext(MyContext);
+    const isLoggedIn = currentUser?.isLoggedIn === true;
+    // const currentUser = users.find(
+    // (user) => user.isLoggedIn === true
+    // );
 
+    
     function handleSearch(event) {
         const value = event.target.value;
         setSearch(value);
@@ -59,24 +58,30 @@ function Header() {
                     <FiHeart />
                 </NavLink>
                 {currentUser && (
-                <NavLink
-                    to={`/profile/${currentUser.id}`}
-                    className="header-avatar"
-                    aria-label="My profile"
-                >
-                    {/* <img
-                        src={currentUser.imageProfile}
-                        alt={`{currentUser.username} profile`}
-                        className="profile-image"
-                    /> */}
-                    <FiUser />
-                </NavLink>)}
+                    <NavLink
+                        to={`/profile/${currentUser.id}`}
+                        className="header-avatar"
+                        aria-label="My profile"
+                    >
+                        {currentUser.imageProfile ? (
+
+
+                            <img
+                                src={currentUser.imageProfile}
+                                alt={`{currentUser.username} profile`}
+                                className="profile-image"
+                            />
+                        )
+                            : (<span>{currentUser.username.charAt(0).toUpperCase() || <FiUser />}</span>)
+                        }
+
+                    </NavLink>)}
                 <NavLink
                     to={isLoggedIn ? "/LogOut" : "/LogIn"}
                     title={isLoggedIn ? "LogOut" : "LogIn"}
                     aria-label={isLoggedIn ? "LogOut" : "LogIn"}
                     className="icoun-LogIn-LogOut">
-                    {isLoggedIn ? <FiLogOut /> : <FiLogIn />}
+                    {currentUser.isLoggedIn ? <FiLogOut /> : <FiLogIn />}
 
 
                 </NavLink>

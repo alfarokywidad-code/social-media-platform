@@ -23,17 +23,18 @@
     margin-bottom: 10px;
 }
 .postSection form{
-    padding: 18px;
-    margin-bottom: 20px;
-    border-radius: 16px;
-    border: 1px solid rgb(229, 230, 237);
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    /* padding: 18px; */
+    flex: 1;
+    
 }
 .containerPst{
     padding: 18px;
     border-radius: 16px;
     border: 1px solid rgb(229, 230, 237);
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin-bottom: 20px;
+    
+    
 }
 .postSection input{
     width: 100%;
@@ -51,7 +52,7 @@
     text-align: right;
     padding: 8px 20px;
     display: block;
-    margin: 10px 0px 10px auto;
+    margin: 14px 0px 0px auto;
     cursor: pointer;
 }
 .nameAcc{
@@ -74,6 +75,10 @@
 .postContent{
     margin: 20px 0px;
     line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    
 }
 .postImage{
     width: 100%;
@@ -118,6 +123,29 @@
     background-color: rgb(240, 231, 243);
     color: rgb(92, 29, 151);
 }
+.containerUserForm{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px;
+    border-radius: 16px;
+    border: 1px solid rgb(229, 230, 237);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.nameAcc1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(92, 32, 153);
+    color: white;
+    border-radius: 50%;
+   
+   
+}
 
 
 /* Mobiiile--------------------------------- */
@@ -126,9 +154,7 @@
         padding: 10px;
         margin: 10px auto;
     }
-    .postSection form{
-        padding: 14px;
-    }
+   
     .postImage{
         max-height: 280px;
     }
