@@ -11,9 +11,9 @@ export function MyProvider({ children }) {
           }
           
          return[
-           {
+              {
             id: crypto.randomUUID(),
-            isLoggedIn:true,
+            isLoggedIn:false,
             name: "nawfal",
             username: "NOVA",
             email:"nawfal@gmail.com",
@@ -37,22 +37,11 @@ export function MyProvider({ children }) {
 // !nawfal code
 
 
-    // All posts
-    const [posts, setPosts] = useState([]);
-
-    // All comments
-    const [comments, setComments] = useState([]);
-
-    // All likes
-    const [likes, setLikes] = useState([]);
-
-    // All follow relationships
-    const [follows, setFollows] = useState([]);
+    
 
 
     return (
-        <MyContext.Provider value={{users,setUsers, posts, setPosts, comments, setComments, likes, setLikes, follows, setFollows
-        }}>
+        <MyContext.Provider value={{users,setUsers }}>
             {children}
         </MyContext.Provider>
     );

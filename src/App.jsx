@@ -13,10 +13,12 @@ import { useLocation } from 'react-router-dom';
 function App() {
     const {users} = useContext(MyContext);
 const location = useLocation()
-    const Y = location.pathname === '/login' || location.pathname === '/sign'
+    const Y = location.pathname === '/LogIn' || location.pathname === '/sign' || location.pathname === '/login'
   
 
     const X = users.find((user)=>user.isLoggedIn===true)
+
+    
     return (
         <div className="app-layout">
 

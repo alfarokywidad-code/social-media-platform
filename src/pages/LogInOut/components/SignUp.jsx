@@ -9,6 +9,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
 
 function SignUp() {
+    const thenavigater = useNavigate()
 
 const transfer = useNavigate()
    const [errorsc,setErrorsc] = useState("");
@@ -36,11 +37,29 @@ const transfer = useNavigate()
 
    
     // ar then we use the oj
-        setUsers([...users,{username:username,name:name,email:email}]);
+        setUsers([...users,{
+        id: crypto.randomUUID(),
+        isLoggedIn: true, 
+        name: name,
+        username: username,
+        email: email,
+        password: password, 
+        age: '',
+        bio: '',
+        location: '',
+        imageProfile: '',
+        coverImage: '',
+        followers: [],
+        following: [],
+        posts: []
+    }]);
     setErrorsc('seccuss')
-    
+    setEmail('')
+    setName('')
+    setUsername('')
+    setpassword('')
     // setTimeout(()=>{
-    //     transfer('/')
+        thenavigater('/')
     // },100)
         
 
