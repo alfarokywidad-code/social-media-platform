@@ -376,6 +376,16 @@
     text-align: center;
 }
 
+.edit-image-preview {
+  width: 100%;
+  max-width: 12rem;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin: 0.5rem 0 1rem;
+  border: 0.15rem solid #B69AF7;
+}
+
 /* Responsive Designaqa */
 
 @media (max-width: 600px) {

@@ -21,7 +21,8 @@ function Profile() {
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
-
+  const [imageProfile, setImageProfile] = useState("");
+  const [coverImage, setCoverImage] = useState("");
   // !Find the profile user
   const profileUser = users.find((user) => user.id === id);
 
@@ -68,9 +69,24 @@ function Profile() {
     setUsername(profileUser.username || "");
     setBio(profileUser.bio || "");
     setLocation(profileUser.location || "");
+    setImageProfile(profileUser.imageProfile || "");
+    setCoverImage(profileUser.coverImage || "");
     setShowEdit(true);
   }
 
+  // !Edit image
+  function handleImageChange(event, setImage) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
   // !Save profile changes
   function handleSave(event) {
     event.preventDefault();
@@ -78,12 +94,14 @@ function Profile() {
     const updatedUsers = users.map((user) =>
       user.id === profileUser.id
         ? {
-            ...user,
-            name: name,
-            username: username,
-            bio: bio,
-            location: location
-          }
+          ...user,
+          name: name,
+          username: username,
+          bio: bio,
+          location: location,
+          imageProfile: imageProfile,
+          coverImage: coverImage
+        }
         : user
     );
 
@@ -245,6 +263,43 @@ function Profile() {
             value={location}
             onChange={(event) => setLocation(event.target.value)}
           />
+
+          {/* Profile Picture */}
+          <label>Profile Picture</label>
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(event) =>
+              handleImageChange(event, setImageProfile)
+            }
+          />
+          {imageProfile && (
+            <img
+              src={imageProfile}
+              alt="Profile Preview"
+              className="edit-image-preview"
+            />
+          )}
+
+          {/* Cover Image */}
+          <label>Cover Image</label>
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(event) =>
+              handleImageChange(event, setCoverImage)
+            }
+          />
+
+          {coverImage && (
+            <img
+              src={coverImage}
+              alt="Cover Preview"
+              className="edit-image-preview"
+            />
+          )}
 
           <div className="edit-form-buttons">
             <button type="submit">Save Changes</button>
