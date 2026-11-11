@@ -1,14 +1,29 @@
 import './Post.css'
 import { useState } from 'react'
-import Comment from './Comment'
+import Comment from './comment'
 import ReactionPost from './reactionsPostCard'
 import CommentsModalCard from './commentsModal'
 
-function Post({ posts, setPosts }) {
-  const [content, setContent] = useState("")
-  const [image, setImage] = useState("")
-  const [openMenu, setOpenMenu] = useState(null)
-  const [editpost, setEditPost] = useState(null)
+
+
+
+
+function Post({post, posts, setPosts}) {
+  const [content, setContent]= useState("")
+  const [image, setImage]= useState("")
+  const [openMenu, setOpenMenu]= useState(null)
+  const [editpost,setEditPost]= useState(null)
+// import './Post.css'
+// import { useState } from 'react'
+// import Comment from './Comment'
+// import ReactionPost from './reactionsPostCard'
+// import CommentsModalCard from './commentsModal'
+
+// function Post({ posts, setPosts }) {
+//   const [content, setContent] = useState("")
+//   const [image, setImage] = useState("")
+//   const [openMenu, setOpenMenu] = useState(null)
+//   const [editpost, setEditPost] = useState(null)
 
 
   // Add Post------------------------------------------------------------------------------------------------------
@@ -71,17 +86,24 @@ function Post({ posts, setPosts }) {
   return (
     <section className='postSection'>
 
-      <form onSubmit={addPost}>
-        <textarea onChange={(e) => setContent(e.target.value)} name="" id="" value={content} placeholder="What's on your mind?"></textarea>
-        <input onChange={(e) => setImage(e.target.value)} value={image} type="url" placeholder='Add image URL' />
-        <button className='publishBtn' type='submit'>Post</button>
-      </form>
+      <div className='containerUserForm'>
+         <p className='nameAcc1'>O</p>
+
+        <form onSubmit={addPost}>
+          <textarea onChange={(e)=> setContent(e.target.value)} name="" id="" value={content} placeholder="What's on your mind?"></textarea>
+          <input onChange={(e)=> setImage(e.target.value)} value={image} type="url" placeholder='Add image URL'/>
+          <button className='publishBtn' type='submit'>Post</button>
+        </form>
+      </div>
+      
+        
 
 
-      <div className='containerPst'>
-        {posts.map((p) => {
-          return (
-            <div key={p.id}>
+        
+          {posts.map((p) => {
+            return(
+              <div className='containerPst' key={p.id}>
+              <div >
 
               <div className='containerNameAcc'>
                 <div className='userInfo'>
@@ -111,7 +133,7 @@ function Post({ posts, setPosts }) {
 
               </div>
               <p className='postContent'> {p.content} </p>
-              <img className='postImage' src={p.image} alt="" />
+              {p.image && (<img className='postImage' src={p.image} alt="" />)}
 
               <div>
 
@@ -121,18 +143,16 @@ function Post({ posts, setPosts }) {
                 <CommentsModalCard commentIsClicked={commentIsClicked} clickComments={clickComments}/>
               {/* //?achraf code here */}
               {/* // tst comnt */}
-              {/* //! achraf coment warda code ==================== */}
-              {/* <Comment posts={posts} setPosts={setPosts} /> */}
-              {/* //! achraf coment warda code ==================== */}
-
+              <Comment post={p}  />
+       
             </div>
-          )
-
-
-
-        })}
-      </div>
-
+            </div>
+            )
+            
+            
+            
+          })}
+        
 
 
     </section>
