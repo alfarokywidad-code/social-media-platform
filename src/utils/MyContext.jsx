@@ -141,7 +141,7 @@ export function MyProvider({ children }) {
             });
         });
     }
-
+    const [search, setSearch] = useState("");
     return (
         <MyContext.Provider
             value={{
@@ -149,7 +149,7 @@ export function MyProvider({ children }) {
                 setUsers,
                 currentUser,
                 handleFollow,
-                handleUnfollow
+                handleUnfollow,search,setSearch
             }}
         >
             {children}

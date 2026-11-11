@@ -22,9 +22,14 @@ function Explore() {
         user.id !== currentUser.id
     )
 
-    const filterUsers = otherUsers.filter((user) =>
-        user.username.toLowerCase().includes(search.toLowerCase()) ||
-        user.name.toLowerCase().includes(search.toLowerCase())
+    const filterUsers = otherUsers.filter((user) => {
+
+        return (
+            (user.username??"").toLowerCase().includes((search??"").toLowerCase())  ||
+            ((user.name??"").toLowerCase().includes((search??"").toLowerCase()))
+
+        )
+    }
     );
 
 

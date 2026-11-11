@@ -6,21 +6,20 @@ import {
     FiSend,
     FiHeart,
     FiLogIn,
-    FiLogOut
+    FiLogOut,
+    FiUser
 } from "react-icons/fi";
 import { MyContext } from "../utils/MyContext";
 
 function Header() {
     const navigate = useNavigate();
-    // const isLoggedIn = false;
-    const { users, search, setSearch } = useContext(MyContext);
+    const { users, search, setSearch, currentUser } = useContext(MyContext);
+    const isLoggedIn = currentUser?.isLoggedIn === true;
+    // const currentUser = users.find(
+    // (user) => user.isLoggedIn === true
+    // );
 
-    const currentUser = users.find(
-        (user) => user.isLoggedIn === true
-    ) ?? null;
-
-    const isLoggedIn = Boolean(currentUser);
-
+    
     function handleSearch(event) {
         const value = event.target.value;
         setSearch(value);
@@ -58,32 +57,31 @@ function Header() {
                 >
                     <FiHeart />
                 </NavLink>
-
                 {currentUser && (
                     <NavLink
-                        to="/profile"
+                        to={`/profile/${currentUser.id}`}
                         className="header-avatar"
                         aria-label="My profile"
                     >
                         {currentUser.imageProfile ? (
+
+
                             <img
                                 src={currentUser.imageProfile}
-                                alt={`${currentUser.username} profile`}
+                                alt={`{currentUser.username} profile`}
                                 className="profile-image"
                             />
-                        ) : (
-                            <div className="profile-placeholder">
-                                {currentUser.username.charAt(0).toUpperCase()}
-                            </div>
-                        )}
-                    </NavLink>
-                )}
+                        )
+                            : (<span>{currentUser.username.charAt(0).toUpperCase() || <FiUser />}</span>)
+                        }
+
+                    </NavLink>)}
                 <NavLink
                     to={isLoggedIn ? "/LogOut" : "/LogIn"}
                     title={isLoggedIn ? "LogOut" : "LogIn"}
                     aria-label={isLoggedIn ? "LogOut" : "LogIn"}
                     className="icoun-LogIn-LogOut">
-                    {isLoggedIn ? <FiLogOut /> : <FiLogIn />}
+                    {currentUser.isLoggedIn ? <FiLogOut /> : <FiLogIn />}
 
 
                 </NavLink>
