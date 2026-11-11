@@ -1,0 +1,85 @@
+.suggested-users {
+    width: 100%;
+    padding: 20px 16px;
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+
+.suggested-users h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #262626;
+    margin-bottom: 20px;
+}
+
+.suggested-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.suggested-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.suggested-avatar {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8e8e8;
+    color: #262626;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.suggested-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.suggested-user-info h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #262626;
+    margin: 0 0 4px;
+}
+
+.suggested-user-info p {
+    font-size: 12px;
+    color: #8e8e8e;
+    margin: 0;
+}
+
+.suggested-empty {
+    font-size: 13px;
+    color: #8e8e8e;
+    text-align: center;
+    padding: 15px 5px;
+}
+
+@media (max-width: 768px) {
+    .suggested-users {
+        padding: 16px 12px;
+    }
+
+    .suggested-user {
+        gap: 8px;
+    }
+
+    .suggested-avatar {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+    }
+}

@@ -1,9 +1,13 @@
 import { createContext, useState, useEffect } from "react";
+
 export const MyContext = createContext();
+
+
+
 export function MyProvider({ children }) {
 
-// !nawfal code 
-      const [users, setUsers] = useState(()=>{
+    // All registered users
+    const [users, setUsers] = useState(() => {
 
           const theProfil = localStorage.getItem('newUser');
           if (theProfil && theProfil !== "undefined") {
@@ -11,37 +15,110 @@ export function MyProvider({ children }) {
           }
           
          return[
-        //       {
-        //     id: crypto.randomUUID(),
-        //     isLoggedIn:false,
-        //     name: "nawfal",
-        //     username: "NOVA",
-        //     email:"nawfal@gmail.com",
-        //     age: '20',
-        //     bio: "hellow",
-        //     location: "alhoceima",
-        //     imageProfile: "",
-        //     coverImage: "",
-        //     followers: [],
-        //     following:[],
-        //      posts: []
-        // },   
+       
          ]
 })
 
-       useEffect(()=>{
-        localStorage.setItem('newUser',JSON.stringify(users))
-       },[users])
-    
-
-// !nawfal code
 
 
-    
+
+    // Save all users whenever the list changes
+    useEffect(() => {
+        localStorage.setItem("newUser", JSON.stringify(users));
+    }, [users]);
+
+    //   current user
+    const currentUser = users.find(
+        (user) => user.isLoggedIn === true
+    ) ?? null;
+
+    // Follow a user
+    function handleFollow(currentUserId, targetUserId) {
 
 
+        if (currentUserId === targetUserId) return;
+
+        setUsers((prevUsers) => {
+
+            const currentUser = prevUsers.find(
+                (user) => user.id === currentUserId
+            );
+
+            const targetUser = prevUsers.find(
+                (user) => user.id === targetUserId
+            );
+
+            if (
+                !currentUser ||
+                !targetUser ||
+                currentUser.following.includes(targetUserId)
+            ) {
+                return prevUsers;
+            }
+
+            return prevUsers.map((user) => {
+
+                if (user.id === currentUserId) {
+                    return {
+                        ...user,
+                        following: [...user.following, targetUserId]
+                    };
+                }
+
+                if (user.id === targetUserId) {
+                    return {
+                        ...user,
+                        followers: [...user.followers, currentUserId]
+                    };
+                }
+
+                return user;
+            });
+        });
+    }
+
+    // Unfollow a user
+    function handleUnfollow(currentUserId, targetUserId) {
+
+        if (currentUserId === targetUserId) return;
+
+        setUsers((prevUsers) => {
+
+            return prevUsers.map((user) => {
+
+                if (user.id === currentUserId) {
+                    return {
+                        ...user,
+                        following: user.following.filter(
+                            (id) => id !== targetUserId
+                        )
+                    };
+                }
+
+                if (user.id === targetUserId) {
+                    return {
+                        ...user,
+                        followers: user.followers.filter(
+                            (id) => id !== currentUserId
+                        )
+                    };
+                }
+
+                return user;
+            });
+        });
+    }
+    const [search, setSearch] = useState("");
     return (
-        <MyContext.Provider value={{users,setUsers }}>
+        <MyContext.Provider
+            value={{
+                users,
+                setUsers,
+                currentUser,
+                handleFollow,
+                handleUnfollow,search,setSearch
+            }}
+        >
             {children}
         </MyContext.Provider>
     );
