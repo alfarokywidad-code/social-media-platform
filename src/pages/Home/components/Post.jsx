@@ -1,8 +1,11 @@
 import './Post.css'
-import { useState } from 'react'
-import Comment from './Comment'
+import { useState,useContext } from 'react'
+import Comment from './comment'
+import { MyContext } from "../../../utils/MyContext"
 
-function Post({posts, setPosts}) {
+
+function Post() {
+  const [users, setUsers, posts, setPosts]=useContext(MyContext)
   const [content, setContent]= useState("")
   const [image, setImage]= useState("")
   const [openMenu, setOpenMenu]= useState(null)
@@ -58,17 +61,24 @@ function Post({posts, setPosts}) {
   
   return (
     <section className='postSection'>
-      
+
+      <div className='containerUserForm'>
+         <p className='nameAcc1'>O</p>
+
         <form onSubmit={addPost}>
           <textarea onChange={(e)=> setContent(e.target.value)} name="" id="" value={content} placeholder="What's on your mind?"></textarea>
           <input onChange={(e)=> setImage(e.target.value)} value={image} type="url" placeholder='Add image URL'/>
           <button className='publishBtn' type='submit'>Post</button>
         </form>
+      </div>
+      
+        
 
 
-        <div className='containerPst'>
+        
           {posts.map((p) => {
             return(
+              <div className='containerPst'>
               <div key={p.id}>
 
                 <div className='containerNameAcc'>
@@ -99,22 +109,23 @@ function Post({posts, setPosts}) {
                   
                 </div>
               <p className='postContent'> {p.content} </p>
-              <img className='postImage' src={p.image} alt="" />
+              {p.image && (<img className='postImage' src={p.image} alt="" />)}
 
               <div>
                 
               </div>
 
               {/* // tst comnt */}
-              <Comment posts={posts} setPosts={setPosts} />
+              <Comment post={p} />
        
+            </div>
             </div>
             )
             
             
             
           })}
-        </div>
+        
 
 
        
