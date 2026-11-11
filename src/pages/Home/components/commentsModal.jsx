@@ -2,6 +2,7 @@ import './commentsModal.css';
 import testImage3 from '../../../assets/img/pic.jpg'
 import UsersComments from './usersComments';
 
+
 function CommentsModalCard(props) {
     return (
         <>
@@ -9,6 +10,7 @@ function CommentsModalCard(props) {
                 <div className='commentModalchildDiv'>
                 <p onClick={props.clickComments}  className='Xbtn'>x</p>
                     <div className='DisplayedComentsDiv'>
+                        
                         <UsersComments/>
                         <UsersComments/>
                         <UsersComments/>
