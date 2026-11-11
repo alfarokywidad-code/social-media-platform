@@ -1,6 +1,7 @@
 import "./Sidebar.css";
-import { NavLink } from "react-router-dom";
-
+import { NavLink,Link } from "react-router-dom";
+import { useContext } from "react";
+import { MyContext } from "../utils/MyContext";
 import {
     FiHome,
     FiCompass,
@@ -13,14 +14,22 @@ import {
     FiUsers,
     FiUserCheck
 } from "react-icons/fi";
-
+import logo from"../Assests/molengeekIcon.png";
 
 function Sidebar() {
-    
 
-    return(
-          <aside className="sidebar">
+    const { users } = useContext(MyContext);
+    const currentUser = users.find((user) => user.isLoggedIn === true);
 
+    return (
+        <aside className="sidebar">
+            <div className="sidebar-logo">
+                <Link to="/">
+                    <img src={logo} alt="MoleenGeek" />
+                    {/* <span className="logo-name">MolenGeek</span> */}
+                </Link>
+            </div>
+            
             <nav className="sidebar-navigation">
 
                 <NavLink to="/" end className="sidebar-link">
@@ -53,7 +62,7 @@ function Sidebar() {
                     <span>Create</span>
                 </NavLink>
 
-                <NavLink to="/profile" className="sidebar-link">
+                <NavLink to={currentUser ? `/profile/${currentUser.id}` : "/login"} className="sidebar-link">
                     <FiUser />
                     <span>Profile</span>
                 </NavLink>
