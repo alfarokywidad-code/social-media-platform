@@ -1,38 +1,87 @@
 import './App.css';
+
+import { useContext } from 'react';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
+
+import { MyContext } from './utils/MyContext';
+
 import ErrorPage from './pages/Error/Error';
-import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home/Home'
-import Header from './layouts/Header';
-import Sidebar from './layouts/Sidebar';
-import Footer from './layouts/Footer';
-import Explore from "./pages/Explore/Explore"
+import Home from './pages/Home/Home';
+import Explore from './pages/Explore/Explore';
 import Following from './pages/Following/Following';
 import Followers from './pages/Followers/Followers';
 
+import Header from './layouts/Header';
+import Sidebar from './layouts/Sidebar';
+import Footer from './layouts/Footer';
+
+import LogIn from './pages/LogInOut/components/LogIn';
+import SignUp from './pages/LogInOut/components/SignUp';
+import Logout from './pages/LogInOut/components/Logout';
+
 function App() {
+    const { users } = useContext(MyContext);
+    const location = useLocation();
+
+    const currentUser = users.find(
+        (user) => user.isLoggedIn === true
+    );
+
+    const isAuthPage =
+        location.pathname === '/login' ||
+        location.pathname === '/sign';
+
     return (
         <div className="app-layout">
 
-            <Sidebar />
+            {!isAuthPage && <Sidebar />}
 
             <div className="app-right">
 
-                <Header />
-                {/* <Home/> */}
+                {!isAuthPage && <Header />}
+
                 <main className="main-content">
                     <Routes>
-                    
-                        <Route path="/" element={<Home />} />
-                        <Route path="*" element={<ErrorPage />} />
-                        
-                        <Route path="/Explore" element={<Explore />} />
-                        <Route path="/following" element={<Following />} />
-                        <Route path="/followers" element={<Followers />} />
-                    
+                        <Route path="/login" element={<LogIn />} />
+
+                        <Route path="/sign" element={<SignUp />} />
+
+                        <Route
+                            path="/"
+                            element={
+                                currentUser
+                                    ? <Home />
+                                    : <Navigate to="/login" replace />
+                            }
+                        />
+
+                        <Route path="/Explore" element={
+                            currentUser
+                                ? <Explore />
+                                : <Navigate to='/login' replace />} />
+
+                        <Route path="/following" element={
+                            currentUser
+                                ? <Following />
+                                : <Navigate to='/login' replace />} />
+
+                        <Route path="/followers" element={
+                            currentUser
+                                ? <Followers />
+                                : <Navigate to='/login' replace />} />
+
+
+                        <Route path="/logout" element={
+                            <Logout/>} />
+
+
+                        <Route path="*" element={
+                            <ErrorPage />} />
+
                     </Routes>
                 </main>
 
-                <Footer />
+                {!isAuthPage && <Footer />}
 
             </div>
 

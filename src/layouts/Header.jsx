@@ -11,8 +11,9 @@ import {
 import { MyContext } from "../utils/MyContext";
 
 function Header() {
-    const {users, search, setSearch} = useContext(MyContext);
     const navigate = useNavigate();
+    // const isLoggedIn = false;
+    const { users, search, setSearch } = useContext(MyContext);
 
     const currentUser = users.find(
         (user) => user.isLoggedIn === true
@@ -57,17 +58,26 @@ function Header() {
                 >
                     <FiHeart />
                 </NavLink>
-                <NavLink
-                    to="/profile"
-                    className="header-avatar"
-                    aria-label="My profile"
-                >
-                    <img
-                        src={currentUser.imageProfile}
-                        alt={`${currentUser.username} profile`}
-                        className="profile-image"
-                    />
-                </NavLink>
+
+                {currentUser && (
+                    <NavLink
+                        to="/profile"
+                        className="header-avatar"
+                        aria-label="My profile"
+                    >
+                        {currentUser.imageProfile ? (
+                            <img
+                                src={currentUser.imageProfile}
+                                alt={`${currentUser.username} profile`}
+                                className="profile-image"
+                            />
+                        ) : (
+                            <div className="profile-placeholder">
+                                {currentUser.username.charAt(0).toUpperCase()}
+                            </div>
+                        )}
+                    </NavLink>
+                )}
                 <NavLink
                     to={isLoggedIn ? "/LogOut" : "/LogIn"}
                     title={isLoggedIn ? "LogOut" : "LogIn"}

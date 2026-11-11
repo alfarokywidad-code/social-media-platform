@@ -1,130 +1,73 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+
 export const MyContext = createContext();
+
+const STORAGE_KEY = "newUser";
+
+// Ensure every user has the required properties
+function normalUser(user) {
+    return {
+        ...user,
+        id: user.id || crypto.randomUUID(),
+        isLoggedIn: user.isLoggedIn ?? false,
+        name: user.name ?? "",
+        username: user.username ?? "",
+        email: user.email ?? "",
+        password: user.password ?? "",
+        age: user.age ?? "",
+        bio: user.bio ?? "",
+        location: user.location ?? "",
+        imageProfile: user.imageProfile ?? "",
+        coverImage: user.coverImage ?? "",
+        followers: Array.isArray(user.followers) ? user.followers : [],
+        following: Array.isArray(user.following) ? user.following : [],
+        posts: Array.isArray(user.posts) ? user.posts : []
+    };
+}
+
 export function MyProvider({ children }) {
 
     // All registered users
-    const [users, setUsers] = useState([
-        {
-            id: crypto.randomUUID(),
-            isLoggedIn: false,
-            name: "Ahmed Makrini",
-            username: "ahmed",
-            age: 22,
-            bio: "Passionate about technology and programming.",
-            location: "Al Hoceima, Morocco",
-            imageProfile: "https://img.magnific.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4841.jpg?semt=ais_hybrid&w=740&q=80",
-            coverImage: "",
-            followers: [],
-            following: [],
-            posts: []
-        },
-        {
-            id: crypto.randomUUID(),
-            isLoggedIn: false,
-            name: "Walid Tghz",
-            username: "walid",
-            age: 24,
-            bio: "React developer and technology enthusiast.",
-            location: "Al Hoceima, Morocco",
-            imageProfile: "https://img.magnific.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4841.jpg?semt=ais_hybrid&w=740&q=80",
-            coverImage: "",
-            followers: [],
-            following: [],
-            posts: []
-        },
-        {
-            id: crypto.randomUUID(),
-            isLoggedIn: false,
-            name: "Warda",
-            username: "warda",
-            age: 21,
-            bio: "Creative mind and social media lover.",
-            location: "Tangier, Morocco",
-            imageProfile: "https://img.magnific.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4841.jpg?semt=ais_hybrid&w=740&q=80",
-            coverImage: "",
-            followers: [],
-            following: [],
-            posts: []
-        },
-        {
-            id: crypto.randomUUID(),
-            isLoggedIn: false,
-            name: "Widad",
-            username: "widad",
-            age: 23,
-            bio: "Technical Lead and web developer.",
-            location: "Al Hoceima, Morocco",
-            imageProfile: "https://img.magnific.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4841.jpg?semt=ais_hybrid&w=740&q=80",
-            coverImage: "",
-            followers: [],
-            following: [],
-            posts: []
-        },
-        {
-            id: crypto.randomUUID(),
-            isLoggedIn: false,
-            name: "Ashraf",
-            username: "ashraf",
-            age: 22,
-            bio: "Interested in web development and design.",
-            location: "Nador, Morocco",
-            imageProfile: "https://img.magnific.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4841.jpg?semt=ais_hybrid&w=740&q=80",
-            coverImage: "",
-            followers: [],
-            following: [],
-            posts: []
-        },
-        {
-            id: crypto.randomUUID(),
-            isLoggedIn: false,
-            name: "Nawfal",
-            username: "nawfal",
-            age: 25,
-            bio: "Learning, building and sharing ideas.",
-            location: "Fes, Morocco",
-            imageProfile: "https://img.magnific.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4841.jpg?semt=ais_hybrid&w=740&q=80",
-            coverImage: "",
-            followers: [],
-            following: [],
-            posts: []
-        },
-        {
-            id: crypto.randomUUID(),
-            isLoggedIn: true,
-            name: "Zakaria",
-            username: "zakaria",
-            age: 23,
-            bio: "Technology, creativity and innovation.",
-            location: "Rabat, Morocco",
-            imageProfile: "https://img.magnific.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4841.jpg?semt=ais_hybrid&w=740&q=80",
-            coverImage: "",
-            followers: [],
-            following: [],
-            posts: []
+    const [users, setUsers] = useState(() => {
+        try {
+            const savedUsers = localStorage.getItem(STORAGE_KEY);
+
+            if (!savedUsers || savedUsers === "undefined") {
+                return [];
+            }
+
+            const parsedUsers = JSON.parse(savedUsers);
+
+            // Support both an array and an old single-user object
+            let usersArray = [];
+
+            if (Array.isArray(parsedUsers)) {
+                usersArray = parsedUsers;
+            } else if (
+                parsedUsers &&
+                typeof parsedUsers === "object"
+            ) {
+                usersArray = [parsedUsers];
+            }
+            return usersArray.map(normalUser);
+
+        } catch (error) {
+            console.error("Error loading users:", error);
+            return [];
         }
+    });
 
-    ]);
+    // Save all users whenever the list changes
+    useEffect(() => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+    }, [users]);
 
-    // All posts
-    const [posts, setPosts] = useState([]);
-
-    // All comments
-    const [comments, setComments] = useState([]);
-
-    // All likes
-    const [likes, setLikes] = useState([]);
-
-    // All follow relationships
-    const [follows, setFollows] = useState([]);
-    // search haeder
-    const [search, setSearch] = useState("");
-
-
+    //   current user
     const currentUser = users.find(
         (user) => user.isLoggedIn === true
     ) ?? null;
 
-
+    // Follow a user
     function handleFollow(currentUserId, targetUserId) {
 
         if (currentUserId === targetUserId) return;
@@ -168,7 +111,10 @@ export function MyProvider({ children }) {
         });
     }
 
+    // Unfollow a user
     function handleUnfollow(currentUserId, targetUserId) {
+
+        if (currentUserId === targetUserId) return;
 
         setUsers((prevUsers) => {
 
@@ -198,12 +144,15 @@ export function MyProvider({ children }) {
     }
 
     return (
-        <MyContext.Provider value={{
-            users, setUsers, search, setSearch,
-            posts, setPosts, comments, setComments,
-            likes, setLikes, follows, setFollows,
-            handleFollow, handleUnfollow, currentUser
-        }}>
+        <MyContext.Provider
+            value={{
+                users,
+                setUsers,
+                currentUser,
+                handleFollow,
+                handleUnfollow
+            }}
+        >
             {children}
         </MyContext.Provider>
     );
