@@ -14,12 +14,14 @@ import Profile from './pages/Profile/Profile';
 
 
 function App() {
-    const { users } = useContext(MyContext);
-    const location = useLocation()
-    const Y = location.pathname === '/login' || location.pathname === '/sign'
+    const {users} = useContext(MyContext);
+const location = useLocation()
+    const Y = location.pathname === '/LogIn' || location.pathname === '/sign' || location.pathname === '/login'
+  
 
+    const X = users.find((user)=>user.isLoggedIn===true)
 
-    const X = users.find((user) => user.isLoggedIn === true)
+    
     return (
         <div className="app-layout">
 
@@ -27,15 +29,15 @@ function App() {
 
             <div className="app-right">
 
-                <Header />
-                <Home />
-                {Y === false && <Header />}
+                {/* <Header /> */}
+                {/* <Home/> */}
+                {Y===false && <Header />}
 
                 <main className="main-content">
                     <Routes>
                         {/* // login هنا في الكود أسفله مكان الـ,(Home)عندما تقومون بإنشاء صفحة الرئيسية ،  */}
-                        <Route path='/' element={X ? <ErrorPage /> : <Navigate to='/login' replace />} />
-                        {/*  */}
+                      <Route   path='/' element={X ? <Home/>: <Navigate to='/login' replace/>}/>
+                      {/*  */}
                         <Route path="*" element={<ErrorPage />} />
                         <Route path='/login' element={<LogIn />} />
                         <Route path='/sign' element={<SignUp />} />
