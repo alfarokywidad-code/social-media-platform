@@ -27,14 +27,14 @@ const location = useLocation()
 
             <div className="app-right">
 
-                <Header />
-                <Home/>
+                {/* <Header /> */}
+                {/* <Home/> */}
                 {Y===false && <Header />}
 
                 <main className="main-content">
                     <Routes>
                         {/* // login هنا في الكود أسفله مكان الـ,(Home)عندما تقومون بإنشاء صفحة الرئيسية ،  */}
-                      <Route   path='/' element={X ? <ErrorPage/>: <Navigate to='/login' replace/>}/>
+                      <Route   path='/' element={X ? <Home/>: <Navigate to='/login' replace/>}/>
                       {/*  */}
                         <Route path="*" element={<ErrorPage />} />
                        <Route path='/login' element={<LogIn/>}/>
