@@ -2,46 +2,51 @@ import { createContext, useState, useEffect } from "react";
 export const MyContext = createContext();
 export function MyProvider({ children }) {
 
-// !nawfal code 
-      const [users, setUsers] = useState(()=>{
+    // !nawfal code 
+    const [users, setUsers] = useState(() => {
 
-          const theProfil = localStorage.getItem('newUser');
-          if (theProfil && theProfil !== "undefined") {
-              return JSON.parse(theProfil)
-          }
-          
-         return[
-              {
-            id: crypto.randomUUID(),
-            isLoggedIn:false,
-            name: "nawfal",
-            username: "NOVA",
-            email:"nawfal@gmail.com",
-            age: '20',
-            bio: "hellow",
-            location: "alhoceima",
-            imageProfile: "",
-            coverImage: "",
-            followers: [],
-            following:[],
-             posts: []
-        },   
-           ]
-})
+        const theProfil = localStorage.getItem('newUser');
+        if (theProfil && theProfil !== "undefined") {
+            return JSON.parse(theProfil)
+        }
 
-       useEffect(()=>{
-        localStorage.setItem('newUser',JSON.stringify(users))
-       },[users])
-    
+        return [
+            {
+                id: crypto.randomUUID(),
+                isLoggedIn: false,
+                name: "nawfal",
+                username: "NOVA",
+                email: "nawfal@gmail.com",
+                age: '20',
+                bio: "hellow",
+                location: "alhoceima",
+                imageProfile: "",
+                coverImage: "",
+                followers: [],
+                following: [],
+                posts: [
+                    {
+                        idPost: 1,
+                        date: new Date(),
+                    }
+                ]
+            },
+        ]
+    })
 
-// !nawfal code
+    useEffect(() => {
+        localStorage.setItem('newUser', JSON.stringify(users))
+    }, [users])
 
 
-    
+    // !nawfal code
+
+
+
 
 
     return (
-        <MyContext.Provider value={{users,setUsers }}>
+        <MyContext.Provider value={{ users, setUsers }}>
             {children}
         </MyContext.Provider>
     );
