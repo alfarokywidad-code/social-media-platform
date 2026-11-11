@@ -1,25 +1,29 @@
-// import './Post.css'
-// import { useState,useContext } from 'react'
-// import Comment from './comment'
-// import { MyContext } from "../../../utils/MyContext"
-
-
-// function Post() {
-//   const [users, setUsers, posts, setPosts]=useContext(MyContext)
-//   const [content, setContent]= useState("")
-//   const [image, setImage]= useState("")
-//   const [openMenu, setOpenMenu]= useState(null)
-//   const [editpost,setEditPost]= useState(null)
+import './Post.css'
 import { useState } from 'react'
-import Comment from './Comment'
+import Comment from './comment'
 import ReactionPost from './reactionsPostCard'
 import CommentsModalCard from './commentsModal'
 
-function Post({ posts, setPosts }) {
-  const [content, setContent] = useState("")
-  const [image, setImage] = useState("")
-  const [openMenu, setOpenMenu] = useState(null)
-  const [editpost, setEditPost] = useState(null)
+
+
+
+
+function Post({post, posts, setPosts}) {
+  const [content, setContent]= useState("")
+  const [image, setImage]= useState("")
+  const [openMenu, setOpenMenu]= useState(null)
+  const [editpost,setEditPost]= useState(null)
+// import './Post.css'
+// import { useState } from 'react'
+// import Comment from './Comment'
+// import ReactionPost from './reactionsPostCard'
+// import CommentsModalCard from './commentsModal'
+
+// function Post({ posts, setPosts }) {
+//   const [content, setContent] = useState("")
+//   const [image, setImage] = useState("")
+//   const [openMenu, setOpenMenu] = useState(null)
+//   const [editpost, setEditPost] = useState(null)
 
 
   // Add Post------------------------------------------------------------------------------------------------------
@@ -98,8 +102,8 @@ function Post({ posts, setPosts }) {
         
           {posts.map((p) => {
             return(
-              <div className='containerPst'>
-              <div key={p.id}>
+              <div className='containerPst' key={p.id}>
+              <div >
 
               <div className='containerNameAcc'>
                 <div className='userInfo'>
@@ -139,7 +143,7 @@ function Post({ posts, setPosts }) {
                 <CommentsModalCard commentIsClicked={commentIsClicked} clickComments={clickComments}/>
               {/* //?achraf code here */}
               {/* // tst comnt */}
-              <Comment post={p} />
+              <Comment post={p}  />
        
             </div>
             </div>

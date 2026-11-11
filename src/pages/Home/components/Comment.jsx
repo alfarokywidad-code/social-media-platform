@@ -1,10 +1,9 @@
 import './Comment.css'
-import { useState, useContext } from 'react'
-import { MyContext } from '../../../utils/MyContext';
+import { useState } from 'react';
+
 
 
 function Comment({post}) {
-  const [users, setUsers, posts, setPosts]=useContext(MyContext)
   const [comment, setComment] = useState([]);
   const [text, setText] = useState("")
 
