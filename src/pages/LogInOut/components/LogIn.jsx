@@ -36,10 +36,10 @@ const thenavigate = useNavigate()
         return;
     }
   
-    if (thechecked === false) {
-        setError("please click on the checkbox ")
-        return;
-    }
+    // if (thechecked === false) {
+    //     setError("please click on the checkbox ")
+    //     return;
+    // }
 
     const updatedUsers = users.map(user => {
         if (user.id === srchprfl.id || user.email === srchprfl.email) {
@@ -51,7 +51,7 @@ const thenavigate = useNavigate()
 //    document.querySelector('.error').style.opacity = 1
         setError("loged seccussfull!");
        
-    alert('loged seccussfull!')
+    // alert('loged seccussfull!')
     thenavigate('/')
 
 
@@ -93,10 +93,10 @@ return(
           <div className="iconinput"><MdOutlineEmail className="theicon"/><input className="inputsSign" type="text"  placeholder="Email Adress " value={emailsc} onChange={event=>setEmailsc(event.target.value)}   required /></div>  <br />
           <div className="iconinput"><RiLockPasswordFill className="theicon"/><input className="inputsSign" type="password" placeholder="Password" value={passwordsc} onChange={event=>setpasswordsc(event.target.value)} required  /></div>  <br />
         {/* the checkbox and the text of passwordForgotten */}
-        <div className="check">
+        {/* <div className="check">
            <input type="checkbox" className="thechek" checked={thechecked}  onChange={event=>setIschecked(event.target.checked)} />
             <p style={{color:'violet'}}>Password forgotten</p>
-        </div>
+        </div> */}
            <button type="submit" className="btnsign">Log in</button>
            <p className="error" style={{color: error === "the account doesn't exist" ? 'red' : 'green' }}>{error}</p>
 

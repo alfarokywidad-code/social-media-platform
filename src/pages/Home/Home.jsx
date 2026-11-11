@@ -1,3 +1,13 @@
+// import PostCard from "./components/postCard";
+
+// function HomePage() {
+//     return(
+//         <>
+//         < PostCard/>
+//         </>
+//     )
+// }
+// export default HomePage ; 
 import Post from "./components/Post"
 import { useState } from "react"
 
