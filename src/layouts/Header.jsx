@@ -7,7 +7,8 @@ import {
     FiSend,
     FiHeart,
     FiLogIn,
-    FiLogOut
+    FiLogOut,
+    FiUser
 } from "react-icons/fi";
 import { MyContext } from "../utils/MyContext";
 
@@ -17,8 +18,8 @@ function Header() {
     const {users } = useContext(MyContext);
     const navigate = useNavigate();
     const currentUser = users.find(
-        (user) => user.username === "walid"
-    );
+    (user) => user.isLoggedIn === true
+);
 
     function handleSearch(event) {
         const value = event.target.value;
@@ -57,8 +58,9 @@ function Header() {
                 >
                     <FiHeart />
                 </NavLink>
+                {currentUser && (
                 <NavLink
-                    to="/profile"
+                    to={`/profile/${currentUser.id}`}
                     className="header-avatar"
                     aria-label="My profile"
                 >
@@ -67,7 +69,8 @@ function Header() {
                         alt={`{currentUser.username} profile`}
                         className="profile-image"
                     /> */}
-                </NavLink>
+                    <FiUser />
+                </NavLink>)}
                 <NavLink
                     to={isLoggedIn ? "/LogOut" : "/LogIn"}
                     title={isLoggedIn ? "LogOut" : "LogIn"}

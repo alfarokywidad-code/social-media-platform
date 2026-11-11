@@ -1,6 +1,7 @@
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
-
+import { useContext } from "react";
+import { MyContext } from "../utils/MyContext";
 import {
     FiHome,
     FiCompass,
@@ -16,10 +17,12 @@ import {
 
 
 function Sidebar() {
-    
 
-    return(
-          <aside className="sidebar">
+    const {users} = useContext(MyContext);
+    const currentUser = users.find((user) => user.isLoggedIn === true);
+
+    return (
+        <aside className="sidebar">
 
             <nav className="sidebar-navigation">
 
@@ -53,7 +56,7 @@ function Sidebar() {
                     <span>Create</span>
                 </NavLink>
 
-                <NavLink to="/profile" className="sidebar-link">
+                <NavLink to={currentUser ? `/profile/${currentUser.id}` : "/login"} className="sidebar-link">
                     <FiUser />
                     <span>Profile</span>
                 </NavLink>
