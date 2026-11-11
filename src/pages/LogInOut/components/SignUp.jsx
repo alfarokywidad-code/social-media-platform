@@ -9,6 +9,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import { GoDotFill } from "react-icons/go";
 
 function SignUp() {
+    const thenavigater = useNavigate()
 
     const transfer = useNavigate()
     const [errorsc, setErrorsc] = useState("");
@@ -24,52 +25,45 @@ function SignUp() {
     function Add(e) {
         e.preventDefault();
 
-        const normalEmail = email.trim().toLowerCase();
-        const normalUsername = username.trim().toLowerCase();
+        const srchprfl = users.find((item) => item.name === name)
 
-        if (!name.trim() || !normalUsername || !normalEmail || !password) {
-            setErrorsc("Please fill in all required fields");
+        if (srchprfl) {
+            setErrorsc("the account already exist");
+
+            //            localStorage.clear();
+            // window.location.reload();
             return;
         }
 
-        const accountExists = users.some((user) =>
-            user.email.toLowerCase() === normalEmail ||
-            user.username.toLowerCase() === normalUsername
-        );
-
-        if (accountExists) {
-            setErrorsc("Email or username already exists");
-            return;
-        }
-
-        const newUser = {
+        // ar then we use the oj
+        setUsers([...users, {
             id: crypto.randomUUID(),
             isLoggedIn: true,
-            name: name.trim(),
-            username: normalUsername,
-            email: normalEmail,
-            password,
-            age: "",
-            bio: Description,
-            location: "",
-            imageProfile: "",
-            coverImage: "",
+            name: name,
+            username: username,
+            email: email,
+            password: password,
+            age: '',
+            bio: '',
+            location: '',
+            imageProfile: '',
+            coverImage: '',
             followers: [],
             following: [],
             posts: []
-        };
+        }]);
+        setErrorsc('seccuss')
+        setEmail('')
+        setName('')
+        setUsername('')
+        setpassword('')
+        // setTimeout(()=>{
+        thenavigater('/')
+        // },100)
 
-        setUsers((prevUsers) => [
-            ...prevUsers.map((user) => ({
-                ...user,
-                isLoggedIn: false
-            })),
-            newUser
-        ]);
 
-        setErrorsc("Account created successfully!");
-        transfer("/");
     }
+
 
 
 

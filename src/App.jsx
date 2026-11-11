@@ -1,87 +1,46 @@
 import './App.css';
-
-import { useContext } from 'react';
-import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
-
-import { MyContext } from './utils/MyContext';
-
 import ErrorPage from './pages/Error/Error';
-import Home from './pages/Home/Home';
-import Explore from './pages/Explore/Explore';
-import Following from './pages/Following/Following';
-import Followers from './pages/Followers/Followers';
-
+import Home from './pages/Home/Home'
+import { Route, Routes,Navigate } from 'react-router-dom';
 import Header from './layouts/Header';
 import Sidebar from './layouts/Sidebar';
-import Footer from './layouts/Footer';
-
-import LogIn from './pages/LogInOut/components/LogIn';
+import LogIn from './pages/LogInOut/components/Login';
 import SignUp from './pages/LogInOut/components/SignUp';
-import Logout from './pages/LogInOut/components/Logout';
+import { useContext } from 'react';
+import { MyContext } from './utils/MyContext';
+import { useLocation } from 'react-router-dom';
+
 
 function App() {
-    const { users } = useContext(MyContext);
-    const location = useLocation();
+    const {users} = useContext(MyContext);
+const location = useLocation()
+    const Y = location.pathname === '/LogIn' || location.pathname === '/sign' || location.pathname === '/login'
+  
 
-    const currentUser = users.find(
-        (user) => user.isLoggedIn === true
-    );
+    const X = users.find((user)=>user.isLoggedIn===true)
 
-    const isAuthPage =
-        location.pathname === '/login' ||
-        location.pathname === '/sign';
-
+    
     return (
         <div className="app-layout">
 
-            {!isAuthPage && <Sidebar />}
+            { Y===false && <Sidebar/>} 
 
             <div className="app-right">
 
-                {!isAuthPage && <Header />}
+                {/* <Header /> */}
+                {/* <Home/> */}
+                {Y===false && <Header />}
 
                 <main className="main-content">
                     <Routes>
-                        <Route path="/login" element={<LogIn />} />
-
-                        <Route path="/sign" element={<SignUp />} />
-
-                        <Route
-                            path="/"
-                            element={
-                                currentUser
-                                    ? <Home />
-                                    : <Navigate to="/login" replace />
-                            }
-                        />
-
-                        <Route path="/Explore" element={
-                            currentUser
-                                ? <Explore />
-                                : <Navigate to='/login' replace />} />
-
-                        <Route path="/following" element={
-                            currentUser
-                                ? <Following />
-                                : <Navigate to='/login' replace />} />
-
-                        <Route path="/followers" element={
-                            currentUser
-                                ? <Followers />
-                                : <Navigate to='/login' replace />} />
-
-
-                        <Route path="/logout" element={
-                            <Logout/>} />
-
-
-                        <Route path="*" element={
-                            <ErrorPage />} />
-
+                        {/* // login هنا في الكود أسفله مكان الـ,(Home)عندما تقومون بإنشاء صفحة الرئيسية ،  */}
+                      <Route   path='/' element={X ? <Home/>: <Navigate to='/login' replace/>}/>
+                      {/*  */}
+                        <Route path="*" element={<ErrorPage />} />
+                       <Route path='/login' element={<LogIn/>}/>
+                       <Route path='/sign' element={<SignUp/>}/>
                     </Routes>
                 </main>
-
-                {!isAuthPage && <Footer />}
 
             </div>
 

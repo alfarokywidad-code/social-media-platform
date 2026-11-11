@@ -1,0 +1,13 @@
+.PostCardReactionsDiv{
+    display: flex;
+    justify-content: space-between;
+}
+.PostCardReactions{
+    display: flex;  
+   justify-content: space-between;
+    width: 10%;
+}
+.reactionHeartIcon{
+    color: red;
+    cursor: pointer;
+}

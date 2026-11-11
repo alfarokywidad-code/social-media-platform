@@ -2,64 +2,62 @@ import { createContext, useState, useEffect } from "react";
 
 export const MyContext = createContext();
 
-const STORAGE_KEY = "newUser";
 
 // Ensure every user has the required properties
-function normalUser(user) {
-    return {
-        ...user,
-        id: user.id || crypto.randomUUID(),
-        isLoggedIn: user.isLoggedIn ?? false,
-        name: user.name ?? "",
-        username: user.username ?? "",
-        email: user.email ?? "",
-        password: user.password ?? "",
-        age: user.age ?? "",
-        bio: user.bio ?? "",
-        location: user.location ?? "",
-        imageProfile: user.imageProfile ?? "",
-        coverImage: user.coverImage ?? "",
-        followers: Array.isArray(user.followers) ? user.followers : [],
-        following: Array.isArray(user.following) ? user.following : [],
-        posts: Array.isArray(user.posts) ? user.posts : []
-    };
-}
+// function normalUser(user) {
+//     return {
+//         ...user,
+//         id: user.id || crypto.randomUUID(),
+//         isLoggedIn: user.isLoggedIn ?? false,
+//         name: user.name ?? "",
+//         username: user.username ?? "",
+//         email: user.email ?? "",
+//         password: user.password ?? "",
+//         age: user.age ?? "",
+//         bio: user.bio ?? "",
+//         location: user.location ?? "",
+//         imageProfile: user.imageProfile ?? "",
+//         coverImage: user.coverImage ?? "",
+//         followers: Array.isArray(user.followers) ? user.followers : [],
+//         following: Array.isArray(user.following) ? user.following : [],
+//         posts: Array.isArray(user.posts) ? user.posts : []
+//     };
+// }
 
 export function MyProvider({ children }) {
 
     // All registered users
     const [users, setUsers] = useState(() => {
-        try {
-            const savedUsers = localStorage.getItem(STORAGE_KEY);
 
-            if (!savedUsers || savedUsers === "undefined") {
-                return [];
-            }
-
-            const parsedUsers = JSON.parse(savedUsers);
-
-            // Support both an array and an old single-user object
-            let usersArray = [];
-
-            if (Array.isArray(parsedUsers)) {
-                usersArray = parsedUsers;
-            } else if (
-                parsedUsers &&
-                typeof parsedUsers === "object"
-            ) {
-                usersArray = [parsedUsers];
-            }
-            return usersArray.map(normalUser);
-
-        } catch (error) {
-            console.error("Error loading users:", error);
-            return [];
+        const theProfil = localStorage.getItem('newUser');
+        if (theProfil && theProfil !== "undefined") {
+            return JSON.parse(theProfil)
         }
-    });
+
+        return [
+            {
+                id: crypto.randomUUID(),
+                isLoggedIn: false,
+                name: "nawfal",
+                username: "NOVA",
+                email: "nawfal@gmail.com",
+                age: '20',
+                bio: "hellow",
+                location: "alhoceima",
+                imageProfile: "",
+                coverImage: "",
+                followers: [],
+                following: [],
+                posts: []
+            },
+        ]
+    })
+
+
 
     // Save all users whenever the list changes
     useEffect(() => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+        localStorage.setItem("newUser", JSON.stringify(users));
     }, [users]);
 
     //   current user
@@ -69,6 +67,7 @@ export function MyProvider({ children }) {
 
     // Follow a user
     function handleFollow(currentUserId, targetUserId) {
+
 
         if (currentUserId === targetUserId) return;
 
