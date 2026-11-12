@@ -1,16 +1,14 @@
-import './Post.css'
-import { useState } from 'react'
-import Comment from './comment'
-import ReactionPost from './reactionsPostCard'
-import CommentsModalCard from './commentsModal'
+import "./Post.css";
+import { useContext, useState } from "react";
+import { MyContext } from "../../../utils/MyContext";
+import Comment from "./comment";
+import ReactionPost from "./reactionsPostCard";
 
-
-
-
-
-function Post({ users, setUsers, currentUser }) {
-  const [content, setContent] = useState("")
-  const [image, setImage] = useState("")
+function Post() {
+  const { users, setUsers, currentUser } = useContext(MyContext);
+  const [content, setContent] = useState("");
+  const [image, setImage] = useState("");
+  if (!currentUser) return null;
   // import './Post.css'
   // import { useState } from 'react'
   // import Comment from './Comment'
@@ -25,10 +23,10 @@ function Post({ users, setUsers, currentUser }) {
 
   //!add post to users array:
   const addPosttoUsersArray = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (content.trim() === "") {
-      alert('write somthing')
-      return
+      alert("write somthing");
+      return;
     }
     if (!currentUser) return;
     const newPost = {
@@ -37,8 +35,10 @@ function Post({ users, setUsers, currentUser }) {
       image: image,
       date: new Date().toLocaleDateString(),
       author: currentUser.name,
-      comment: []
-    }
+      authorId: currentUser.id,
+      authorImage: currentUser.imageProfile,
+      comment: [],
+    };
     setUsers((prev) => {
       return prev.map((e) => {
         if (e.id === currentUser.id) {
@@ -50,19 +50,19 @@ function Post({ users, setUsers, currentUser }) {
                   return {
                     ...post,
                     content: content,
-                    image: image
-                  }
+                    image: image,
+                  };
                 }
-                return post
-              })
-            }
+                return post;
+              }),
+            };
           }
-          return { ...e, posts: [...(e.posts || []), newPost] }
-        };
+          return { ...e, posts: [...(e.posts || []), newPost] };
+        }
 
         return e;
-      })
-    })
+      });
+    });
 
     // if (editpost) {
     //   setPosts(posts.map((p) => p.id === editpost ? newPost : p))
@@ -71,12 +71,11 @@ function Post({ users, setUsers, currentUser }) {
     //   setPosts([...posts, newPost])
     // }
 
-    setContent("")
-    setImage("")
-    setEditPostId(null)
+    setContent("");
+    setImage("");
+    setEditPostId(null);
     console.log(users);
-
-  }
+  };
   // Add Post------------------------------------------------------------------------------------------------------
   // const addPost = (e) => {
   //   e.preventDefault()
@@ -105,141 +104,152 @@ function Post({ users, setUsers, currentUser }) {
   // }
 
   // Delete--------------------------------------------------------------------------------------------------------
-  const deletePost = (postID,userId) => {
-    const confrimation = window.confirm("Are you sure you want to delete this post?")
+  const deletePost = (postID, userId) => {
+    const confrimation = window.confirm(
+      "Are you sure you want to delete this post?",
+    );
     if (confrimation) {
-     setUsers((prev)=>(
-       prev.map((e)=>{
-       if (userId === e.id) {
-          return{...e,posts:e.posts.filter((post)=>post.id !== postID)}
-        }
-        return e ;
-      })
-     ))
+      setUsers((prev) =>
+        prev.map((e) => {
+          if (userId === e.id) {
+            return {
+              ...e,
+              posts: e.posts.filter((post) => post.id !== postID),
+            };
+          }
+          return e;
+        }),
+      );
     }
-
-  }
+  };
 
   // Edite-------------------------------------------------------------------------------------------------------
-  const [editpostId, setEditPostId] = useState(null)
+  const [editpostId, setEditPostId] = useState(null);
 
   const edit = (postId) => {
     let findPost = currentUser.posts.find((e) => {
-      return e.id === postId
-    })
+      return e.id === postId;
+    });
     console.log(findPost);
 
     // if (postId === currentUser.posts.map((e)=>(e.id))){
 
-    setContent(findPost.content)
-    setImage(findPost.image)
+    setContent(findPost.content);
+    setImage(findPost.image);
     // }
-    setEditPostId(postId)
+    setEditPostId(postId);
     // setOpenMenu(null)
-
-
-  }
+  };
   //! open menu------------
-  const [openMenu, setOpenMenu] = useState(null)
+  const [openMenu, setOpenMenu] = useState(null);
   let editMenu = (postId) => {
     // setOpenMenu(openMenu === user.id ? null : user.id)
 
     if (openMenu === postId) {
-      setOpenMenu(null)
+      setOpenMenu(null);
     } else {
-      setOpenMenu(postId)
+      setOpenMenu(postId);
     }
-
-  }
+  };
   console.log(openMenu);
   //! achraf code here:
   // comments btn:
   const [commentIsClicked, setCommentIsClicked] = useState(false);
   let clickComments = () => {
     if (commentIsClicked === true) {
-      setCommentIsClicked(false)
+      setCommentIsClicked(false);
     } else {
-      setCommentIsClicked(true)
+      setCommentIsClicked(true);
     }
-  }
+  };
   //! achraf code here:
   return (
-    <section className='postSection'>
-
-      <div className='containerUserForm'>
-        <p className='nameAcc1'>O</p>
+    <section className="postSection">
+      <div className="containerUserForm">
+        <img className="nameAcc1" src={currentUser.imageProfile} alt="User" />
 
         {/* <form onSubmit={addPost}> */}
         <form onSubmit={addPosttoUsersArray}>
-          <textarea onChange={(e) => setContent(e.target.value)} name="" id="" value={content} placeholder="What's on your mind?"></textarea>
-          <input onChange={(e) => setImage(e.target.value)} value={image} type="url" placeholder='Add image URL' />
-          <button className='publishBtn' type='submit'>Post</button>
+          <textarea
+            onChange={(e) => setContent(e.target.value)}
+            name=""
+            id=""
+            value={content}
+            placeholder="What's on your mind?"
+          ></textarea>
+          <input
+            onChange={(e) => setImage(e.target.value)}
+            value={image}
+            type="url"
+            placeholder="Add image URL"
+          />
+          <button className="publishBtn" type="submit">
+            Post
+          </button>
         </form>
       </div>
 
-
-
-
-
       {users.map((user) => {
-        return (
-          user.posts.map((post) => (
-
-            <div className='containerPst' key={user.id}>
-              <div >
-
-                <div className='containerNameAcc'>
-                  <div className='userInfo'>
-                    <div className='nameAcc'>O</div>
-
-                    <div>
-                      <h4>{post.author}</h4>
-                      <p>{post.date} </p>
-                    </div>
+        return user.posts.map((post) => (
+          <div className="containerPst" key={user.id}>
+            <div>
+              <div className="containerNameAcc">
+                <div className="userInfo">
+                  <div>
+                    <img
+                      className="nameAcc"
+                      src={currentUser.imageProfile}
+                      alt="User"
+                    />
                   </div>
 
-                  <div className='containerMenu'>
-                    {/* //!!!!!!!! */}
-                    <button className='menuBtn' onClick={() => editMenu(post.id)} >
-                      <i className="fa-solid fa-ellipsis"></i>
+                  <div>
+                    <h4>{post.author}</h4>
+                    <p>{post.date} </p>
+                  </div>
+                </div>
+
+                <div className="containerMenu">
+                  {/* //!!!!!!!! */}
+                  <button className="menuBtn" onClick={() => editMenu(post.id)}>
+                    <i className="fa-solid fa-ellipsis"></i>
+                  </button>
+
+                  <div
+                    className={
+                      openMenu === post.id ? "dropDownMenu" : "dropDownMenu2"
+                    }
+                  >
+                    <button onClick={() => edit(post.id)}>Edit</button>
+                    <button onClick={() => deletePost(post.id, user.id)}>
+                      Delete
                     </button>
-
-
-                    <div className={openMenu === post.id ? 'dropDownMenu' : 'dropDownMenu2'}>
-                      <button onClick={() => edit(post.id)}>Edit</button>
-                      <button onClick={() => deletePost(post.id,user.id)}>Delete</button>
-                    </div>
-
                   </div>
-
-
-
-
                 </div>
-                <p className='postContent'> {post.content} </p>
-                {post.image && (<img className='postImage' src={post.image} alt="" />)}
-
-                <div>
-
-                </div>
-                {/* //?achraf code here */}
-                <ReactionPost clickComments={clickComments} />
-                <CommentsModalCard commentIsClicked={commentIsClicked} clickComments={clickComments} />
-                {/* //?achraf code here */}
-                {/* // tst comnt */}
-                <Comment post={post} />
-
               </div>
+              <p className="postContent"> {post.content} </p>
+              {post.image && (
+                <img className="postImage" src={post.image} alt="" />
+              )}
+
+              <div></div>
+              {/* //?achraf code here */}
+              <ReactionPost clickComments={clickComments} />
+
+              <Comment
+                post={post}
+                commentIsClicked={commentIsClicked}
+                clickComments={clickComments}
+              />
+              {/* //?achraf code here */}
+              {/* // tst comnt */}
+              <Comment post={post} />
             </div>
-          ))
-        )
-
+          </div>
+        ));
       })}
-
-
-
     </section>
-  )
+  );
 }
 
-export default Post
+export default Post;
