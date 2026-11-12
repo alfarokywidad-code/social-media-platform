@@ -8,7 +8,7 @@ import CommentsModalCard from './commentsModal'
 
 
 
-function Post({ users, setUsers, currentUser }) {
+function Post({ users, setUsers, currentUser, showPosts = true }) {
   const [content, setContent] = useState("")
   const [image, setImage] = useState("")
   // import './Post.css'
@@ -181,7 +181,7 @@ function Post({ users, setUsers, currentUser }) {
 
 
 
-      {users.map((user) => {
+      {showPosts && users.map((user) => {
         return (
           user.posts.map((post) => (
 

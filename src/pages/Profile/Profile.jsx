@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { MyContext } from "../../utils/MyContext";
 import "./Profile.css";
-
+import Post from "../Home/components/Post";
 function Profile() {
 
   // !Get user ID from URL
@@ -315,6 +315,16 @@ function Profile() {
 
       </section>
 
+      {/* Create Post - Only Profile Owner */}
+      {isOwner && (
+        <Post
+          users={users}
+          setUsers={setUsers}
+          currentUser={currentUser}
+          showPosts={false}
+        />
+      )}
+      
       {/* Followers and Following */}
       <section className="profile-connections">
 
