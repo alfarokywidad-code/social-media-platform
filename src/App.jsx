@@ -1,6 +1,4 @@
-
 import './App.css';
-
 import { useContext, useState } from 'react';
 import {
     Route,
@@ -20,10 +18,10 @@ import Sidebar from './layouts/Sidebar';
 
 import LogIn from './pages/LogInOut/components/Login';
 import SignUp from './pages/LogInOut/components/SignUp';
-import { useContext } from 'react';
-import { MyContext } from './utils/MyContext';
-import { useLocation } from 'react-router-dom';
-import Explore from './pages/Explore/Explore';
+
+
+
+
 import Post from './pages/Home/components/Post'
 import Logout from './pages/LogInOut/components/Logout';
 
