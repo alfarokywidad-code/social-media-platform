@@ -9,7 +9,7 @@ function Profile() {
   const { id } = useParams();
 
   // !Get data from MyContext
-  const { users, setUsers } = useContext(MyContext);
+  const { users, setUsers, handleFollow, handleUnfollow } = useContext(MyContext);
 
   // !Show or hide followers and following
   const [showFollowers, setShowFollowers] = useState(false);
@@ -109,44 +109,6 @@ function Profile() {
     setShowEdit(false);
   }
 
-  // !Follow or unfollow user
-  function handleFollow() {
-
-    if (!currentUser) return;
-
-    const updatedUsers = users.map((user) => {
-
-      // !Update current user's following list
-      if (user.id === currentUser.id) {
-
-        const following = user.following || [];
-
-        return {
-          ...user,
-          following: isFollowing
-            ? following.filter((userId) => userId !== profileUser.id)
-            : [...following, profileUser.id]
-        };
-      }
-
-      // !Update profile user's followers list
-      if (user.id === profileUser.id) {
-
-        const followers = user.followers || [];
-
-        return {
-          ...user,
-          followers: isFollowing
-            ? followers.filter((userId) => userId !== currentUser.id)
-            : [...followers, currentUser.id]
-        };
-      }
-
-      return user;
-    });
-
-    setUsers(updatedUsers);
-  }
 
   return (
     <div className="profile-page">
@@ -214,7 +176,11 @@ function Profile() {
             currentUser && (
               <button
                 type="button"
-                onClick={handleFollow}
+                onClick={() =>
+                  isFollowing
+                    ? handleUnfollow(currentUser.id, profileUser.id)
+                    : handleFollow(currentUser.id, profileUser.id)
+                }
                 className="follow-button"
               >
                 {isFollowing ? "Following" : "Follow"}
