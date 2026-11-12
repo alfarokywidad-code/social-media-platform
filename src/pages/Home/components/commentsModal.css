@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: end;
+    z-index: 10000;
 }
 .commentModalContenaire2 {
     position: fixed;

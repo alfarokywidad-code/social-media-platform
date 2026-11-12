@@ -1,14 +1,13 @@
+
 import "./suggestUsers.css";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { MyContext } from "../../../utils/MyContext";
-import FollowButton from"./FollowButton";
-
+import FollowButton from "./FollowButton";
 
 function SuggestUsers() {
-    const {users, setUsers} = useContext(MyContext);
-    const currentUser = users.find((user) =>
-        user.isLoggedIn === true
-    ) ?? null;
+    const { users, currentUser, handleFollow } = useContext(MyContext);
+
     if (!currentUser) return null;
 
     const suggestUsers = users.filter((user) =>
@@ -16,33 +15,8 @@ function SuggestUsers() {
         !currentUser.following.includes(user.id)
     ).slice(0, 5);
 
-    function handleFollow(targetUserId) {
-
-        if (targetUserId === currentUser.id) return;
-        if (currentUser.following.includes(targetUserId)) return;
-        setUsers((prevSetUsers) =>
-            prevSetUsers.map((user) => {
-
-                if (user.id === currentUser.id) {
-                    return {
-                        ...user,
-                        following: [...user.following, targetUserId]
-                    };
-                }
-
-                if (user.id === targetUserId) {
-                    return {
-                        ...user,
-                        followers: [...user.followers, currentUser.id]
-                    }
-                }
-                return user;
-            })
-        );
-
-    }
     return (
-         <section className="suggested-users">
+        <section className="suggested-users">
 
             <h3>Suggested for you</h3>
 
@@ -50,7 +24,10 @@ function SuggestUsers() {
 
                 <div className="suggested-user" key={user.id}>
 
-                    <div className="suggested-user-info">
+                    <Link
+                        to={`/profile/${user.id}`}
+                        className="suggested-user-info"
+                    >
 
                         <div className="suggested-avatar">
                             {user.imageProfile ? (
@@ -68,11 +45,13 @@ function SuggestUsers() {
                             <p>{user.name}</p>
                         </div>
 
-                    </div>
+                    </Link>
 
                     <FollowButton
                         isFollowing={currentUser.following.includes(user.id)}
-                        onFollow={() => handleFollow(user.id)}
+                        onFollow={() =>
+                            handleFollow(currentUser.id, user.id)
+                        }
                     />
 
                 </div>
@@ -85,8 +64,7 @@ function SuggestUsers() {
             )}
 
         </section>
-    )
-
+    );
 }
 
 export default SuggestUsers;

@@ -1,162 +1,255 @@
-import './Post.css'
-import { useState } from 'react'
-import Comment from './comment'
-import ReactionPost from './reactionsPostCard'
-import CommentsModalCard from './commentsModal'
+import "./Post.css";
+import { useContext, useState } from "react";
+import { MyContext } from "../../../utils/MyContext";
+import Comment from "./comment";
+import ReactionPost from "./reactionsPostCard";
 
+function Post() {
+  const { users, setUsers, currentUser } = useContext(MyContext);
+  const [content, setContent] = useState("");
+  const [image, setImage] = useState("");
+  if (!currentUser) return null;
+  // import './Post.css'
+  // import { useState } from 'react'
+  // import Comment from './Comment'
+  // import ReactionPost from './reactionsPostCard'
+  // import CommentsModalCard from './commentsModal'
 
+  // function Post({ posts, setPosts }) {
+  //   const [content, setContent] = useState("")
+  //   const [image, setImage] = useState("")
+  //   const [openMenu, setOpenMenu] = useState(null)
+  //   const [editpost, setEditPost] = useState(null)
 
-
-
-function Post({post, posts, setPosts}) {
-  const [content, setContent]= useState("")
-  const [image, setImage]= useState("")
-  const [openMenu, setOpenMenu]= useState(null)
-  const [editpost,setEditPost]= useState(null)
-// import './Post.css'
-// import { useState } from 'react'
-// import Comment from './Comment'
-// import ReactionPost from './reactionsPostCard'
-// import CommentsModalCard from './commentsModal'
-
-// function Post({ posts, setPosts }) {
-//   const [content, setContent] = useState("")
-//   const [image, setImage] = useState("")
-//   const [openMenu, setOpenMenu] = useState(null)
-//   const [editpost, setEditPost] = useState(null)
-
-
-  // Add Post------------------------------------------------------------------------------------------------------
-  const addPost = (e) => {
-    e.preventDefault()
+  //!add post to users array:
+  const addPosttoUsersArray = (e) => {
+    e.preventDefault();
     if (content.trim() === "") {
-      alert('write somthing')
-      return
+      alert("write somthing");
+      return;
     }
-
+    if (!currentUser) return;
     const newPost = {
-      id: Date.now(),
+      id: crypto.randomUUID(),
       content: content,
       image: image,
       date: new Date().toLocaleDateString(),
-      author: "ouarda",
-      comment: []
-    }
-    if (editpost) {
-      setPosts(posts.map((p) => p.id === editpost ? newPost : p))
-      setEditPost("")
-    } else {
-      setPosts([...posts, newPost])
-    }
+      author: currentUser.name,
+      authorId: currentUser.id,
+      authorImage: currentUser.imageProfile,
+      comment: [],
+    };
+    setUsers((prev) => {
+      return prev.map((e) => {
+        if (e.id === currentUser.id) {
+          if (editpostId) {
+            return {
+              ...e,
+              posts: e.posts.map((post) => {
+                if (post.id === editpostId) {
+                  return {
+                    ...post,
+                    content: content,
+                    image: image,
+                  };
+                }
+                return post;
+              }),
+            };
+          }
+          return { ...e, posts: [...(e.posts || []), newPost] };
+        }
 
-    setContent("")
-    setImage("")
-  }
+        return e;
+      });
+    });
+
+    // if (editpost) {
+    //   setPosts(posts.map((p) => p.id === editpost ? newPost : p))
+    //   setEditPost("")
+    // } else {
+    //   setPosts([...posts, newPost])
+    // }
+
+    setContent("");
+    setImage("");
+    setEditPostId(null);
+    console.log(users);
+  };
+  // Add Post------------------------------------------------------------------------------------------------------
+  // const addPost = (e) => {
+  //   e.preventDefault()
+  //   if (content.trim() === "") {
+  //     alert('write somthing')
+  //     return
+  //   }
+
+  //   const newPost = {
+  //     id: Date.now(),
+  //     content: content,
+  //     image: image,
+  //     date: new Date().toLocaleDateString(),
+  //     author: "ouarda",
+  //     comment: []
+  //   }
+  //   if (editpost) {
+  //     setPosts(posts.map((p) => p.id === editpost ? newPost : p))
+  //     setEditPost("")
+  //   } else {
+  //     setPosts([...posts, newPost])
+  //   }
+
+  //   setContent("")
+  //   setImage("")
+  // }
 
   // Delete--------------------------------------------------------------------------------------------------------
-  const deletePost = (id) => {
-    const confrimation = window.confirm("Are you sure you want to delete this post?")
+  const deletePost = (postID, userId) => {
+    const confrimation = window.confirm(
+      "Are you sure you want to delete this post?",
+    );
     if (confrimation) {
-      setPosts(posts.filter((post) => post.id !== id))
+      setUsers((prev) =>
+        prev.map((e) => {
+          if (userId === e.id) {
+            return {
+              ...e,
+              posts: e.posts.filter((post) => post.id !== postID),
+            };
+          }
+          return e;
+        }),
+      );
     }
-
-  }
+  };
 
   // Edite-------------------------------------------------------------------------------------------------------
-  const edit = (post) => {
-    setEditPost(post.id)
-    setContent(post.content)
-    setImage(post.image)
-    setOpenMenu(null)
+  const [editpostId, setEditPostId] = useState(null);
 
-  }
-//! achraf code here:
-// comments btn:
-    const [commentIsClicked,setCommentIsClicked]=useState(false);
-    let clickComments = ()=>{
-        if (commentIsClicked === true) {
-            setCommentIsClicked(false)
-        }else{
-            setCommentIsClicked(true)
-        }
+  const edit = (postId) => {
+    let findPost = currentUser.posts.find((e) => {
+      return e.id === postId;
+    });
+    console.log(findPost);
+
+    // if (postId === currentUser.posts.map((e)=>(e.id))){
+
+    setContent(findPost.content);
+    setImage(findPost.image);
+    // }
+    setEditPostId(postId);
+    // setOpenMenu(null)
+  };
+  //! open menu------------
+  const [openMenu, setOpenMenu] = useState(null);
+  let editMenu = (postId) => {
+    // setOpenMenu(openMenu === user.id ? null : user.id)
+
+    if (openMenu === postId) {
+      setOpenMenu(null);
+    } else {
+      setOpenMenu(postId);
     }
-//! achraf code here:
-
-
+  };
+  console.log(openMenu);
+  //! achraf code here:
+  // comments btn:
+  const [commentIsClicked, setCommentIsClicked] = useState(false);
+  let clickComments = () => {
+    if (commentIsClicked === true) {
+      setCommentIsClicked(false);
+    } else {
+      setCommentIsClicked(true);
+    }
+  };
+  //! achraf code here:
   return (
-    <section className='postSection'>
+    <section className="postSection">
+      <div className="containerUserForm">
+        <img className="nameAcc1" src={currentUser.imageProfile} alt="User" />
 
-      <div className='containerUserForm'>
-         <p className='nameAcc1'>O</p>
-
-        <form onSubmit={addPost}>
-          <textarea onChange={(e)=> setContent(e.target.value)} name="" id="" value={content} placeholder="What's on your mind?"></textarea>
-          <input onChange={(e)=> setImage(e.target.value)} value={image} type="url" placeholder='Add image URL'/>
-          <button className='publishBtn' type='submit'>Post</button>
+        {/* <form onSubmit={addPost}> */}
+        <form onSubmit={addPosttoUsersArray}>
+          <textarea
+            onChange={(e) => setContent(e.target.value)}
+            name=""
+            id=""
+            value={content}
+            placeholder="What's on your mind?"
+          ></textarea>
+          <input
+            onChange={(e) => setImage(e.target.value)}
+            value={image}
+            type="url"
+            placeholder="Add image URL"
+          />
+          <button className="publishBtn" type="submit">
+            Post
+          </button>
         </form>
       </div>
-      
-        
 
-
-        
-          {posts.map((p) => {
-            return(
-              <div className='containerPst' key={p.id}>
-              <div >
-
-              <div className='containerNameAcc'>
-                <div className='userInfo'>
-                  <div className='nameAcc'>O</div>
+      {users.map((user) => {
+        return user.posts.map((post) => (
+          <div className="containerPst" key={user.id}>
+            <div>
+              <div className="containerNameAcc">
+                <div className="userInfo">
+                  <div>
+                    <img
+                      className="nameAcc"
+                      src={currentUser.imageProfile}
+                      alt="User"
+                    />
+                  </div>
 
                   <div>
-                    <h4>Ouarda</h4>
-                    <p>{p.date} </p>
+                    <h4>{post.author}</h4>
+                    <p>{post.date} </p>
                   </div>
                 </div>
 
-                <div className='containerMenu'>
-                  <button className='menuBtn' onClick={() => setOpenMenu(openMenu === p.id ? null : p.id)}>
+                <div className="containerMenu">
+                  {/* //!!!!!!!! */}
+                  <button className="menuBtn" onClick={() => editMenu(post.id)}>
                     <i className="fa-solid fa-ellipsis"></i>
                   </button>
 
-                  {openMenu === p.id && (
-                    <div className='dropDownMenu'>
-                      <button onClick={() => edit(p)}>Edit</button>
-                      <button onClick={() => deletePost(p.id)}>Delete</button>
-                    </div>
-                  )}
+                  <div
+                    className={
+                      openMenu === post.id ? "dropDownMenu" : "dropDownMenu2"
+                    }
+                  >
+                    <button onClick={() => edit(post.id)}>Edit</button>
+                    <button onClick={() => deletePost(post.id, user.id)}>
+                      Delete
+                    </button>
+                  </div>
                 </div>
-
-
-
-
               </div>
-              <p className='postContent'> {p.content} </p>
-              {p.image && (<img className='postImage' src={p.image} alt="" />)}
+              <p className="postContent"> {post.content} </p>
+              {post.image && (
+                <img className="postImage" src={post.image} alt="" />
+              )}
 
-              <div>
-
-              </div>
+              <div></div>
               {/* //?achraf code here */}
-              <ReactionPost clickComments={clickComments}/>
-                <CommentsModalCard commentIsClicked={commentIsClicked} clickComments={clickComments}/>
+              <ReactionPost clickComments={clickComments} />
+
+              <Comment
+                post={post}
+                commentIsClicked={commentIsClicked}
+                clickComments={clickComments}
+              />
               {/* //?achraf code here */}
               {/* // tst comnt */}
-              <Comment post={p}  />
-       
+              <Comment post={post} />
             </div>
-            </div>
-            )
-            
-            
-            
-          })}
-        
-
-
+          </div>
+        ));
+      })}
     </section>
-  )
+  );
 }
 
-export default Post
+export default Post;

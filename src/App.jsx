@@ -1,51 +1,105 @@
+
 import './App.css';
+
+import { useContext, useState } from 'react';
+import {
+    Route,
+    Routes,
+    Navigate,
+    useLocation
+} from 'react-router-dom';
+
+import { FiMenu, FiChevronLeft } from 'react-icons/fi';
+
+import { MyContext } from './utils/MyContext';
+
 import ErrorPage from './pages/Error/Error';
-import Home from './pages/Home/Home'
-import { Route, Routes, Navigate } from 'react-router-dom';
+import Home from './pages/Home/Home';
 import Header from './layouts/Header';
 import Sidebar from './layouts/Sidebar';
+
 import LogIn from './pages/LogInOut/components/Login';
 import SignUp from './pages/LogInOut/components/SignUp';
 import { useContext } from 'react';
 import { MyContext } from './utils/MyContext';
 import { useLocation } from 'react-router-dom';
+import Logout from './pages/LogInOut/components/Logout';
 
+import Explore from './pages/Explore/Explore';
 import Profile from './pages/Profile/Profile';
 
-
 function App() {
-    const {users} = useContext(MyContext);
-const location = useLocation()
-    const Y = location.pathname === '/LogIn' || location.pathname === '/sign' || location.pathname === '/login'
-  
+    const { currentUser } = useContext(MyContext);
 
-    const X = users.find((user)=>user.isLoggedIn===true)
+    const location = useLocation();
 
-    
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+    const isAuthPage =
+        location.pathname === '/login' ||
+        location.pathname === '/sign';
+
+    const isProfilePage = location.pathname.startsWith('/profile/');
+
+    const isLoggedIn = currentUser?.isLoggedIn === true;
+
+    const isSidebarCollapsed = isProfilePage && sidebarCollapsed;
+
+    function handleSidebarToggle() {
+        setSidebarCollapsed(prev => !prev);
+    }
+
     return (
-        <div className="app-layout">
+        <div className={`app-layout ${isAuthPage ? 'auth-layout' : ''} ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
 
-            {Y === false && <Sidebar />}
+            {!isAuthPage && <Sidebar />}
 
             <div className="app-right">
 
-                {/* <Header /> */}
-                {/* <Home/> */}
-                {Y===false && <Header />}
+                {!isAuthPage && <Header />}
+
+                {isProfilePage && (
+                    <button
+                        className="sidebar-toggle"
+                        onClick={handleSidebarToggle}
+                        aria-label={sidebarCollapsed ? 'Open sidebar' : 'Close sidebar'}
+                        title={sidebarCollapsed ? 'Open sidebar' : 'Close sidebar'}
+                    >
+                        {sidebarCollapsed ? <FiMenu /> : <FiChevronLeft />}
+                    </button>
+                )}
 
                 <main className="main-content">
                     <Routes>
-                      <Route   path='/' element={X ? <Home/>: <Navigate to='/login' replace/>}/>
-                      {/*  */}
+                        <Route
+                            path="/"
+                            element={isLoggedIn ? <Home /> : <Navigate to="/login" replace />}
+                        />
+
+                        <Route
+                            path="/login"
+                            element={!isLoggedIn ? <LogIn /> : <Navigate to="/" replace />}
+                        />
+
+                        <Route
+                            path="/sign"
+                            element={!isLoggedIn ? <SignUp /> : <Navigate to="/" replace />}
+                        />
+
+                        <Route path="/logout" element={<Logout />} />
+
+                        <Route
+                            path="/profile/:id"
+                            element={isLoggedIn ? <Profile /> : <Navigate to="/login" replace />}
+                        />
+
+                        <Route path="/explore" element={<Explore />} />
+
                         <Route path="*" element={<ErrorPage />} />
-                        <Route path='/login' element={<LogIn />} />
-                        <Route path='/sign' element={<SignUp />} />
-                        <Route path="/profile/:id" element={<Profile />} />
                     </Routes>
                 </main>
 
             </div>
-
         </div>
     );
 }

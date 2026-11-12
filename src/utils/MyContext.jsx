@@ -1,41 +1,52 @@
+
 import { createContext, useState, useEffect } from "react";
 
 export const MyContext = createContext();
 
-
-
 export function MyProvider({ children }) {
-
-  
     // All registered users
     const [users, setUsers] = useState(() => {
 
-          const theProfil = localStorage.getItem('newUser');
-          if (theProfil && theProfil !== "undefined") {
-              return JSON.parse(theProfil)
-          }
-          
-         return[
-       
-         ]
-})
+        const theProfil = localStorage.getItem("newUser");
+
+        if (theProfil && theProfil !== "undefined") {
+            return JSON.parse(theProfil);
+        }
+
+        return [
+            {
+                id: crypto.randomUUID(),
+                isLoggedIn: false,
+                name: "nawfal",
+                username: "NOVA",
+                email: "nawfal@gmail.com",
+                age: "20",
+                bio: "hellow",
+                location: "alhoceima",
+                imageProfile: "",
+                coverImage: "",
+                followers: [],
+                following: [],
+                posts: []
+            }
+        ];
+    });
 
 
-
-
-    // Save all users whenever the list changes
+    // Save all users in localStorage
     useEffect(() => {
         localStorage.setItem("newUser", JSON.stringify(users));
     }, [users]);
 
-    //   current user
+
+    // Current logged-in user
     const currentUser = users.find(
         (user) => user.isLoggedIn === true
     ) ?? null;
 
+
     // Follow a user
     function handleFollow(currentUserId, targetUserId) {
-
 
         if (currentUserId === targetUserId) return;
 
@@ -78,6 +89,7 @@ export function MyProvider({ children }) {
         });
     }
 
+
     // Unfollow a user
     function handleUnfollow(currentUserId, targetUserId) {
 
@@ -109,7 +121,12 @@ export function MyProvider({ children }) {
             });
         });
     }
+
+
+    // Search
     const [search, setSearch] = useState("");
+
+
     return (
         <MyContext.Provider
             value={{
@@ -117,7 +134,9 @@ export function MyProvider({ children }) {
                 setUsers,
                 currentUser,
                 handleFollow,
-                handleUnfollow,search,setSearch
+                handleUnfollow,
+                search,
+                setSearch
             }}
         >
             {children}
