@@ -20,9 +20,12 @@ function Home() {
   
   //! achraf code here !!
   const [posts, setPosts] = useState([])
+  const{users,setUsers,currentUser} = useContext(MyContext)
+  console.log(currentUser.name);
+  
   return (
     <div>
-      <Post posts={posts} setPosts={setPosts} />
+      <Post posts={posts} setPosts={setPosts} users={users} setUsers={setUsers} currentUser={currentUser} />
       {/* //! achraf */}
       {/* {users.map((e)=>(
       < PostCard 
