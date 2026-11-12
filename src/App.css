@@ -1,12 +1,7 @@
 
-/* =================================
-   GLOBAL
-================================= */
-
 * {
     box-sizing: border-box;
 }
-
 html,
 body,
 #root {
@@ -15,211 +10,134 @@ body,
     margin: 0;
     padding: 0;
 }
-
 body {
     overflow-x: hidden;
 }
-
 .app-layout {
     width: 100%;
     min-height: 100vh;
-    background-color: rgb(242, 236, 254);
+    background-color: #F2ECFE;
 }
-
-/* =================================
-   MAIN LAYOUT
-================================= */
-
 .app-right {
     width: calc(100% - 250px);
     min-width: 0;
     min-height: 100vh;
-
     margin-left: 250px;
-
     transition: width 0.3s ease, margin-left 0.3s ease;
 }
-
-/* =================================
-   HEADER
-================================= */
-
 .app-layout .header {
     width: 100%;
     left: 0;
 }
-
-/* =================================
-   PAGE CONTENT
-================================= */
-
 .main-content {
     width: 100%;
     min-width: 0;
     min-height: 100vh;
-
     padding: 100px 25px 30px;
-
     transition: width 0.3s ease, padding 0.3s ease;
 }
-
-/* =================================
-   SIDEBAR TOGGLE
-================================= */
-
 .sidebar-toggle {
     position: fixed;
     top: 88px;
     left: 260px;
-
     width: 34px;
     height: 34px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: #ffffff;
-    color: rgb(125, 56, 218);
-
-    border: 1px solid rgb(228, 235, 239);
+    background-color: #FFFFFF;
+    color: #7D38DA;
+    border: 1px solid #E4EBEF;
     border-radius: 9px;
-
     font-size: 20px;
-
     cursor: pointer;
     z-index: 1100;
-
-    transition:
-        left 0.3s ease,
-        background-color 0.2s ease,
-        color 0.2s ease;
+    transition: left 0.3s ease, background-color 0.2s ease, color 0.2s ease;
 }
-
 .sidebar-toggle:hover {
-    background-color: rgb(125, 56, 218);
-    color: #ffffff;
+    background-color: #7D38DA;
+    color: #FFFFFF;
 }
-
-/* =================================
-   SIDEBAR COLLAPSED
-================================= */
-
 .sidebar-collapsed .sidebar {
     transform: translateX(-100%);
 }
-
 .sidebar-collapsed .app-right {
     width: 100%;
     margin-left: 0;
 }
-
 .sidebar-collapsed .main-content {
     width: 100%;
 }
-
 .sidebar-collapsed .header {
     width: 100%;
     left: 0;
 }
-
 .sidebar-collapsed .sidebar-toggle {
     left: 10px;
 }
-
-/* =================================
-   AUTHENTICATION PAGES
-================================= */
-
 .auth-layout {
     width: 100%;
     min-height: 100vh;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
 }
-
 .auth-layout .app-right {
     width: 100%;
     margin-left: 0;
 }
-
 .auth-layout .main-content {
     width: 100%;
     min-height: 100vh;
     padding: 0;
 }
-
-/* =================================
-   TABLET
-================================= */
-
 @media (max-width: 1024px) and (min-width: 601px) {
-
     .app-right {
         width: calc(100% - 78px);
         margin-left: 78px;
     }
-
     .main-content {
         padding: 100px 20px 30px;
     }
-
     .sidebar-toggle {
         left: 88px;
     }
-
     .sidebar-collapsed .app-right {
         width: 100%;
         margin-left: 0;
     }
-
     .sidebar-collapsed .sidebar-toggle {
         left: 10px;
     }
-
     .auth-layout .app-right {
         width: 100%;
         margin-left: 0;
     }
-
     .auth-layout .main-content {
         padding: 0;
     }
 }
-
-/* =================================
-   MOBILE - 600px
-================================= */
-
 @media (max-width: 600px) {
-
     .app-right {
         width: 100%;
         margin-left: 0;
     }
-
     .main-content {
         width: 100%;
         min-height: 100vh;
         padding: 85px 12px 85px;
     }
-
     .sidebar-toggle {
         display: none;
     }
-
     .sidebar-collapsed .sidebar {
         transform: none;
     }
-
     .sidebar-collapsed .app-right {
         width: 100%;
         margin-left: 0;
     }
-
     .sidebar-collapsed .main-content {
         width: 100%;
     }
-
     .auth-layout .main-content {
         padding: 0;
     }

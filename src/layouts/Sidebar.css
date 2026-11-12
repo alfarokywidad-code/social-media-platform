@@ -1,34 +1,19 @@
-
-/* ==============================
-   SIDEBAR
-============================== */
-
 .sidebar {
     width: 250px;
     min-width: 250px;
     height: 100vh;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     padding: 95px 16px 20px;
-
     background-color: #ffffff;
     border-right: 1px solid rgb(228, 235, 239);
-
     position: fixed;
     top: 0;
     left: 0;
-
     z-index: 900;
-
     transition: transform 0.3s ease;
 }
-
-/* ==============================
-   NAVIGATION
-============================== */
 
 .sidebar-navigation {
     display: flex;
@@ -36,83 +21,55 @@
     gap: 8px;
 }
 
-/* Sidebar Links */
 
 .sidebar-link {
     width: 100%;
     min-height: 48px;
-
     display: flex;
     align-items: center;
     gap: 15px;
-
     padding: 0 15px;
-
     color: rgb(24, 39, 56);
     background-color: transparent;
-
     border: none;
     border-radius: 10px;
-
     font-size: 15px;
     font-weight: 500;
-
     text-decoration: none;
     cursor: pointer;
-
     transition: background-color 0.2s ease, color 0.2s ease;
 }
-
-/* Icons */
 
 .sidebar-link svg {
     width: 21px;
     height: 21px;
     flex-shrink: 0;
 }
-
-/* Hover */
-
 .sidebar-link:hover {
     background-color: rgb(242, 236, 254);
     color: rgb(125, 56, 218);
 }
-
-/* Active Link */
-
 .sidebar-link.active {
     background-color: rgb(242, 236, 254);
     color: rgb(125, 56, 218);
     font-weight: 700;
-
     position: relative;
 }
 
-/* Active Indicator */
-
 .sidebar-link.active::before {
     content: "";
-
     width: 4px;
     height: 25px;
-
     background-color: rgb(125, 56, 218);
-
     position: absolute;
     left: 0;
-
     border-radius: 0 5px 5px 0;
 }
-
-/* ==============================
-   SIDEBAR BOTTOM
-============================== */
 
 .sidebar-bottom {
     display: flex;
     flex-direction: column;
     gap: 10px;
-
     border-top: 1px solid rgb(228, 235, 239);
     padding-top: 15px;
 }
@@ -121,15 +78,10 @@
     color: rgb(24, 39, 56);
 }
 
-/* ==============================
-   TABLET
-============================== */
-
 @media (max-width: 1024px) {
     .sidebar {
         width: 78px;
         min-width: 78px;
-
         padding: 95px 10px 20px;
     }
 
@@ -152,36 +104,26 @@
     }
 }
 
-/* ==============================
-   MOBILE
-============================== */
-
 @media (max-width: 600px) {
     .sidebar {
         width: 100%;
         min-width: 100%;
         height: 65px;
-
         top: auto;
         bottom: 0;
         left: 0;
-
         padding: 5px 8px;
-
         border-right: none;
         border-top: 1px solid rgb(228, 235, 239);
-
         background-color: #ffffff;
     }
 
     .sidebar-navigation {
         width: 100%;
         height: 100%;
-
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
-
         gap: 3px;
     }
 
@@ -189,7 +131,6 @@
         width: 45px;
         min-width: 0;
         min-height: 45px;
-
         justify-content: center;
         padding: 0;
     }
@@ -210,12 +151,9 @@
     .sidebar-link.active::before {
         width: 22px;
         height: 3px;
-
         left: 50%;
         top: 0;
-
         transform: translateX(-50%);
-
         border-radius: 0 0 5px 5px;
     }
 }

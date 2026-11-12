@@ -1,46 +1,45 @@
-import './Comment.css'
-import { useState } from 'react';
+import "./Comment.css";
+import { useState } from "react";
+import CommentsModalCard from "./commentsModal";
 
-
-
-function Comment({post}) {
+function Comment({ post, commentIsClicked, clickComments }) {
   const [comment, setComment] = useState([]);
-  const [text, setText] = useState("")
+  const [text, setText] = useState("");
 
-    // Add Post------------------------------------------------------------------------------------------------------
-    const addComment=(e)=>{
-      e.preventDefault()
-     if (text.trim()==="" ){
-      alert('write somthing')
-      return
+  // Add Post------------------------------------------------------------------------------------------------------
+  const addComment = (e) => {
+    e.preventDefault();
+    if (text.trim() === "") {
+      alert("write somthing");
+      return;
     }
 
-    const newComment ={
+    const newComment = {
       id: Date.now(),
-      text: text
+      text: text,
+    };
+    setComment([...comment, newComment]);
 
-    }
-    setComment([...comment, newComment])
-    
-    setText("")
-
-  }
+    setText("");
+  };
   // Delete------------------------------------------------------------------------------------------------------
-  const deleteComment = (id)=>{
-    setComment(comment.filter((comnt)=>comnt.id !== id))
-  }
-
+  const deleteComment = (id) => {
+    setComment(comment.filter((comnt) => comnt.id !== id));
+  };
 
   return (
     <div>
-        <p>Comments ( {comment.length} )</p>
-        <form onSubmit={addComment}>
-          <input type="text" placeholder='Add a comment' onChange={(e)=>setText(e.target.value)} value={text}/>
-          <button type='submit'><i className="fa-solid fa-paper-plane"></i></button>
-        </form>
+      <CommentsModalCard
+        commentIsClicked={commentIsClicked}
+        clickComments={clickComments}
+        comment={comment}
+        text={text}
+        setText={setText}
+        addComment={addComment}
+        deleteComment={deleteComment}
+      />
 
-
-        <div>
+      {/* <div>
           {comment.map((c)=>{
             return(
               <div key={c.id}>
@@ -51,10 +50,9 @@ function Comment({post}) {
             ) 
             
           })}
-        </div>
-        
+        </div> */}
     </div>
-  )
+  );
 }
 
 export default Comment;
