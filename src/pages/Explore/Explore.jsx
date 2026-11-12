@@ -7,107 +7,49 @@ import FollowButton from "./Componenets/FollowButton";
 import SuggestUsers from "./Componenets/suggestUsers";
 
 function Explore() {
-
     const {
         users,
-        search,
+        currentUser,
         handleFollow,
-        handleUnfollow,
-        currentUser
+        handleUnfollow
     } = useContext(MyContext);
 
     if (!currentUser) {
-        return (
-            <p>Current user not found.</p>
-        );
+        return <p>Current user not found.</p>;
     }
 
-    const otherUsers = users.filter((user) =>
-        user.id !== currentUser.id
+    const usersNotFollowing = users.filter((user) =>
+        user.id !== currentUser.id &&
+        !currentUser.following.includes(user.id));
+    const explorePosts = usersNotFollowing.map((user) =>
+        user.posts.map((post) => ({
+            ...post,
+        }))
     );
+    const allExplorePosts = explorePosts.flat();
 
-    const filterUsers = otherUsers.filter((user) => {
-
-        return (
-            (user.username ?? "").toLowerCase().includes((search ?? "").toLowerCase()) ||
-            (user.name ?? "").toLowerCase().includes((search ?? "").toLowerCase())
-        );
-    });
 
     return (
         <section className="explore">
-
             <div className="explore-main">
-
                 <div className="explore-header">
-                    <h2>Discover People</h2>
-                    <p>Find and connect with new people.</p>
+                    <h2>Discover Posts</h2>
+                    <p>Explore posts from people you don't follow.</p>
                 </div>
 
-                <div className="explore-users">
+                <div className="explore-posts">
 
-                    {filterUsers.map((user) => {
-
-                        const isFollowing =
-                            currentUser.following.includes(user.id);
-
-                        return (
-                            <div className="explore-card" key={user.id}>
-
-                                <Link
-                                    to={`/profile/${user.id}`}
-                                    className="explore-user-link"
-                                >
-
-                                    <div className="explore-avatar">
-
-                                        {user.imageProfile ? (
-                                            <img
-                                                src={user.imageProfile}
-                                                alt={user.username}
-                                            />
-                                        ) : (
-                                            user.name.charAt(0).toUpperCase()
-                                        )}
-
-                                    </div>
-
-                                    <div className="explore-user-info">
-                                        <h3>{user.username}</h3>
-                                        <p>{user.name}</p>
-                                        <span>{user.bio}</span>
-                                    </div>
-
-                                </Link>
-
-                                <FollowButton
-                                    isFollowing={isFollowing}
-                                    onFollow={() =>
-                                        handleFollow(currentUser.id, user.id)
-                                    }
-                                    onUnfollow={() =>
-                                        handleUnfollow(currentUser.id, user.id)
-                                    }
-                                />
-
-                            </div>
-                        );
-                    })}
-
-                    {filterUsers.length === 0 && (
+                    {explorePosts.length === 0 && (
                         <p className="no-users">
-                            No users found.
+                            No posts to discover at the moment.
                         </p>
                     )}
-
                 </div>
-
             </div>
 
             <aside>
                 <SuggestUsers />
             </aside>
-
         </section>
     );
 }
