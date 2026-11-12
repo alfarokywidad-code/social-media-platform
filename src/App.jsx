@@ -9,7 +9,6 @@ import SignUp from './pages/LogInOut/components/SignUp';
 import { useContext } from 'react';
 import { MyContext } from './utils/MyContext';
 import { useLocation } from 'react-router-dom';
-import Logout from './pages/LogInOut/components/Logout';
 
 import Profile from './pages/Profile/Profile';
 
