@@ -1,85 +1,98 @@
 .suggested-users {
     width: 100%;
-    padding: 20px 16px;
-    background-color: #ffffff;
-    border-radius: 12px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border: 1px solid #E4EBEF;
+    border-radius: 14px;
 }
-
 .suggested-users h3 {
-    font-size: 16px;
+    color: #182738;
+    font-size: 17px;
     font-weight: 700;
-    color: #262626;
     margin-bottom: 20px;
 }
-
 .suggested-user {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 18px;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid #E4EBEF;
 }
-
+.suggested-user:last-of-type {
+    border-bottom: none;
+}
 .suggested-user-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    flex: 1;
     min-width: 0;
+    text-decoration: none;
+    color: inherit;
 }
-
+.suggested-user-info:hover h4 {
+    color: #7D38DA;
+}
 .suggested-avatar {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
-    border-radius: 50%;
-    overflow: hidden;
+    width: 43px;
+    height: 43px;
+    min-width: 43px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #e8e8e8;
-    color: #262626;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #F2ECFE;
+    color: #7D38DA;
     font-size: 17px;
-    font-weight: 600;
+    font-weight: 700;
 }
-
 .suggested-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .suggested-user-info h4 {
+    color: #182738;
     font-size: 13px;
-    font-weight: 600;
-    color: #262626;
-    margin: 0 0 4px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    transition: 0.2s;
 }
-
 .suggested-user-info p {
+    color: #64748B;
     font-size: 12px;
-    color: #8e8e8e;
-    margin: 0;
 }
-
+.suggested-user button {
+    flex-shrink: 0;
+}
 .suggested-empty {
-    font-size: 13px;
-    color: #8e8e8e;
-    text-align: center;
     padding: 15px 5px;
+    color: #64748B;
+    font-size: 13px;
+    text-align: center;
 }
-
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     .suggested-users {
-        padding: 16px 12px;
+        padding: 15px;
     }
-
+    .suggested-users h3 {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
     .suggested-user {
         gap: 8px;
+        padding: 10px 0;
     }
-
     .suggested-avatar {
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        font-size: 15px;
+    }
+    .suggested-user-info {
+        gap: 9px;
     }
 }

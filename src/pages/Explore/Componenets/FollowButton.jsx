@@ -1,3 +1,4 @@
+
 import "./FollowButton.css";
 
 function FollowButton({
@@ -18,12 +19,12 @@ function FollowButton({
         <button
             className={
                 isFollowing
-                    ? "following-btn"
+                    ? "unfollow-btn"
                     : "follow-btn"
             }
             onClick={handleClick}
         >
-            {isFollowing ? "Following" : "Follow"}
+            {isFollowing ? "Unfollow" : "Follow"}
         </button>
     );
 }
