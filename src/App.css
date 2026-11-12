@@ -1,91 +1,226 @@
+
+/* =================================
+   GLOBAL
+================================= */
+
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-.app-layout {
-    display: flex;
-    min-height: 100vh;
+html,
+body,
+#root {
     width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-.sidebar {
-    width: 240px;
-    min-width: 240px;
-    height: 100vh;
+body {
+    overflow-x: hidden;
+}
+
+.app-layout {
+    width: 100%;
     min-height: 100vh;
-
-    position: sticky;
-    top: 0;
-    align-self: flex-start;
+    background-color: rgb(242, 236, 254);
 }
+
+/* =================================
+   MAIN LAYOUT
+================================= */
 
 .app-right {
-    flex: 1;
+    width: calc(100% - 250px);
     min-width: 0;
+    min-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
+    margin-left: 250px;
+
+    transition: width 0.3s ease, margin-left 0.3s ease;
 }
 
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 200;
+/* =================================
+   HEADER
+================================= */
 
+.app-layout .header {
     width: 100%;
-    height: 70px;
-    flex-shrink: 0;
+    left: 0;
 }
+
+/* =================================
+   PAGE CONTENT
+================================= */
 
 .main-content {
-    flex: 1;
+    width: 100%;
     min-width: 0;
-    padding: 25px;
+    min-height: 100vh;
+
+    padding: 100px 25px 30px;
+
+    transition: width 0.3s ease, padding 0.3s ease;
 }
 
-.footer {
-    margin-top: auto;
+/* =================================
+   SIDEBAR TOGGLE
+================================= */
+
+.sidebar-toggle {
+    position: fixed;
+    top: 88px;
+    left: 260px;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #ffffff;
+    color: rgb(125, 56, 218);
+
+    border: 1px solid rgb(228, 235, 239);
+    border-radius: 9px;
+
+    font-size: 20px;
+
+    cursor: pointer;
+    z-index: 1100;
+
+    transition:
+        left 0.3s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    background-color: rgb(125, 56, 218);
+    color: #ffffff;
+}
+
+/* =================================
+   SIDEBAR COLLAPSED
+================================= */
+
+.sidebar-collapsed .sidebar {
+    transform: translateX(-100%);
+}
+
+.sidebar-collapsed .app-right {
+    width: 100%;
+    margin-left: 0;
+}
+
+.sidebar-collapsed .main-content {
     width: 100%;
 }
 
-@media (max-width: 1024px) {
-    .sidebar {
-        width: 75px;
-        min-width: 75px;
-    }
+.sidebar-collapsed .header {
+    width: 100%;
+    left: 0;
 }
 
-@media (max-width: 600px) {
-    .app-layout {
-        flex-direction: column;
-    }
+.sidebar-collapsed .sidebar-toggle {
+    left: 10px;
+}
 
-    .sidebar {
-        position: fixed;
-        top: auto;
-        bottom: 0;
-        left: 0;
+/* =================================
+   AUTHENTICATION PAGES
+================================= */
 
-        width: 100%;
-        min-width: 100%;
-        height: 62px;
-        min-height: 62px;
+.auth-layout {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #ffffff;
+}
 
-        z-index: 300;
-    }
+.auth-layout .app-right {
+    width: 100%;
+    margin-left: 0;
+}
+
+.auth-layout .main-content {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* =================================
+   TABLET
+================================= */
+
+@media (max-width: 1024px) and (min-width: 601px) {
 
     .app-right {
-        width: 100%;
+        width: calc(100% - 78px);
+        margin-left: 78px;
     }
 
     .main-content {
-        padding: 15px;
-        padding-bottom: 75px;
+        padding: 100px 20px 30px;
     }
 
-    .footer {
-        padding-bottom: 75px;
+    .sidebar-toggle {
+        left: 88px;
+    }
+
+    .sidebar-collapsed .app-right {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .sidebar-collapsed .sidebar-toggle {
+        left: 10px;
+    }
+
+    .auth-layout .app-right {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .auth-layout .main-content {
+        padding: 0;
+    }
+}
+
+/* =================================
+   MOBILE - 600px
+================================= */
+
+@media (max-width: 600px) {
+
+    .app-right {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .main-content {
+        width: 100%;
+        min-height: 100vh;
+        padding: 85px 12px 85px;
+    }
+
+    .sidebar-toggle {
+        display: none;
+    }
+
+    .sidebar-collapsed .sidebar {
+        transform: none;
+    }
+
+    .sidebar-collapsed .app-right {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .sidebar-collapsed .main-content {
+        width: 100%;
+    }
+
+    .auth-layout .main-content {
+        padding: 0;
     }
 }

@@ -25,13 +25,7 @@ export const MyContext = createContext();
 // }
 
 export function MyProvider({ children }) {
-  // !nawfal code
-  const [users, setUsers] = useState(() => {
-    const theProfil = localStorage.getItem("newUser");
-    if (theProfil && theProfil !== "undefined") {
-      return JSON.parse(theProfil);
-    }
-
+  
     // All registered users
     const [users, setUsers] = useState(() => {
 

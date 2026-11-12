@@ -1,58 +1,63 @@
-.explore {
-    display: flex;
-    gap: 30px;
-    width: 100%;
-    min-height: 100vh;
-    padding: 30px;
-    background-color: #fafafa;
-    box-sizing: border-box;
-}
 
+.explore {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    padding: 25px;
+    background-color: #F2ECFE;
+}
 .explore-main {
     flex: 1;
     min-width: 0;
-    max-width: 850px;
-    margin: 0 auto;
 }
-
 .explore-header {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
-
 .explore-header h2 {
-    font-size: 25px;
+    color: #182738;
+    font-size: 26px;
     font-weight: 700;
-    color: #262626;
     margin-bottom: 8px;
 }
-
 .explore-header p {
+    color: #64748B;
     font-size: 14px;
-    color: #8e8e8e;
 }
-
 .explore-users {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
-
 .explore-card {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 14px;
     padding: 18px;
-    background-color: #ffffff;
-    border: 1px solid #efefef;
-    border-radius: 12px;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    background-color: #FFFFFF;
+    border: 1px solid #E4EBEF;
+    border-radius: 14px;
+    transition: 0.25s ease;
 }
-
 .explore-card:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border-color: #7D38DA;
+    box-shadow: 0 5px 18px rgba(24, 39, 56, 0.08);
     transform: translateY(-2px);
 }
-
+.explore-user-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+    text-decoration: none;
+    color: inherit;
+}
+.explore-user-link:hover .explore-user-info h3 {
+    color: #7D38DA;
+}
 .explore-avatar {
     width: 55px;
     height: 55px;
@@ -62,89 +67,104 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #e8e8ff;
-    color: #6258d8;
-    font-size: 22px;
+    background-color: #F2ECFE;
+    color: #7D38DA;
+    font-size: 20px;
     font-weight: 700;
 }
-
 .explore-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .explore-user-info {
     flex: 1;
     min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
 }
-
 .explore-user-info h3 {
-    font-size: 14px;
-    font-weight: 600;
-    color: #262626;
+    color: #182738;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    transition: 0.2s;
 }
-
 .explore-user-info p {
+    color: #64748B;
     font-size: 13px;
-    color: #737373;
+    margin-bottom: 5px;
 }
-
 .explore-user-info span {
+    display: block;
+    color: #94A3B8;
     font-size: 12px;
-    color: #999999;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .explore-card button {
     flex-shrink: 0;
 }
-
 .no-users {
-    grid-column: 1 / -1;
+    width: 100%;
+    padding: 30px;
     text-align: center;
-    padding: 40px 20px;
-    color: #8e8e8e;
-    font-size: 14px;
+    color: #64748B;
+    background-color: #FFFFFF;
+    border-radius: 14px;
 }
-
-
-.explore-sidebar {
-    width: 260px;
-    flex-shrink: 0;
+.explore aside {
+    width: 280px;
+    min-width: 280px;
 }
-
-
-@media (max-width: 1000px) {
-    .explore-sidebar {
-        display: none;
-    }
-
-    .explore-main {
-        max-width: 750px;
-    }
-}
-
-@media (max-width: 650px) {
+@media (max-width: 1024px) and (min-width: 601px) {
     .explore {
-        padding: 20px 14px;
+        gap: 18px;
+        padding: 20px;
     }
-
-    .explore-users {
-        grid-template-columns: 1fr;
-        gap: 12px;
+    .explore aside {
+        width: 240px;
+        min-width: 240px;
     }
-
+}
+@media (max-width: 600px) {
+    .explore {
+        flex-direction: column;
+        padding: 15px;
+        gap: 25px;
+    }
+    .explore-main {
+        width: 100%;
+    }
     .explore-header h2 {
         font-size: 22px;
     }
-
+    .explore-users {
+        gap: 12px;
+    }
     .explore-card {
         padding: 14px;
+        gap: 10px;
+    }
+    .explore-user-link {
+        gap: 10px;
+    }
+    .explore-avatar {
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        font-size: 17px;
+    }
+    .explore-user-info h3 {
+        font-size: 14px;
+    }
+    .explore-user-info p {
+        font-size: 12px;
+    }
+    .explore-user-info span {
+        font-size: 11px;
+    }
+    .explore aside {
+        width: 100%;
+        min-width: 0;
     }
 }
