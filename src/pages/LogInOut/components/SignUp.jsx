@@ -25,11 +25,14 @@ function SignUp() {
     function Add(e) {
         e.preventDefault();
 
-        const srchprfl = users.find((item) => item.name === name)
+        const srchprfl = users.find((item) => item.email === email)
 
         if (srchprfl) {
             setErrorsc("the account already exist");
-
+               setEmail('')
+        setName('')
+        setUsername('')
+        setpassword('')
             //            localStorage.clear();
             // window.location.reload();
             return;
@@ -38,7 +41,7 @@ function SignUp() {
         // ar then we use the oj
         setUsers([...users, {
             id: crypto.randomUUID(),
-            isLoggedIn: true,
+            isLoggedIn: false,
             name: name,
             username: username,
             email: email,
@@ -104,7 +107,7 @@ function SignUp() {
           <div className="iconinput"><MdOutlineEmail className="theicon"/><input className="inputsSign" type="email" placeholder="Email Adress" value={email} onChange={event=>setEmail(event.target.value)}   required /></div>  <br />
           <div className="iconinput"><RiLockPasswordFill className="theicon"/><input className="inputsSign" type="password" placeholder="Password" value={password} onChange={event=>setpassword(event.target.value)} required  /></div>  <br />
            <button type="submit" className="btnsign">Sign Up</button>
-           <p className="error" style={{color: errorsc === "password or email is wrong" ? 'red' : 'green'}}>{errorsc}</p>
+           <p className="error" style={{color: errorsc === "password or email is wrong" || "the account already exist" ? 'red' : 'green'}}>{errorsc}</p>
             <button className="loginlink">Already have an account <Link className="loginspan" to='/login' >Log in</Link></button>
         </form>
 

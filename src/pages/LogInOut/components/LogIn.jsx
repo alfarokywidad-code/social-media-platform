@@ -31,6 +31,8 @@ const thenavigate = useNavigate()
 
         // document.querySelector('.error').style.opacity = 1
         // document.querySelector('.error').textContent="the account doesn't exist"
+        setEmailsc('')
+        setpasswordsc('')
         setError("email or password is wrong!");
        
         return;
