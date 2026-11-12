@@ -35,7 +35,7 @@ function Post({ users, setUsers, currentUser }) {
       id: crypto.randomUUID(),
       content: content,
       image: image,
-      date: new Date().toLocaleDateString(),
+      date: new Date().toISOString(),
       author: currentUser.name,
       comment: []
     }
@@ -163,6 +163,18 @@ function Post({ users, setUsers, currentUser }) {
     }
   }
   //! achraf code here:
+  // !! sorting postes by date
+  const allPosts = users.flatMap((user) =>
+    user.posts.map((post) => ({
+        ...post,
+        userId: user.id,
+        username: user.username
+    }))
+    
+);
+const sortedPosts = [...allPosts].sort((a, b) =>
+    new Date(b.date) - new Date(a.date)
+);
   return (
     <section className='postSection'>
 
@@ -181,11 +193,11 @@ function Post({ users, setUsers, currentUser }) {
 
 
 
-      {users.map((user) => {
-        return (
-          user.posts.map((post) => (
+      {sortedPosts.map((post) => (
+        // return (
+        //   user.posts.map((post) => (
 
-            <div className='containerPst' key={user.id}>
+            <div className='containerPst' key={post.id}>
               <div >
 
                 <div className='containerNameAcc'>
@@ -207,14 +219,10 @@ function Post({ users, setUsers, currentUser }) {
 
                     <div className={openMenu === post.id ? 'dropDownMenu' : 'dropDownMenu2'}>
                       <button onClick={() => edit(post.id)}>Edit</button>
-                      <button onClick={() => deletePost(post.id,user.id)}>Delete</button>
+                      <button onClick={() => deletePost(post.id,post.userId)}>Delete</button>
                     </div>
 
                   </div>
-
-
-
-
                 </div>
                 <p className='postContent'> {post.content} </p>
                 {post.image && (<img className='postImage' src={post.image} alt="" />)}
@@ -231,10 +239,10 @@ function Post({ users, setUsers, currentUser }) {
 
               </div>
             </div>
-          ))
-        )
+          // ))
+        // )
 
-      })}
+      ))}
 
 
 
