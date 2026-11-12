@@ -1,44 +1,93 @@
 .header {
     width: 100%;
-    height: 70px;
-    min-height: 70px;
+    height: 75px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 30px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    position: sticky;
+    padding: 0 35px;
+    position: fixed;
     top: 0;
-    z-index: 200;
+    left: 0;
+    background-color: #ffffff;
+    border-bottom: 1px solid rgb(228, 235, 239);
+    z-index: 1000;
 }
 
-.header-search {
-    width: 320px;
-    max-width: 45%;
-    height: 42px;
+.header-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.header-logo a {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 0 14px;
-    background-color: #f3f4f6;
-    border: 1px solid transparent;
-    border-radius: 10px;
-    transition: background-color 0.2s ease,
-                color 0.2s ease,
-                border-color 0.2s ease;
+    text-decoration: none;
+}
+
+.header-logo-icon {
+    width: 45px;
+    height: 45px;
+}
+
+.header-logo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.header-logo-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.header-logo-name {
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.header-logo-molen {
+    color: rgb(24, 39, 56);
+}
+
+.header-logo-geek {
+    color: rgb(125, 56, 218);
+}
+
+.header-logo-subtitle {
+    /* color: rgb(24, 39, 56); */
+    color: rgb(80, 155, 125);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+}
+
+.header-search {
+    width: 350px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 15px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(242, 236, 254);
+    border: 1px solid rgb(228, 235, 239);
+    border-radius: 12px;
+    color: rgb(125, 56, 218);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header-search:focus-within {
-    background-color: #ffffff;
-    border-color: #d1d5db;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
+    border-color: rgb(125, 56, 218);
+    box-shadow: 0 0 0 3px rgba(125, 56, 218, 0.1);
 }
 
 .header-search svg {
-    width: 19px;
-    height: 19px;
-    color: #777777;
+    font-size: 19px;
     flex-shrink: 0;
 }
 
@@ -47,118 +96,250 @@
     height: 100%;
     border: none;
     outline: none;
-    background: transparent;
-    color: #262626;
-    font-family: inherit;
+    background-color: transparent;
+    color: rgb(24, 39, 56);
     font-size: 14px;
 }
 
 .header-search input::placeholder {
-    color: #999999;
+    color: rgb(24, 39, 56);
+    opacity: 0.6;
 }
-
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 15px;
+    margin-left: auto;
 }
 
-.header-actions > a {
+.header-actions a {
     width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #262626;
+    color: rgb(24, 39, 56);
+    font-size: 21px;
     text-decoration: none;
-    border-radius: 50%;
-    transition: background-color 0.2s ease,
-                color 0.2s ease;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.header-actions > a:hover {
-    background-color: #f3f4f6;
-    color: #2563eb;
-}
-
-.header-actions > a svg {
-    width: 23px;
-    height: 23px;
-    stroke-width: 1.8;
+.header-actions a:hover {
+    background-color: rgb(242, 236, 254);
+    color: rgb(125, 56, 218);
 }
 
 .header-actions .header-avatar {
-    width: 38px;
-    height: 38px;
+    width: 39px;
+    height: 39px;
     overflow: hidden;
-    border: 2px solid #e5e7eb;
+    border: 2px solid rgb(125, 56, 218);
+    border-radius: 50%;
+    background-color: rgb(242, 236, 254);
 }
 
-.profile-image {
+.header-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.header-avatar span {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(125, 56, 218);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.mobile-menu-button {
+    display: none;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    color: rgb(24, 39, 56);
+    font-size: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mobile-menu-button:hover {
+    background-color: rgb(242, 236, 254);
+    color: rgb(125, 56, 218);
+}
+
+.mobile-menu {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    position: absolute;
+    top: 65px;
+    right: 15px;
+    background-color: #ffffff;
+    border: 1px solid rgb(228, 235, 239);
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(24, 39, 56, 0.12);
+    z-index: 1200;
+}
+
+
+.mobile-menu-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    text-decoration: none;
+    border-bottom: 1px solid rgb(228, 235, 239);
+}
+
+.mobile-profile-avatar {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid rgb(125, 56, 218);
     border-radius: 50%;
+    background-color: rgb(242, 236, 254);
+    color: rgb(125, 56, 218);
 }
 
-.header-actions .header-avatar:hover {
-    border-color: #2563eb;
-    background: transparent;
+.mobile-profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.header-actions .icoun-LogIn-LogOut {
-    color: #262626;
+.mobile-profile-avatar span {
+    font-size: 17px;
+    font-weight: 700;
 }
 
-@media (max-width: 768px) {
+.mobile-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mobile-profile-info strong {
+    color: rgb(24, 39, 56);
+    font-size: 14px;
+}
+
+.mobile-profile-info span {
+    color: rgb(125, 56, 218);
+    font-size: 12px;
+}
+
+.mobile-menu-logout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px;
+
+    background-color: transparent;
+    border: none;
+    border-radius: 9px;
+    color: rgb(24, 39, 56);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mobile-menu-logout:hover {
+    background-color: rgb(242, 236, 254);
+    color: rgb(125, 56, 218);
+}
+
+.mobile-menu-logout svg {
+    font-size: 19px;
+}
+
+
+@media (max-width: 900px) and (min-width: 601px) {
+
     .header {
-        padding: 0 18px;
+        padding: 0 20px;
     }
 
     .header-search {
-        width: 250px;
+        width: 280px;
     }
 
     .header-actions {
-        gap: 10px;
+        gap: 8px;
+    }
+
+    .header-logo-name {
+        font-size: 18px;
+    }
+
+    .header-logo-subtitle {
+        font-size: 8px;
     }
 }
 
 @media (max-width: 600px) {
+
     .header {
         height: 65px;
-        min-height: 65px;
         padding: 0 12px;
     }
 
+    .header-logo-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .header-logo-name {
+        font-size: 17px;
+    }
+
+    .header-logo-subtitle {
+        font-size: 7px;
+        letter-spacing: 1px;
+    }
+
+    .header-actions {
+        display: none;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+        margin-left: auto;
+    }
+
     .header-search {
-        flex: 1;
-        width: auto;
-        max-width: 230px;
+        width: 35%;
         height: 38px;
+
+        left: 50%;
+        transform: translateX(-50%);
+
+        gap: 7px;
+        padding: 0 9px;
+    }
+
+    .header-search svg {
+        font-size: 16px;
     }
 
     .header-search input {
         font-size: 12px;
-    }
-
-    .header-actions {
-        gap: 4px;
-    }
-
-    .header-actions > a {
-        width: 34px;
-        height: 34px;
-    }
-
-    .header-actions > a svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .header-actions .header-avatar {
-        width: 32px;
-        height: 32px;
     }
 }

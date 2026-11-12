@@ -1,3 +1,9 @@
+// function handleLogOut() {
+//     const updatedUsers = users.map(user => {
+//         return { ...user, isLoggedIn: false };
+//     });
+//     setUsers(updatedUsers);
+// }
 
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
