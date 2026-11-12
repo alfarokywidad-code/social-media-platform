@@ -57,7 +57,7 @@ function Sidebar() {
                     <span>Notifications</span>
                 </NavLink>
 
-                <NavLink to="/create" className="sidebar-link">
+                <NavLink to="/post" className="sidebar-link">
                     <FiPlusSquare />
                     <span>Create</span>
                 </NavLink>
