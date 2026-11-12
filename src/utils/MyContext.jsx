@@ -33,9 +33,9 @@ export function MyProvider({ children }) {
     }
 
     // All registered users
-    const [users, setUsers] = useState(() => {
+   
 
-        const theProfil = localStorage.getItem('newUser');
+        
         if (theProfil && theProfil !== "undefined") {
             return JSON.parse(theProfil)
         }
