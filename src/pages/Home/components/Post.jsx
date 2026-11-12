@@ -4,21 +4,11 @@ import { MyContext } from "../../../utils/MyContext";
 import Comment from "./comment";
 import ReactionPost from "./reactionsPostCard";
 
-<<<<<<< HEAD
-
-
-
-
-function Post({ users, setUsers, currentUser, showPosts = true }) {
-  const [content, setContent] = useState("")
-  const [image, setImage] = useState("")
-=======
 function Post() {
   const { users, setUsers, currentUser } = useContext(MyContext);
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
   if (!currentUser) return null;
->>>>>>> main
   // import './Post.css'
   // import { useState } from 'react'
   // import Comment from './Comment'
@@ -199,27 +189,6 @@ function Post() {
         </form>
       </div>
 
-<<<<<<< HEAD
-
-
-
-
-      {showPosts && users.map((user) => {
-        return (
-          user.posts.map((post) => (
-
-            <div className='containerPst' key={user.id}>
-              <div >
-
-                <div className='containerNameAcc'>
-                  <div className='userInfo'>
-                    <div className='nameAcc'>O</div>
-
-                    <div>
-                      <h4>{post.author}</h4>
-                      <p>{post.date} </p>
-                    </div>
-=======
       {users.map((user) => {
         return user.posts.map((post) => (
           <div className="containerPst" key={user.id}>
@@ -232,7 +201,6 @@ function Post() {
                       src={currentUser.imageProfile}
                       alt="User"
                     />
->>>>>>> main
                   </div>
 
                   <div>
