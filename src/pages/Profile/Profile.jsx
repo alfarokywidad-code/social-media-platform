@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { MyContext } from "../../utils/MyContext";
 import "./Profile.css";
