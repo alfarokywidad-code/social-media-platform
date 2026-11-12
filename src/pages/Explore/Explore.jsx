@@ -1,16 +1,20 @@
+
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import "./Explore.css";
 import { MyContext } from "../../utils/MyContext";
 import FollowButton from "./Componenets/FollowButton";
 import SuggestUsers from "./Componenets/suggestUsers";
 
-
 function Explore() {
 
-    const { users, search, handleFollow,
-        handleUnfollow, currentUser
+    const {
+        users,
+        search,
+        handleFollow,
+        handleUnfollow,
+        currentUser
     } = useContext(MyContext);
-
 
     if (!currentUser) {
         return (
@@ -20,18 +24,15 @@ function Explore() {
 
     const otherUsers = users.filter((user) =>
         user.id !== currentUser.id
-    )
+    );
 
     const filterUsers = otherUsers.filter((user) => {
 
         return (
-            (user.username??"").toLowerCase().includes((search??"").toLowerCase())  ||
-            ((user.name??"").toLowerCase().includes((search??"").toLowerCase()))
-
-        )
-    }
-    );
-
+            (user.username ?? "").toLowerCase().includes((search ?? "").toLowerCase()) ||
+            (user.name ?? "").toLowerCase().includes((search ?? "").toLowerCase())
+        );
+    });
 
     return (
         <section className="explore">
@@ -53,29 +54,40 @@ function Explore() {
                         return (
                             <div className="explore-card" key={user.id}>
 
-                                <div className="explore-avatar">
+                                <Link
+                                    to={`/profile/${user.id}`}
+                                    className="explore-user-link"
+                                >
 
-                                    {user.imageProfile ? (
-                                        <img
-                                            src={user.imageProfile}
-                                            alt={user.username}
-                                        />
-                                    ) : (
-                                        user.name.toUpperCase()
-                                    )}
+                                    <div className="explore-avatar">
 
-                                </div>
+                                        {user.imageProfile ? (
+                                            <img
+                                                src={user.imageProfile}
+                                                alt={user.username}
+                                            />
+                                        ) : (
+                                            user.name.charAt(0).toUpperCase()
+                                        )}
 
-                                <div className="explore-user-info">
-                                    <h3>{user.username}</h3>
-                                    <p>{user.name}</p>
-                                    <span>{user.bio}</span>
-                                </div>
+                                    </div>
+
+                                    <div className="explore-user-info">
+                                        <h3>{user.username}</h3>
+                                        <p>{user.name}</p>
+                                        <span>{user.bio}</span>
+                                    </div>
+
+                                </Link>
 
                                 <FollowButton
                                     isFollowing={isFollowing}
-                                    onFollow={() => handleFollow(currentUser.id, user.id)}
-                                    onUnfollow={() => handleUnfollow(currentUser.id, user.id)}
+                                    onFollow={() =>
+                                        handleFollow(currentUser.id, user.id)
+                                    }
+                                    onUnfollow={() =>
+                                        handleUnfollow(currentUser.id, user.id)
+                                    }
                                 />
 
                             </div>
@@ -91,13 +103,13 @@ function Explore() {
                 </div>
 
             </div>
+
             <aside>
                 <SuggestUsers />
             </aside>
 
-
         </section>
-    )
+    );
 }
 
 export default Explore;

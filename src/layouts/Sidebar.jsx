@@ -1,7 +1,9 @@
+
 import "./Sidebar.css";
-import { NavLink,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useContext } from "react";
 import { MyContext } from "../utils/MyContext";
+
 import {
     FiHome,
     FiCompass,
@@ -10,11 +12,8 @@ import {
     FiHeart,
     FiPlusSquare,
     FiUser,
-    FiMenu,
-    FiUsers,
-    FiUserCheck
+    FiMenu
 } from "react-icons/fi";
-import logo from"../Assests/molengeekIcon.png";
 
 function Sidebar() {
 
@@ -23,13 +22,7 @@ function Sidebar() {
 
     return (
         <aside className="sidebar">
-            <div className="sidebar-logo">
-                <Link to="/">
-                    <img src={logo} alt="MoleenGeek" />
-                    {/* <span className="logo-name">MolenGeek</span> */}
-                </Link>
-            </div>
-            
+
             <nav className="sidebar-navigation">
 
                 <NavLink to="/" end className="sidebar-link">
@@ -62,23 +55,15 @@ function Sidebar() {
                     <span>Create</span>
                 </NavLink>
 
-                <NavLink to={currentUser ? `/profile/${currentUser.id}` : "/login"} className="sidebar-link">
+                <NavLink
+                    to={currentUser ? `/profile/${currentUser.id}` : "/login"}
+                    className="sidebar-link"
+                >
                     <FiUser />
                     <span>Profile</span>
                 </NavLink>
 
-                <NavLink to="/followers" className="sidebar-link">
-                    <FiUsers />
-                    <span>Followers</span>
-                </NavLink>
-
-                <NavLink to="/following" className="sidebar-link">
-                    <FiUserCheck />
-                    <span>Following</span>
-                </NavLink>
-
             </nav>
-
 
             <div className="sidebar-bottom">
 
@@ -92,4 +77,5 @@ function Sidebar() {
         </aside>
     );
 }
+
 export default Sidebar;
