@@ -9,10 +9,12 @@
     cursor: pointer;
     transition: 0.2s ease;
 }
+
 .follow-btn:hover {
     background-color: #6425B8;
     border-color: #6425B8;
 }
+
 .unfollow-btn {
     padding: 9px 20px;
     background-color: #F2ECFE;
@@ -24,20 +26,25 @@
     cursor: pointer;
     transition: 0.2s ease;
 }
+
 .unfollow-btn:hover {
     background-color: #7D38DA;
     color: #FFFFFF;
 }
+
 .follow-btn:active,
 .unfollow-btn:active {
     transform: scale(0.96);
 }
+
 .follow-btn:focus,
 .unfollow-btn:focus {
     outline: 2px solid #7D38DA;
     outline-offset: 3px;
 }
+
 @media (max-width: 600px) {
+
     .follow-btn,
     .unfollow-btn {
         padding: 8px 14px;

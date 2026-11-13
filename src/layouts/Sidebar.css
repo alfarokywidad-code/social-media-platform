@@ -66,17 +66,6 @@
     border-radius: 0 5px 5px 0;
 }
 
-.sidebar-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border-top: 1px solid rgb(228, 235, 239);
-    padding-top: 15px;
-}
-
-.sidebar-bottom .sidebar-link {
-    color: rgb(24, 39, 56);
-}
 
 @media (max-width: 1024px) {
     .sidebar {
@@ -144,9 +133,7 @@
         height: 22px;
     }
 
-    .sidebar-bottom {
-        display: none;
-    }
+
 
     .sidebar-link.active::before {
         width: 22px;
