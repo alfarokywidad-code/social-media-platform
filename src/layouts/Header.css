@@ -1,3 +1,4 @@
+
 .header {
     width: 100%;
     height: 75px;
@@ -12,140 +13,98 @@
     border-bottom: 1px solid rgb(228, 235, 239);
     z-index: 1000;
 }
-
 .header-logo {
     display: flex;
     align-items: center;
-    flex-shrink: 0;
 }
-
 .header-logo a {
     display: flex;
     align-items: center;
     gap: 10px;
     text-decoration: none;
 }
-
 .header-logo-icon {
-    width: 45px;
-    height: 45px;
+    width:100px;
+    height: 100px;
 }
-
 .header-logo-icon img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
-
 .header-logo-text {
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
-
 .header-logo-name {
     font-size: 21px;
     font-weight: 800;
 }
-
 .header-logo-molen {
     color: rgb(24, 39, 56);
 }
-
 .header-logo-geek {
     color: rgb(125, 56, 218);
 }
-
 .header-logo-subtitle {
-    /* color: rgb(24, 39, 56); */
-    color: rgb(80, 155, 125);
     font-size: 9px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 1.5px;
+    color: rgb(80, 155, 125);
 }
-
 .header-search {
-    width: 350px;
+    width: 380px;
     height: 42px;
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 0 15px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     background-color: rgb(242, 236, 254);
-    border: 1px solid rgb(228, 235, 239);
-    border-radius: 12px;
+    border-radius: 10px;
     color: rgb(125, 56, 218);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
-.header-search:focus-within {
-    border-color: rgb(125, 56, 218);
-    box-shadow: 0 0 0 3px rgba(125, 56, 218, 0.1);
-}
-
-.header-search svg {
-    font-size: 19px;
-    flex-shrink: 0;
-}
-
 .header-search input {
     width: 100%;
     height: 100%;
     border: none;
     outline: none;
-    background-color: transparent;
-    color: rgb(24, 39, 56);
+    background: transparent;
     font-size: 14px;
-}
-
-.header-search input::placeholder {
     color: rgb(24, 39, 56);
-    opacity: 0.6;
 }
-
+.header-search input::placeholder {
+    color: #888888;
+}
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-left: auto;
+    gap: 25px;
 }
-
 .header-actions a {
-    width: 40px;
-    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: rgb(24, 39, 56);
     font-size: 21px;
     text-decoration: none;
-    border-radius: 10px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: 0.2s;
 }
-
 .header-actions a:hover {
-    background-color: rgb(242, 236, 254);
     color: rgb(125, 56, 218);
 }
-
-.header-actions .header-avatar {
-    width: 39px;
-    height: 39px;
-    overflow: hidden;
-    border: 2px solid rgb(125, 56, 218);
+.header-avatar {
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
+    overflow: hidden;
     background-color: rgb(242, 236, 254);
 }
-
 .header-avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
 .header-avatar span {
     width: 100%;
     height: 100%;
@@ -153,193 +112,191 @@
     align-items: center;
     justify-content: center;
     color: rgb(125, 56, 218);
-    font-size: 16px;
     font-weight: 700;
 }
-
+.mobile-search-button,
 .mobile-menu-button {
     display: none;
-    width: 42px;
-    height: 42px;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
     border: none;
-    border-radius: 10px;
+    background: transparent;
     color: rgb(24, 39, 56);
-    font-size: 25px;
+    font-size: 23px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-.mobile-menu-button:hover {
-    background-color: rgb(242, 236, 254);
-    color: rgb(125, 56, 218);
+.mobile-search-overlay {
+    display: none;
 }
-
 .mobile-menu {
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 16px;
-    position: absolute;
-    top: 65px;
-    right: 15px;
-    background-color: #ffffff;
-    border: 1px solid rgb(228, 235, 239);
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(24, 39, 56, 0.12);
-    z-index: 1200;
+    display: none;
 }
-
-
-.mobile-menu-profile {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding-bottom: 14px;
-    text-decoration: none;
-    border-bottom: 1px solid rgb(228, 235, 239);
-}
-
-.mobile-profile-avatar {
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border: 2px solid rgb(125, 56, 218);
-    border-radius: 50%;
-    background-color: rgb(242, 236, 254);
-    color: rgb(125, 56, 218);
-}
-
-.mobile-profile-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.mobile-profile-avatar span {
-    font-size: 17px;
-    font-weight: 700;
-}
-
-.mobile-profile-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.mobile-profile-info strong {
-    color: rgb(24, 39, 56);
-    font-size: 14px;
-}
-
-.mobile-profile-info span {
-    color: rgb(125, 56, 218);
-    font-size: 12px;
-}
-
-.mobile-menu-logout {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 11px;
-
-    background-color: transparent;
-    border: none;
-    border-radius: 9px;
-    color: rgb(24, 39, 56);
-    font-size: 14px;
-    font-weight: 600;
-    text-align: left;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.mobile-menu-logout:hover {
-    background-color: rgb(242, 236, 254);
-    color: rgb(125, 56, 218);
-}
-
-.mobile-menu-logout svg {
-    font-size: 19px;
-}
-
-
-@media (max-width: 900px) and (min-width: 601px) {
-
+@media (max-width: 900px) {
     .header {
         padding: 0 20px;
     }
-
     .header-search {
         width: 280px;
     }
-
     .header-actions {
-        gap: 8px;
-    }
-
-    .header-logo-name {
-        font-size: 18px;
-    }
-
-    .header-logo-subtitle {
-        font-size: 8px;
+        gap: 18px;
     }
 }
-
 @media (max-width: 600px) {
-
     .header {
         height: 65px;
-        padding: 0 12px;
+        padding: 0 16px;
+        justify-content: space-between;
     }
-
     .header-logo-icon {
         width: 36px;
         height: 36px;
     }
-
     .header-logo-name {
-        font-size: 17px;
+        font-size: 18px;
     }
-
     .header-logo-subtitle {
-        font-size: 7px;
-        letter-spacing: 1px;
+        font-size: 8px;
     }
-
+    .header-search,
     .header-actions {
         display: none;
     }
-
+    .mobile-search-button,
     .mobile-menu-button {
         display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+    }
+    .mobile-search-button {
         margin-left: auto;
     }
-
-    .header-search {
-        width: 35%;
-        height: 38px;
-
-        left: 50%;
-        transform: translateX(-50%);
-
-        gap: 7px;
-        padding: 0 9px;
+    .mobile-search-overlay {
+        width: 100%;
+        display: block;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        padding: 12px 15px;
+        background-color: #ffffff;
+        border-bottom: 1px solid rgb(228, 235, 239);
+        z-index: 1100;
     }
-
-    .header-search svg {
+    .mobile-search-box {
+        width: 100%;
+        height: 43px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 12px;
+        background-color: rgb(242, 236, 254);
+        border-radius: 9px;
+        color: rgb(125, 56, 218);
+    }
+    .mobile-search-box input {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 14px;
+        color: rgb(24, 39, 56);
+    }
+    .mobile-search-box input::placeholder {
+        color: #888888;
+    }
+    .mobile-search-box button {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background-color: transparent;
+        border: none;
+        border-radius: 8px;
+        color: rgb(24, 39, 56);
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .mobile-menu {
+        width: 220px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        position: absolute;
+        top: 65px;
+        right: 10px;
+        padding: 15px;
+        background-color: #ffffff;
+        border: 1px solid rgb(228, 235, 239);
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        z-index: 1100;
+    }
+    .mobile-menu-profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: rgb(24, 39, 56);
+    }
+    .mobile-profile-avatar {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-radius: 50%;
+        background-color: rgb(242, 236, 254);
+        color: rgb(125, 56, 218);
+        font-weight: 700;
+    }
+    .mobile-profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .mobile-profile-info {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+    .mobile-profile-info strong {
+        font-size: 14px;
+    }
+    .mobile-profile-info span {
+        font-size: 12px;
+        color: #888888;
+    }
+    .mobile-menu-logout {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 5px;
+        border: none;
+        border-top: 1px solid rgb(228, 235, 239);
+        background: transparent;
+        color: #dc3545;
+        font-size: 14px;
+        text-align: left;
+        cursor: pointer;
+    }
+}
+@media (max-width: 360px) {
+    .header {
+        padding: 0 10px;
+    }
+    .header-logo-name {
         font-size: 16px;
     }
-
-    .header-search input {
-        font-size: 12px;
+    .header-logo-subtitle {
+        font-size: 7px;
+    }
+    .header-logo-icon {
+        width: 32px;
+        height: 32px;
     }
 }
