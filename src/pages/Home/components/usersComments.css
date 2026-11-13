@@ -16,6 +16,61 @@
     gap: 2%;
     margin-bottom: 2%;
     align-items: center;
+
+}
+.usersCommentsContenaireDiv2 {
+    display: flex;
+    gap: 2%;
+    margin-bottom: 2%;
+    flex: 1;
+    min-width: 0;
+}
+.usersCommentsName{
+    font-weight: 600;
+    color: gray;
+    padding-bottom: 4%;
+}
+.CommentTrashCan{
+    border: none;
+    font-size: 22px;
+    color: red; 
+    padding: 5px;
+    border-radius: 50px;
+    cursor: pointer;
+    
+}
+.CommentTrashCan:hover{
+    box-shadow: 1px 1px 10px 1px rgba(182, 144, 144, 0.596);
+
+}
+.trashCanDiv{
+    width: 50%;
+    display: flex;
+    justify-content: end;
+}
+.commentContent{
+overflow-wrap: anywhere;
+}
+@media (min-width:320px) and (max-width:480px) {
+    .usersCommentsProfilePic {
+    width: 100%;
+    height: 100%;
+}
+
+.usersCommentsProfilePicDiv {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.usersCommentsContenaireDiv {
+    display: flex;
+    gap: 2%;
+    margin-bottom: 2%;
+    align-items: center;
+
 }
 .usersCommentsContenaireDiv2 {
     display: flex;
@@ -24,4 +79,24 @@
 }
 .usersCommentsName{
     font-weight: 600;
+    color: gray;
+}
+.CommentTrashCan{
+    border: none;
+    font-size: 22px;
+    color: red; 
+    padding: 5px;
+    border-radius: 50px;
+    cursor: pointer;
+    
+}
+.CommentTrashCan:hover{
+    box-shadow: 1px 1px 10px 1px rgba(182, 144, 144, 0.596);
+
+}
+.trashCanDiv{
+    width: 50%;
+    display: flex;
+    justify-content: end;
+}
 }

@@ -69,15 +69,6 @@ let getformValue = (e) => {
           </p>
           <div className="DisplayedComentsDiv">
           <UsersComments post={props.post}/>
-            {/* <h3>Comments ({props.comment?.length})</h3> */}
-            {/* {(props.comment || []).map((c) => (
-              <div key={c.id}>
-                <p>{c.text}</p>
-                <button onClick={() => props.deleteComment(c.id)}>
-                  Delete
-                </button>
-              </div>
-            ))} */}
           </div>
           <form className="commentsForm" onSubmit={getformValue}>
             <div className="commentUserPicDiv">

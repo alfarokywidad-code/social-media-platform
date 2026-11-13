@@ -6,12 +6,11 @@ import ReactionPost from "./reactionsPostCard";
 import CommentsModalCard from "./commentsModal";
 import { useNavigate } from "react-router-dom";
 
-
-function Post({ onEditPost,sortingAllUsersPosts }) {
+function Post({ onEditPost, sortingAllUsersPosts }) {
   const { users, setUsers, currentUser } = useContext(MyContext);
   const [openMenu, setOpenMenu] = useState(null);
   const [commentIsClicked, setCommentIsClicked] = useState(null);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   if (!currentUser) return null;
 
   // Delete--------------------------------------------------------------------------------------------------------
@@ -36,12 +35,8 @@ const navigate = useNavigate();
 
   // Edite-------------------------------------------------------------------------------------------------------
   const edit = (postId, userId) => {
-
     const user = users.find((u) => u.id === userId);
-
-    const findPost = user?.posts.find(
-      (post) => post.id === postId
-    );
+    const findPost = user?.posts.find((post) => post.id === postId);
 
     if (!findPost) return;
     if (userId !== currentUser.id) return;
@@ -70,71 +65,71 @@ const navigate = useNavigate();
   //! achraf code here:
   return (
     <>
-
       {sortingAllUsersPosts.map((post) => (
-        
-        // return user.posts.map((post) => (
-          <div className="containerPst" key={post.id}>
-            <div>
-              <div className="containerNameAcc">
-                <div onClick={() => navigate(`/profile/${post.authorId}`)}className="userInfo">
-                  <div>
-                    <img
-                      src={post.authorImage?.trim() || undefined}
-                      alt="User"
-                      className="nameAcc"
-                    />
-                  </div>
-
-                  <div>
-                    <h4>{post.author}</h4>
-                    <p>{post.date} </p>
-                  </div>
+        <div className="containerPst" key={post.id}>
+          <div>
+            <div className="containerNameAcc">
+              <div onClick={() => navigate(`/profile/${post.authorId}`)} className="userInfo">
+                <div>
+                  <img
+                    src={post.authorImage?.trim() || undefined}
+                    alt="User"
+                    className="nameAcc"
+                  />
                 </div>
 
-                <div className="containerMenu">
-                  {/* //!!!!!!!! */}
-                  <button className="menuBtn" onClick={() => editMenu(post.id)}>
-                    <i className="fa-solid fa-ellipsis"></i>
-                  </button>
-
-                  <div
-                    className={
-                      openMenu === post.id ? "dropDownMenu" : "dropDownMenu2"
-                    }
-                  >
-                    {post.authorId === currentUser.id && (
-                      <>
-                        <button onClick={() => edit(post.id,post.authorId)}>
-                          Edit
-                        </button>
-
-                        <button onClick={() => deletePost(post.id, post.authorId)}>
-                          Delete
-                        </button>
-                      </>
-                    )}
-
-                  </div>
+                <div>
+                  <h4>{post.author}</h4>
+                  <p>{post.date} </p>
                 </div>
               </div>
-              <p className="postContent"> {post.content} </p>
-              {post.image && (
-                <img className="postImage" src={post.image} alt="" />
-              )}
 
-              <div></div>
-              {/* //?achraf code here */}
-              <ReactionPost clickComments={()=>clickComments(post.id) } post={post}  />
-<CommentsModalCard
- commentIsClicked={commentIsClicked=== post.id} clickComments={()=>clickComments(post.id)} post = {post}/>
-              {/* <Comment
+              <div className="containerMenu">
+                {/* //!!!!!!!! */}
+                <button className="menuBtn" onClick={() => editMenu(post.id)}>
+                  <i className="fa-solid fa-ellipsis"></i>
+                </button>
+
+                <div
+                  className={
+                    openMenu === post.id ? "dropDownMenu" : "dropDownMenu2"
+                  }
+                >
+                  {post.authorId === currentUser.id && (
+                    <>
+                      <button onClick={() => edit(post.id, post.authorId)}>
+                        Edit
+                      </button>
+
+                      <button onClick={() => deletePost(post.id, post.authorId)}>
+                        Delete
+                      </button>
+                    </>
+                  )}
+
+                </div>
+              </div>
+            </div>
+            <p className="postContent"> {post.content} </p>
+            {post.image && (
+              <img className="postImage" src={post.image} alt="" />
+            )}
+
+            <div></div>
+            {/* //?achraf code here */}
+            <ReactionPost clickComments={() => clickComments(post.id)} post={post} />
+            <CommentsModalCard
+              commentIsClicked={commentIsClicked === post.id}
+              clickComments={() => clickComments(post.id)}
+              post={post}
+            />
+            {/* <Comment
                 // post={post}
                 commentIsClicked={commentIsClicked}
                 clickComments={clickComments}
                 /> */}
-            </div>
           </div>
+        </div>
         // ));
       ))}
     </>
