@@ -1,4 +1,3 @@
-
 import { createContext, useState, useEffect } from "react";
 
 export const MyContext = createContext();
@@ -67,8 +66,7 @@ export function MyProvider({ children }) {
             ) {
                 return prevUsers;
             }
-
-            return prevUsers.map((user) => {
+              return prevUsers.map((user) => {
 
                 if (user.id === currentUserId) {
                     return {

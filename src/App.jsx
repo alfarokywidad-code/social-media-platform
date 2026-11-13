@@ -1,6 +1,4 @@
-
 import './App.css';
-
 import { useContext, useState } from 'react';
 import {
     Route,
@@ -20,6 +18,11 @@ import Sidebar from './layouts/Sidebar';
 
 import LogIn from './pages/LogInOut/components/Login';
 import SignUp from './pages/LogInOut/components/SignUp';
+
+
+
+
+import Post from './pages/Home/components/Post'
 import Logout from './pages/LogInOut/components/Logout';
 
 import Explore from './pages/Explore/Explore';
@@ -91,6 +94,7 @@ function App() {
                         />
 
                         <Route path="/explore" element={<Explore />} />
+                        <Route path="/post" element={<Post />} />
 
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>

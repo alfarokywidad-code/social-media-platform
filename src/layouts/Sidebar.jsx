@@ -17,8 +17,8 @@ import {
 
 function Sidebar() {
 
-    const { users } = useContext(MyContext);
-    const currentUser = users.find((user) => user.isLoggedIn === true);
+    const { users,currentUser } = useContext(MyContext);
+    // const currentUser = users.find((user) => user.isLoggedIn === true);
 
     return (
         <aside className="sidebar">
