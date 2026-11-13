@@ -1,0 +1,43 @@
+.saved-posts {
+    max-width: 720px;
+    margin-inline: auto;
+    padding: clamp(16px, 4vw, 32px);
+}
+
+.saved-posts h1 {
+    margin: 0 0 24px;
+}
+
+.saved-post-card {
+    margin-bottom: 16px;
+    padding: 16px;
+    border: 1px solid #e4ebef;
+    border-radius: 12px;
+    background: #fff;
+    overflow-wrap: anywhere;
+}
+
+.saved-post-card header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.saved-post-card header p {
+    margin-top: 4px;
+    color: #526070;
+    font-size: .875rem;
+}
+
+.saved-post-content {
+    margin: 12px 0;
+    white-space: pre-wrap;
+}
+
+.saved-post-card img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}

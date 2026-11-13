@@ -1,7 +1,6 @@
-
 import "./Sidebar.css";
-import { NavLink, Link } from "react-router-dom";
-import { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { useContext, useState } from "react";
 import { MyContext } from "../utils/MyContext";
 
 import {
@@ -12,13 +11,14 @@ import {
     FiHeart,
     FiPlusSquare,
     FiUser,
-    FiMenu
+    FiMenu,
+    FiBookmark
 } from "react-icons/fi";
 
 function Sidebar() {
 
-    const { users,currentUser } = useContext(MyContext);
-    // const currentUser = users.find((user) => user.isLoggedIn === true);
+    const { currentUser } = useContext(MyContext);
+    const [moreOpen, setMoreOpen] = useState(false);
 
     return (
         <aside className="sidebar">
@@ -64,6 +64,32 @@ function Sidebar() {
                 </NavLink>
 
             </nav>
+
+            <div className="sidebar-bottom">
+
+                <button
+                    type="button"
+                    className="sidebar-link"
+                    aria-label="More"
+                    aria-expanded={moreOpen}
+                    aria-controls="sidebar-more-panel"
+                    onClick={() => setMoreOpen((open) => !open)}
+                >
+                    <FiMenu aria-hidden="true" />
+                    <span>More</span>
+                </button>
+                <div id="sidebar-more-panel" className="sidebar-more-panel" hidden={!moreOpen}>
+                    <NavLink
+                        to={currentUser ? "/saved-posts" : "/login"}
+                        className="sidebar-link"
+                        onClick={() => setMoreOpen(false)}
+                    >
+                        <FiBookmark aria-hidden="true" />
+                        <span>Saved Posts</span>
+                    </NavLink>
+                </div>
+
+            </div>
 
         </aside>
     );

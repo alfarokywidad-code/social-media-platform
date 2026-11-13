@@ -1,3 +1,4 @@
+import BookmarkButton from "../../components/BookmarkButton";
 import { useContext, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { MyContext } from "../../utils/MyContext";
@@ -436,6 +437,7 @@ function Profile() {
 
             {userPosts.map((post) => (
               <div className="profile-post" key={post.id}>
+                <BookmarkButton postId={post.id} />
 
                 <p>{post.content}</p>
 

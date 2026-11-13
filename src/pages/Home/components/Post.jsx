@@ -58,7 +58,6 @@ const navigate = useNavigate();
       setOpenMenu(postId);
     }
   };
-  console.log(openMenu);
   //! achraf code here:
   // comments btn:
   let clickComments = (postId) => {
@@ -81,7 +80,7 @@ const navigate = useNavigate();
                 <div onClick={() => navigate(`/profile/${post.authorId}`)}className="userInfo">
                   <div>
                     <img
-                      src={post.authorImage}
+                      src={post.authorImage?.trim() || undefined}
                       alt="User"
                       className="nameAcc"
                     />
@@ -129,7 +128,6 @@ const navigate = useNavigate();
               <ReactionPost clickComments={()=>clickComments(post.id) } post={post}  />
 <CommentsModalCard
  commentIsClicked={commentIsClicked=== post.id} clickComments={()=>clickComments(post.id)} post = {post}/>
- {console.log(post)}
               {/* <Comment
                 // post={post}
                 commentIsClicked={commentIsClicked}

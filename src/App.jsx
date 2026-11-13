@@ -16,17 +16,17 @@ import Home from './pages/Home/Home';
 import Header from './layouts/Header';
 import Sidebar from './layouts/Sidebar';
 
-import LogIn from './pages/LogInOut/components/Login';
+import LogIn from './pages/LogInOut/components/LogIn';
 import SignUp from './pages/LogInOut/components/SignUp';
 
 
 
 
-import Post from './pages/Home/components/Post'
 import Logout from './pages/LogInOut/components/Logout';
 
 import Explore from './pages/Explore/Explore';
 import Profile from './pages/Profile/Profile';
+import SavedPosts from './pages/SavedPosts/SavedPosts';
 
 function App() {
     const { currentUser } = useContext(MyContext);
@@ -93,8 +93,13 @@ function App() {
                             element={isLoggedIn ? <Profile /> : <Navigate to="/login" replace />}
                         />
 
+                        <Route
+                            path="/saved-posts"
+                            element={isLoggedIn ? <SavedPosts /> : <Navigate to="/login" replace />}
+                        />
+
                         <Route path="/explore" element={<Explore />} />
-                        <Route path="/post" element={<Post />} />
+                        <Route path="/post" element={isLoggedIn ? <Home /> : <Navigate to="/login" replace />} />
 
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>
