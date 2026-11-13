@@ -1,113 +1,60 @@
 
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import "./Explore.css";
+import "../../pages/Home/components/Post.css";
 import { MyContext } from "../../utils/MyContext";
-import FollowButton from "./Componenets/FollowButton";
 import SuggestUsers from "./Componenets/suggestUsers";
+import Post from "../Home/components/Post";
 
 function Explore() {
-
-    const {
-        users,
-        search,
-        handleFollow,
-        handleUnfollow,
-        currentUser
-    } = useContext(MyContext);
+    const { users, currentUser } = useContext(MyContext);
 
     if (!currentUser) {
-        return (
-            <p>Current user not found.</p>
-        );
+        return <p>Current user not found.</p>;
     }
 
-    const otherUsers = users.filter((user) =>
-        user.id !== currentUser.id
+    const usersNotFollowing = users.filter((user) =>
+        user.id !== currentUser.id &&
+        !currentUser.following.includes(user.id)
     );
 
-    const filterUsers = otherUsers.filter((user) => {
+    const explorePosts = usersNotFollowing.map((user) =>
+        (user.posts || []).map((post) => ({
+            ...post,
+            authorId: user.id,
+            author: user.username,
+            authorImage: user.imageProfile
+        }))
+    );
 
-        return (
-            (user.username ?? "").toLowerCase().includes((search ?? "").toLowerCase()) ||
-            (user.name ?? "").toLowerCase().includes((search ?? "").toLowerCase())
-        );
-    });
+    const allExplorePosts = explorePosts.flat();
 
     return (
         <section className="explore">
-
             <div className="explore-main">
-
                 <div className="explore-header">
-                    <h2>Discover People</h2>
-                    <p>Find and connect with new people.</p>
+                    <div>
+                        <span>DISCOVER</span>
+                        <h2>Explore Posts</h2>
+                        <p>Find new posts and discover new people.</p>
+                    </div>
                 </div>
 
-                <div className="explore-users">
-
-                    {filterUsers.map((user) => {
-
-                        const isFollowing =
-                            currentUser.following.includes(user.id);
-
-                        return (
-                            <div className="explore-card" key={user.id}>
-
-                                <Link
-                                    to={`/profile/${user.id}`}
-                                    className="explore-user-link"
-                                >
-
-                                    <div className="explore-avatar">
-
-                                        {user.imageProfile ? (
-                                            <img
-                                                src={user.imageProfile}
-                                                alt={user.username}
-                                            />
-                                        ) : (
-                                            user.name.charAt(0).toUpperCase()
-                                        )}
-
-                                    </div>
-
-                                    <div className="explore-user-info">
-                                        <h3>{user.username}</h3>
-                                        <p>{user.name}</p>
-                                        <span>{user.bio}</span>
-                                    </div>
-
-                                </Link>
-
-                                <FollowButton
-                                    isFollowing={isFollowing}
-                                    onFollow={() =>
-                                        handleFollow(currentUser.id, user.id)
-                                    }
-                                    onUnfollow={() =>
-                                        handleUnfollow(currentUser.id, user.id)
-                                    }
-                                />
-
-                            </div>
-                        );
-                    })}
-
-                    {filterUsers.length === 0 && (
-                        <p className="no-users">
-                            No users found.
-                        </p>
+                <div className="explore-posts">
+                    {allExplorePosts.length === 0 ? (
+                        <div className="no-users">
+                            <h3>No posts available</h3>
+                            <p>There are no posts to discover right now.</p>
+                        </div>
+                    ) : (
+                        <Post sortingAllUsersPosts={allExplorePosts} />
                     )}
-
                 </div>
-
             </div>
 
-            <aside>
+            <aside className="explore-sidebar">
                 <SuggestUsers />
             </aside>
-
         </section>
     );
 }

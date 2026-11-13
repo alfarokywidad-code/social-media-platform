@@ -102,7 +102,7 @@
 
 .profile-username {
     font-weight: 700;
-    color: #9860A8 !important;
+    color: #9860A8 ;
 }
 
 /* Profile Buttons */
@@ -293,6 +293,38 @@
     background-color: #F8F3F9;
 }
 
+/* Following User Information */
+
+.connection-user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+    text-decoration: none;
+    color: #414042;
+}
+
+/* Unfollow Button */
+
+.unfollow-button {
+    padding: 0.55rem 1rem;
+    border: 1px solid #9860A8;
+    border-radius: 0.5rem;
+    background: #FFFFFF;
+    color: #9860A8;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    flex-shrink: 0;
+}
+
+.unfollow-button:hover {
+    background: #9860A8;
+    color: #FFFFFF;
+}
+
 .connection-avatar {
     width: 3rem;
     height: 3rem;
@@ -326,7 +358,8 @@
 /* User Posts */
 
 .profile-posts {
-    margin-top: 2rem;
+    width: 100%;
+    margin: 2rem auto;
 }
 
 .profile-posts h2 {
@@ -338,50 +371,92 @@
     color: #414042;
 }
 
+/* Posts List */
+
 .posts-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
 }
 
+/* Single Post Card */
+
 .profile-post {
-    background-color: #FFFFFF;
-    border: 1px solid #EEEEEE;
-    border-radius: 1rem;
+    width: 100%;
     padding: 1.2rem;
-    overflow: hidden;
+    background: #FFFFFF;
+    border: 1px solid #E5E6ED;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(149, 157, 165, 0.15);
     transition: 0.2s ease;
 }
 
 .profile-post:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(149, 157, 165, 0.25);
 }
+
+
+.profile-post-avatar {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F3EAF5;
+    color: #9860A8;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.profile-post-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-post-user {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.profile-post-user h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #414042;
+}
+
+.profile-post-user span {
+    margin: 0;
+    font-size: 0.78rem;
+    color: #999999;
+}
+
+/* Post Content */
 
 .profile-post p {
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #414042;
+    margin: 0 0 1rem;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
-.post-image {
-    display: block;
-    width: 100%;
-    max-height: 25rem;
-    object-fit: cover;
-    border-radius: 0.8rem;
-}
-
-.profile-post span {
-    display: block;
-    margin-top: 0.7rem;
-    color: #9860A8;
-    font-size: 0.8rem;
-}
+/* No Posts */
 
 .no-posts {
-    padding: 1.5rem;
+    padding: 2rem 1rem;
     text-align: center;
-    color: #9CA3AF;
+    color: #999999;
+    background: #FFFFFF;
+    border: 1px solid #EEEEEE;
+    border-radius: 1rem;
 }
 
 /* User Not Found */
@@ -458,11 +533,81 @@
         font-size: 0.75rem;
     }
 
-    .posts-list {
-        grid-template-columns: 1fr;
+    .profile-posts {
+        padding: 0 0.2rem;
+    }
+
+    .profile-post {
+        padding: 1rem;
+    }
+
+    .profile-post .post-image {
+        max-height: 18rem;
     }
 
     .edit-profile-form {
         padding: 1rem;
     }
+    .profile-create-post .containerUserForm {
+        padding: 0.8rem;
+    }
 }
+
+/* Create Post in Profile */
+
+.profile-create-post {
+    width: 100%;
+    margin: 1.5rem auto;
+}
+
+.profile-create-post .containerUserForm {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: #FFFFFF;
+    border: 1px solid #EEEEEE;
+    border-radius: 1rem;
+}
+
+.profile-create-post .containerUserForm form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    flex: 1;
+}
+
+.profile-create-post textarea,
+.profile-create-post input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #EEEEEE;
+    border-radius: 0.6rem;
+    font-family: inherit;
+    outline: none;
+}
+
+.profile-create-post textarea {
+    min-height: 5rem;
+    resize: vertical;
+}
+
+.profile-create-post textarea:focus,
+.profile-create-post input:focus {
+    border-color: #9860A8;
+}
+
+.profile-create-post .publishBtn {
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 0.6rem;
+    background: #9860A8;
+    color: #FFFFFF;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.profile-create-post .publishBtn:hover {
+    background: #7F4D90;
+}
+

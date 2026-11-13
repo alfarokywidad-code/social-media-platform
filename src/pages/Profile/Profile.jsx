@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { MyContext } from "../../utils/MyContext";
 import "./Profile.css";
+import Post from "../Home/components/Post";
 
 function Profile() {
 
@@ -9,7 +10,7 @@ function Profile() {
   const { id } = useParams();
 
   // !Get data from MyContext
-  const { users, setUsers } = useContext(MyContext);
+  const { users, setUsers, currentUser, handleFollow, handleUnfollow } = useContext(MyContext);
 
   // !Show or hide followers and following
   const [showFollowers, setShowFollowers] = useState(false);
@@ -36,11 +37,6 @@ function Profile() {
     );
   }
 
-  // !Find the logged-in user
-  const currentUser = users.find(
-    (user) => user.isLoggedIn === true
-  );
-
   // !Check if this is the current user's profile
   const isOwner = currentUser?.id === profileUser.id;
 
@@ -53,6 +49,10 @@ function Profile() {
   const userFollowers = profileUser.followers || [];
   const userFollowing = profileUser.following || [];
 
+  // !Sort profile owner's posts by date
+  const sortingAllUsersPosts = [...userPosts].sort((a, b) => (
+    new Date(b.date) - new Date(a.date)
+  ));
   // !Get followers' information
   const followersUsers = users.filter((user) =>
     userFollowers.includes(user.id)
@@ -87,6 +87,10 @@ function Profile() {
       reader.readAsDataURL(file);
     }
   }
+  // !Create and edit posts
+  const [content, setContent] = useState("");
+  const [image, setImage] = useState("");
+  const [editpostId, setEditPostId] = useState(null);
   // !Save profile changes
   function handleSave(event) {
     event.preventDefault();
@@ -109,43 +113,64 @@ function Profile() {
     setShowEdit(false);
   }
 
-  // !Follow or unfollow user
-  function handleFollow() {
+  // !Create or update post
+  function addPosttoUsersArray(event) {
+    event.preventDefault();
+    if (content.trim() === "") {
+      alert("write somthing");
+      return;
+    }
 
-    if (!currentUser) return;
+    if (!currentUser || !isOwner) return;
+    const newPost = {
+      id: crypto.randomUUID(),
+      content: content,
+      image: image,
+      date: new Date().toLocaleString(),
+      author: currentUser.name,
+      authorId: currentUser.id,
+      authorImage: currentUser.imageProfile,
+      comment: [],
+      likes: []
+    };
 
-    const updatedUsers = users.map((user) => {
+    setUsers((prevUsers) => {
+      return prevUsers.map((user) => {
+        if (user.id === currentUser.id) {
+          // Update existing post
+          if (editpostId) {
+            return {...user, posts: user.posts.map((post) => {
+                if (post.id === editpostId) {
+                  return {
+                    ...post,
+                    content: content,
+                    image: image
+                  };
+                }
+                return post;
+              })
+            };
+          }
 
-      // !Update current user's following list
-      if (user.id === currentUser.id) {
-
-        const following = user.following || [];
-
-        return {
-          ...user,
-          following: isFollowing
-            ? following.filter((userId) => userId !== profileUser.id)
-            : [...following, profileUser.id]
-        };
-      }
-
-      // !Update profile user's followers list
-      if (user.id === profileUser.id) {
-
-        const followers = user.followers || [];
-
-        return {
-          ...user,
-          followers: isFollowing
-            ? followers.filter((userId) => userId !== currentUser.id)
-            : [...followers, currentUser.id]
-        };
-      }
-
-      return user;
+          // Create new post
+          return { ...user, posts: [...(user.posts || []), newPost]
+          };
+        }
+        return user;
+      });
     });
 
-    setUsers(updatedUsers);
+    setContent("");
+    setImage("");
+    setEditPostId(null);
+  }
+
+  // !Get post data when clicking Edit
+  function handleEditPost(post) {
+    setContent(post.content);
+    setImage(post.image);
+    setEditPostId(post.id);
+
   }
 
   return (
@@ -214,7 +239,11 @@ function Profile() {
             currentUser && (
               <button
                 type="button"
-                onClick={handleFollow}
+                onClick={() =>
+                  isFollowing
+                    ? handleUnfollow(currentUser.id, profileUser.id)
+                    : handleFollow(currentUser.id, profileUser.id)
+                }
                 className="follow-button"
               >
                 {isFollowing ? "Following" : "Follow"}
@@ -349,6 +378,40 @@ function Profile() {
 
       </section>
 
+      {/* Create Post - Only Profile Owner */}
+      {isOwner && (
+        <section className="profile-create-post">
+          <div className="containerUserForm">
+            <img
+              className="nameAcc1"
+              src={currentUser.imageProfile}
+              alt="User"
+            />
+
+            <form onSubmit={addPosttoUsersArray}>
+
+              <textarea
+                onChange={(event) => setContent(event.target.value)}
+                value={content}
+                placeholder="What's on your mind?"
+              />
+
+              <input
+                onChange={(event) => setImage(event.target.value)}
+                value={image}
+                type="url"
+                placeholder="Add image URL"
+              />
+
+              <button className="publishBtn" type="submit">
+                {editpostId ? "Update Post" : "Post"}
+              </button>
+
+            </form>
+          </div>
+        </section>
+
+      )}
       {/* Followers and Following */}
       <section className="profile-connections">
 
@@ -396,26 +459,39 @@ function Profile() {
               <p>Not following anyone yet.</p>
             ) : (
               followingUsers.map((user) => (
-                <Link
-                  to={`/profile/${user.id}`}
-                  key={user.id}
-                  className="connection-user"
-                >
+                <div className="connection-user" key={user.id}>
 
-                  <div className="connection-avatar">
-                    {user.imageProfile ? (
-                      <img src={user.imageProfile} alt={user.name} />
-                    ) : (
-                      user.name?.charAt(0)
-                    )}
-                  </div>
+                  <Link
+                    to={`/profile/${user.id}`}
+                    className="connection-user-info"
+                  >
 
-                  <div>
-                    <p>{user.name}</p>
-                    <span>@{user.username}</span>
-                  </div>
+                    <div className="connection-avatar">
+                      {user.imageProfile ? (
+                        <img src={user.imageProfile} alt={user.name} />
+                      ) : (
+                        user.name?.charAt(0)
+                      )}
+                    </div>
 
-                </Link>
+                    <div>
+                      <p>{user.name}</p>
+                      <span>@{user.username}</span>
+                    </div>
+
+                  </Link>
+
+                  <button
+                    type="button"
+                    className="unfollow-button"
+                    onClick={() =>
+                      handleUnfollow(currentUser.id, user.id)
+                    }
+                  >
+                    Unfollow
+                  </button>
+
+                </div>
               ))
             )}
 
@@ -426,35 +502,16 @@ function Profile() {
 
       {/* User Posts */}
       <section className="profile-posts">
-
         <h2>Posts</h2>
 
         {userPosts.length === 0 ? (
           <p className="no-posts">No posts yet.</p>
         ) : (
-          <div className="posts-list">
-
-            {userPosts.map((post) => (
-              <div className="profile-post" key={post.id}>
-
-                <p>{post.content}</p>
-
-                {post.image && (
-                  <img
-                    src={post.image}
-                    alt="Post"
-                    className="post-image"
-                  />
-                )}
-
-                <span>{post.date}</span>
-
-              </div>
-            ))}
-
-          </div>
+          <Post
+            sortingAllUsersPosts={sortingAllUsersPosts}
+            onEditPost={handleEditPost}
+          />
         )}
-
       </section>
 
     </div>

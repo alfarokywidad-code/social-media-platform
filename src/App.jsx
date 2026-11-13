@@ -16,7 +16,7 @@ import Home from './pages/Home/Home';
 import Header from './layouts/Header';
 import Sidebar from './layouts/Sidebar';
 
-import LogIn from './pages/LogInOut/components/Login';
+import LogIn from './pages/LogInOut/components/LogIn';
 import SignUp from './pages/LogInOut/components/SignUp';
 
 
@@ -94,7 +94,7 @@ function App() {
                         />
 
                         <Route path="/explore" element={<Explore />} />
-                        <Route path="/post" element={<Post />} />
+                        <Route path="/post" element={<Home />} />
 
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>
