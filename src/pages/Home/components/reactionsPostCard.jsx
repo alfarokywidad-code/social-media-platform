@@ -46,10 +46,10 @@ function ReactionPost(props) {
         <>
             <div className='PostCardReactionsDiv'>
                 <div className='PostCardReactions'>
-                    <p> <FontAwesomeIcon onClick={clickLike} className={checkisLicked === true && 'reactionHeartIcon'} icon={checkisLicked ? solidHeart : regularHeart} /> {postLikes.length}</p>
-                    <p> <FontAwesomeIcon onClick={props.clickComments} icon={faMessage} />{props.post.comment.length}</p>
+                    <p className='CommentICON'> <FontAwesomeIcon onClick={clickLike} className={checkisLicked === true && 'reactionHeartIcon'} icon={checkisLicked ? solidHeart : regularHeart} /> {postLikes.length}</p>
+                    <p className='CommentICON'> <FontAwesomeIcon onClick={props.clickComments} icon={faMessage} />&nbsp;&nbsp;{props.post.comment.length}</p>
                 </div>
-                <div><FontAwesomeIcon icon={faBookmark} /></div>
+                <div className='CommentICON'><FontAwesomeIcon icon={faBookmark} /></div>
             </div>
         </>
     )

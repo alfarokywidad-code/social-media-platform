@@ -5,9 +5,30 @@
 .PostCardReactions{
     display: flex;  
    justify-content: space-between;
-    width: 10%;
+    width: 20%;
 }
 .reactionHeartIcon{
     color: red;
     cursor: pointer;
+}
+.CommentICON{
+    cursor: pointer;
+}
+@media (min-width:320px) and (max-width:480px) {
+    .PostCardReactionsDiv{
+    display: flex;
+    justify-content: space-between;
+}
+.PostCardReactions{
+    display: flex;  
+   justify-content: space-between;
+    width: 40%;
+}
+.reactionHeartIcon{
+    color: red;
+    cursor: pointer;
+}
+.CommentICON{
+    cursor: pointer;
+}
 }
