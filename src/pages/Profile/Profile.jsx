@@ -315,7 +315,6 @@ function Profile() {
 
       </section>
 
-      
       {/* Followers and Following */}
       <section className="profile-connections">
 
@@ -363,26 +362,39 @@ function Profile() {
               <p>Not following anyone yet.</p>
             ) : (
               followingUsers.map((user) => (
-                <Link
-                  to={`/profile/${user.id}`}
-                  key={user.id}
-                  className="connection-user"
-                >
+                <div className="connection-user" key={user.id}>
 
-                  <div className="connection-avatar">
-                    {user.imageProfile ? (
-                      <img src={user.imageProfile} alt={user.name} />
-                    ) : (
-                      user.name?.charAt(0)
-                    )}
-                  </div>
+                  <Link
+                    to={`/profile/${user.id}`}
+                    className="connection-user-info"
+                  >
 
-                  <div>
-                    <p>{user.name}</p>
-                    <span>@{user.username}</span>
-                  </div>
+                    <div className="connection-avatar">
+                      {user.imageProfile ? (
+                        <img src={user.imageProfile} alt={user.name} />
+                      ) : (
+                        user.name?.charAt(0)
+                      )}
+                    </div>
 
-                </Link>
+                    <div>
+                      <p>{user.name}</p>
+                      <span>@{user.username}</span>
+                    </div>
+
+                  </Link>
+
+                  <button
+                    type="button"
+                    className="unfollow-button"
+                    onClick={() =>
+                      handleUnfollow(currentUser.id, user.id)
+                    }
+                  >
+                    Unfollow
+                  </button>
+
+                </div>
               ))
             )}
 

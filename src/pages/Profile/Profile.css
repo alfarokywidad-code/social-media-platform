@@ -102,7 +102,7 @@
 
 .profile-username {
     font-weight: 700;
-    color: #9860A8 !important;
+    color: #9860A8 ;
 }
 
 /* Profile Buttons */
@@ -291,6 +291,38 @@
 
 .connection-user:hover {
     background-color: #F8F3F9;
+}
+
+/* Following User Information */
+
+.connection-user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+    text-decoration: none;
+    color: #414042;
+}
+
+/* Unfollow Button */
+
+.unfollow-button {
+    padding: 0.55rem 1rem;
+    border: 1px solid #9860A8;
+    border-radius: 0.5rem;
+    background: #FFFFFF;
+    color: #9860A8;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+    flex-shrink: 0;
+}
+
+.unfollow-button:hover {
+    background: #9860A8;
+    color: #FFFFFF;
 }
 
 .connection-avatar {
@@ -531,7 +563,7 @@
         font-size: 0.75rem;
     }
 
-     .profile-posts {
+    .profile-posts {
         padding: 0 0.2rem;
     }
 
