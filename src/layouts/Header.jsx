@@ -1,7 +1,17 @@
 
 import "./Header.css";
-import { useNavigate, NavLink } from "react-router-dom";
-import { useContext, useState } from "react";
+
+import {
+    useNavigate,
+    NavLink,
+    useLocation
+} from "react-router-dom";
+
+import {
+    useContext,
+    useState,
+    useEffect
+} from "react";
 
 import {
     FiSearch,
@@ -19,17 +29,29 @@ import logo from "../Assests/molengeekIcon.png";
 
 function Header() {
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const { search, setSearch, currentUser } = useContext(MyContext);
+    const { currentUser } = useContext(MyContext);
 
+    const [search, setSearch] = useState("");
     const [menuOpen, setMenuOpen] = useState(false);
+    const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
     const isLoggedIn = currentUser?.isLoggedIn === true;
 
     function handleSearch(event) {
         const value = event.target.value;
+
         setSearch(value);
-        navigate("/explore");
+
+        if (location.pathname !== "/explore") {
+            navigate("/explore");
+        }
+    }
+
+    function closeMobileSearch() {
+        setMobileSearchOpen(false);
+        setSearch("");
     }
 
     function handleLogout() {
@@ -37,12 +59,31 @@ function Header() {
         navigate("/logout");
     }
 
+    function handleMobileSearchBlur(event) {
+        const nextElement = event.relatedTarget;
+
+        if (
+            !event.currentTarget.parentElement.contains(nextElement)
+        ) {
+            closeMobileSearch();
+        }
+    }
+
+    // Close menu after navigation
+    useEffect(() => {
+        setMenuOpen(false);
+    }, [location.pathname]);
+
     return (
         <header className="header">
 
             {/* Logo */}
             <div className="header-logo">
-                <NavLink to="/" aria-label="MolenGeek Home">
+                <NavLink
+                    to="/"
+                    aria-label="MolenGeek Home"
+                    onClick={closeMobileSearch}
+                >
                     <div className="header-logo-icon">
                         <img src={logo} alt="MolenGeek Logo" />
                     </div>
@@ -60,7 +101,7 @@ function Header() {
                 </NavLink>
             </div>
 
-            {/* Search */}
+            {/* Desktop Search */}
             <div className="header-search">
                 <FiSearch />
 
@@ -76,11 +117,19 @@ function Header() {
             {/* Desktop Actions */}
             <div className="header-actions">
 
-                <NavLink to="/messages" aria-label="Messages">
+                <NavLink
+                    to="/messages"
+                    aria-label="Messages"
+                    onClick={closeMobileSearch}
+                >
                     <FiSend />
                 </NavLink>
 
-                <NavLink to="/notifications" aria-label="Notifications">
+                <NavLink
+                    to="/notifications"
+                    aria-label="Notifications"
+                    onClick={closeMobileSearch}
+                >
                     <FiHeart />
                 </NavLink>
 
@@ -89,6 +138,7 @@ function Header() {
                         to={`/profile/${currentUser.id}`}
                         className="header-avatar"
                         aria-label="My profile"
+                        onClick={closeMobileSearch}
                     >
                         {currentUser.imageProfile ? (
                             <img
@@ -110,13 +160,30 @@ function Header() {
                     to={isLoggedIn ? "/logout" : "/login"}
                     className="icoun-LogIn-LogOut"
                     aria-label={isLoggedIn ? "LogOut" : "LogIn"}
+                    onClick={closeMobileSearch}
                 >
                     {isLoggedIn ? <FiLogOut /> : <FiLogIn />}
                 </NavLink>
 
             </div>
 
-            {/* Mobile Burger Button */}
+            {/* Mobile Search Button */}
+            <button
+                className="mobile-search-button"
+                onClick={() => {
+                    if (mobileSearchOpen) {
+                        closeMobileSearch();
+                    } else {
+                        setMobileSearchOpen(true);
+                    }
+                }}
+                aria-label="Toggle search"
+                aria-expanded={mobileSearchOpen}
+            >
+                {mobileSearchOpen ? <FiX /> : <FiSearch />}
+            </button>
+
+            {/* Mobile Menu Button */}
             <button
                 className="mobile-menu-button"
                 onClick={() => setMenuOpen(!menuOpen)}
@@ -126,6 +193,32 @@ function Header() {
                 {menuOpen ? <FiX /> : <FiMenu />}
             </button>
 
+            {/* Mobile Search */}
+            {mobileSearchOpen && (
+                <div className="mobile-search-overlay">
+                    <div className="mobile-search-box">
+                        <FiSearch />
+
+                        <input
+                            type="text"
+                            placeholder="Search people, posts..."
+                            aria-label="Search"
+                            value={search}
+                            onChange={handleSearch}
+                            onBlur={handleMobileSearchBlur}
+                            autoFocus
+                        />
+
+                        <button
+                            onClick={closeMobileSearch}
+                            aria-label="Close search"
+                        >
+                            <FiX />
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Mobile Menu */}
             {menuOpen && (
                 <div className="mobile-menu">
@@ -134,7 +227,7 @@ function Header() {
                         <NavLink
                             to={`/profile/${currentUser.id}`}
                             className="mobile-menu-profile"
-                            onClick={() => setMenuOpen(false)}
+                            onClick={closeMobileSearch}
                         >
                             <div className="mobile-profile-avatar">
                                 {currentUser.imageProfile ? (
@@ -144,13 +237,18 @@ function Header() {
                                     />
                                 ) : (
                                     <span>
-                                        {currentUser.username?.charAt(0).toUpperCase() || <FiUser />}
+                                        {currentUser.username?.charAt(0).toUpperCase()
+                                            || <FiUser />
+                                        }
                                     </span>
                                 )}
                             </div>
 
                             <div className="mobile-profile-info">
-                                <strong>{currentUser.username || "User"}</strong>
+                                <strong>
+                                    {currentUser.username || "User"}
+                                </strong>
+
                                 <span>View Profile</span>
                             </div>
                         </NavLink>

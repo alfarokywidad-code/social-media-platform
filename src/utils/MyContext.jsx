@@ -124,7 +124,7 @@ export function MyProvider({ children }) {
 
 
     // Search
-    const [search, setSearch] = useState("");
+    // const [search, setSearch] = useState("");
 
 
     return (
@@ -135,8 +135,6 @@ export function MyProvider({ children }) {
                 currentUser,
                 handleFollow,
                 handleUnfollow,
-                search,
-                setSearch
             }}
         >
             {children}
