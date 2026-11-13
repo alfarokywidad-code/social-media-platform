@@ -1,107 +1,18 @@
 import "./Post.css";
 import { useContext, useState } from "react";
 import { MyContext } from "../../../utils/MyContext";
-import Comment from "./comment";
+// import Comment from "./comment";
 import ReactionPost from "./reactionsPostCard";
+import CommentsModalCard from "./commentsModal";
+import { useNavigate } from "react-router-dom";
 
-function Post() {
+
+function Post({ onEditPost,sortingAllUsersPosts }) {
   const { users, setUsers, currentUser } = useContext(MyContext);
-  const [content, setContent] = useState("");
-  const [image, setImage] = useState("");
+  const [openMenu, setOpenMenu] = useState(null);
+  const [commentIsClicked, setCommentIsClicked] = useState(null);
+const navigate = useNavigate();
   if (!currentUser) return null;
-  // import './Post.css'
-  // import { useState } from 'react'
-  // import Comment from './Comment'
-  // import ReactionPost from './reactionsPostCard'
-  // import CommentsModalCard from './commentsModal'
-
-  // function Post({ posts, setPosts }) {
-  //   const [content, setContent] = useState("")
-  //   const [image, setImage] = useState("")
-  //   const [openMenu, setOpenMenu] = useState(null)
-  //   const [editpost, setEditPost] = useState(null)
-
-  //!add post to users array:
-  const addPosttoUsersArray = (e) => {
-    e.preventDefault();
-    if (content.trim() === "") {
-      alert("write somthing");
-      return;
-    }
-    if (!currentUser) return;
-    const newPost = {
-      id: crypto.randomUUID(),
-      content: content,
-      image: image,
-      date: new Date().toLocaleDateString(),
-      author: currentUser.name,
-      authorId: currentUser.id,
-      authorImage: currentUser.imageProfile,
-      comment: [],
-    };
-    setUsers((prev) => {
-      return prev.map((e) => {
-        if (e.id === currentUser.id) {
-          if (editpostId) {
-            return {
-              ...e,
-              posts: e.posts.map((post) => {
-                if (post.id === editpostId) {
-                  return {
-                    ...post,
-                    content: content,
-                    image: image,
-                  };
-                }
-                return post;
-              }),
-            };
-          }
-          return { ...e, posts: [...(e.posts || []), newPost] };
-        }
-
-        return e;
-      });
-    });
-
-    // if (editpost) {
-    //   setPosts(posts.map((p) => p.id === editpost ? newPost : p))
-    //   setEditPost("")
-    // } else {
-    //   setPosts([...posts, newPost])
-    // }
-
-    setContent("");
-    setImage("");
-    setEditPostId(null);
-    console.log(users);
-  };
-  // Add Post------------------------------------------------------------------------------------------------------
-  // const addPost = (e) => {
-  //   e.preventDefault()
-  //   if (content.trim() === "") {
-  //     alert('write somthing')
-  //     return
-  //   }
-
-  //   const newPost = {
-  //     id: Date.now(),
-  //     content: content,
-  //     image: image,
-  //     date: new Date().toLocaleDateString(),
-  //     author: "ouarda",
-  //     comment: []
-  //   }
-  //   if (editpost) {
-  //     setPosts(posts.map((p) => p.id === editpost ? newPost : p))
-  //     setEditPost("")
-  //   } else {
-  //     setPosts([...posts, newPost])
-  //   }
-
-  //   setContent("")
-  //   setImage("")
-  // }
 
   // Delete--------------------------------------------------------------------------------------------------------
   const deletePost = (postID, userId) => {
@@ -124,24 +35,20 @@ function Post() {
   };
 
   // Edite-------------------------------------------------------------------------------------------------------
-  const [editpostId, setEditPostId] = useState(null);
+  const edit = (postId, userId) => {
 
-  const edit = (postId) => {
-    let findPost = currentUser.posts.find((e) => {
-      return e.id === postId;
-    });
-    console.log(findPost);
+    const user = users.find((u) => u.id === userId);
 
-    // if (postId === currentUser.posts.map((e)=>(e.id))){
+    const findPost = user?.posts.find(
+      (post) => post.id === postId
+    );
 
-    setContent(findPost.content);
-    setImage(findPost.image);
-    // }
-    setEditPostId(postId);
-    // setOpenMenu(null)
+    if (!findPost) return;
+    if (userId !== currentUser.id) return;
+    onEditPost(findPost);
+    setOpenMenu(null);
   };
   //! open menu------------
-  const [openMenu, setOpenMenu] = useState(null);
   let editMenu = (postId) => {
     // setOpenMenu(openMenu === user.id ? null : user.id)
 
@@ -154,52 +61,29 @@ function Post() {
   console.log(openMenu);
   //! achraf code here:
   // comments btn:
-  const [commentIsClicked, setCommentIsClicked] = useState(false);
-  let clickComments = () => {
-    if (commentIsClicked === true) {
-      setCommentIsClicked(false);
+  let clickComments = (postId) => {
+    if (commentIsClicked === postId) {
+      setCommentIsClicked(null);
     } else {
-      setCommentIsClicked(true);
+      setCommentIsClicked(postId);
     }
   };
   //! achraf code here:
   return (
-    <section className="postSection">
-      <div className="containerUserForm">
-        <img className="nameAcc1" src={currentUser.imageProfile} alt="User" />
+    <>
 
-        {/* <form onSubmit={addPost}> */}
-        <form onSubmit={addPosttoUsersArray}>
-          <textarea
-            onChange={(e) => setContent(e.target.value)}
-            name=""
-            id=""
-            value={content}
-            placeholder="What's on your mind?"
-          ></textarea>
-          <input
-            onChange={(e) => setImage(e.target.value)}
-            value={image}
-            type="url"
-            placeholder="Add image URL"
-          />
-          <button className="publishBtn" type="submit">
-            Post
-          </button>
-        </form>
-      </div>
-
-      {users.map((user) => {
-        return user.posts.map((post) => (
-          <div className="containerPst" key={user.id}>
+      {sortingAllUsersPosts.map((post) => (
+        
+        // return user.posts.map((post) => (
+          <div className="containerPst" key={post.id}>
             <div>
               <div className="containerNameAcc">
-                <div className="userInfo">
+                <div onClick={() => navigate(`/profile/${post.authorId}`)}className="userInfo">
                   <div>
                     <img
-                      className="nameAcc"
-                      src={currentUser.imageProfile}
+                      src={post.authorImage}
                       alt="User"
+                      className="nameAcc"
                     />
                   </div>
 
@@ -220,10 +104,18 @@ function Post() {
                       openMenu === post.id ? "dropDownMenu" : "dropDownMenu2"
                     }
                   >
-                    <button onClick={() => edit(post.id)}>Edit</button>
-                    <button onClick={() => deletePost(post.id, user.id)}>
-                      Delete
-                    </button>
+                    {post.authorId === currentUser.id && (
+                      <>
+                        <button onClick={() => edit(post.id,post.authorId)}>
+                          Edit
+                        </button>
+
+                        <button onClick={() => deletePost(post.id, post.authorId)}>
+                          Delete
+                        </button>
+                      </>
+                    )}
+
                   </div>
                 </div>
               </div>
@@ -234,21 +126,20 @@ function Post() {
 
               <div></div>
               {/* //?achraf code here */}
-              <ReactionPost clickComments={clickComments} />
-
-              <Comment
-                post={post}
+              <ReactionPost clickComments={()=>clickComments(post.id) } post={post}  />
+<CommentsModalCard
+ commentIsClicked={commentIsClicked=== post.id} clickComments={()=>clickComments(post.id)} post = {post}/>
+ {console.log(post)}
+              {/* <Comment
+                // post={post}
                 commentIsClicked={commentIsClicked}
                 clickComments={clickComments}
-              />
-              {/* //?achraf code here */}
-              {/* // tst comnt */}
-              <Comment post={post} />
+                /> */}
             </div>
           </div>
-        ));
-      })}
-    </section>
+        // ));
+      ))}
+    </>
   );
 }
 
