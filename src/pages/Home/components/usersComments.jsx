@@ -32,7 +32,7 @@ function UsersComments(props) {
                 <div className='usersCommentsContenaireDiv'>
                     <div className='usersCommentsContenaireDiv2'>
                         <div className='usersCommentsProfilePicDiv'>
-                            <img className='usersCommentsProfilePic' src={e.authorPic} alt="" />
+                            <img className='usersCommentsProfilePic' src={e.authorPic?.trim() || undefined} alt="" />
                         </div>
                         <div>
                             <p className='usersCommentsName'>{e.authorName}  {e.commentDate}</p>

@@ -44,6 +44,22 @@ export function MyProvider({ children }) {
     ) ?? null;
 
 
+    function toggleBookmark(postId) {
+        if (currentUser == null || postId == null) return;
+
+        setUsers((previousUsers) => previousUsers.map((user) => {
+            if (user.id !== currentUser.id || !user.isLoggedIn) return user;
+
+            const savedPostIds = user.savedPostIds ?? [];
+            return {
+                ...user,
+                savedPostIds: savedPostIds.includes(postId)
+                    ? savedPostIds.filter((id) => id !== postId)
+                    : [...savedPostIds, postId]
+            };
+        }));
+    }
+
     // Follow a user
     function handleFollow(currentUserId, targetUserId) {
 
@@ -131,6 +147,7 @@ export function MyProvider({ children }) {
                 users,
                 setUsers,
                 currentUser,
+                toggleBookmark,
                 handleFollow,
                 handleUnfollow,
             }}

@@ -1,0 +1,23 @@
+.bookmark-button {
+    display: inline-grid;
+    place-items: center;
+    min-width: 40px;
+    min-height: 40px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.bookmark-button:hover,
+.bookmark-button[aria-pressed="true"] {
+    background: #f2ecfe;
+    color: #6325ad;
+}
+
+.bookmark-button:focus-visible {
+    outline: 2px solid #6325ad;
+    outline-offset: 2px;
+}

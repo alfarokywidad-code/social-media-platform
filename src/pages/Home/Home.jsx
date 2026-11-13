@@ -55,7 +55,6 @@ function Home() {
     setContent("");
     setImage("");
     setEditPostId(null);
-    console.log(users);
   };
   const handleEditPost = (post) => {
     setContent(post.content);
@@ -80,7 +79,7 @@ user.posts || []
 
             <img
               className="nameAcc1"
-              src={currentUser.imageProfile}
+              src={currentUser.imageProfile?.trim() || undefined}
               alt="User"
             />
 

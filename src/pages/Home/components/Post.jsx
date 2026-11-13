@@ -6,7 +6,6 @@ import ReactionPost from "./reactionsPostCard";
 import CommentsModalCard from "./commentsModal";
 import { useNavigate } from "react-router-dom";
 
-
 function Post({ onEditPost, sortingAllUsersPosts }) {
   const { users, setUsers, currentUser } = useContext(MyContext);
   const [openMenu, setOpenMenu] = useState(null);
@@ -36,12 +35,8 @@ function Post({ onEditPost, sortingAllUsersPosts }) {
 
   // Edite-------------------------------------------------------------------------------------------------------
   const edit = (postId, userId) => {
-
     const user = users.find((u) => u.id === userId);
-
-    const findPost = user?.posts.find(
-      (post) => post.id === postId
-    );
+    const findPost = user?.posts.find((post) => post.id === postId);
 
     if (!findPost) return;
     if (userId !== currentUser.id) return;
@@ -58,7 +53,6 @@ function Post({ onEditPost, sortingAllUsersPosts }) {
       setOpenMenu(postId);
     }
   };
-  console.log(openMenu);
   //! achraf code here:
   // comments btn:
   let clickComments = (postId) => {
@@ -71,17 +65,14 @@ function Post({ onEditPost, sortingAllUsersPosts }) {
   //! achraf code here:
   return (
     <>
-
       {sortingAllUsersPosts.map((post) => (
-
-        // return user.posts.map((post) => (
         <div className="containerPst" key={post.id}>
           <div>
             <div className="containerNameAcc">
               <div onClick={() => navigate(`/profile/${post.authorId}`)} className="userInfo">
                 <div>
                   <img
-                    src={post.authorImage}
+                    src={post.authorImage?.trim() || undefined}
                     alt="User"
                     className="nameAcc"
                   />
@@ -128,8 +119,10 @@ function Post({ onEditPost, sortingAllUsersPosts }) {
             {/* //?achraf code here */}
             <ReactionPost clickComments={() => clickComments(post.id)} post={post} />
             <CommentsModalCard
-              commentIsClicked={commentIsClicked === post.id} clickComments={() => clickComments(post.id)} post={post} />
-            {console.log(post)}
+              commentIsClicked={commentIsClicked === post.id}
+              clickComments={() => clickComments(post.id)}
+              post={post}
+            />
             {/* <Comment
                 // post={post}
                 commentIsClicked={commentIsClicked}

@@ -144,3 +144,54 @@
         border-radius: 0 0 5px 5px;
     }
 }
+
+.sidebar-bottom {
+    position: relative;
+}
+
+.sidebar-more-panel {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    width: max(100%, 172px);
+    height: 430px;
+    padding: 6px;
+    border: 1px solid #e4ebef;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+}
+
+.sidebar-more-panel .sidebar-link {
+    width: 100%;
+    justify-content: flex-start;
+    padding-inline: 12px;
+}
+
+.sidebar-more-panel .sidebar-link span {
+    display: inline;
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .sidebar-navigation {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .sidebar-bottom {
+        display: flex;
+        flex-shrink: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .sidebar-more-panel {
+        left: auto;
+        right: 0;
+    }
+}

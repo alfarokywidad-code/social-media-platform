@@ -3,11 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
 import { faMessage } from '@fortawesome/free-regular-svg-icons';
-import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import BookmarkButton from '../../../components/BookmarkButton';
 import { useContext } from 'react';
 import { MyContext } from '../../../utils/MyContext';
 function ReactionPost(props) {
-    console.log(props);
     const { setUsers, currentUser } = useContext(MyContext);
     // like btn:
     // const [isLiked, setIsLiked] = useState(false);
@@ -20,7 +19,7 @@ function ReactionPost(props) {
         setUsers((prevUsers) => {
             return prevUsers.map((user) => {
                 
-                const newPosts = user.posts.map((post) => {
+                const newPosts = (user.posts ?? []).map((post) => {
                     
                     if (post.id === props.post.id) {
                         const currentLikes = post.likes || [];
@@ -47,9 +46,9 @@ function ReactionPost(props) {
             <div className='PostCardReactionsDiv'>
                 <div className='PostCardReactions'>
                     <p className='CommentICON'> <FontAwesomeIcon onClick={clickLike} className={checkisLicked === true && 'reactionHeartIcon'} icon={checkisLicked ? solidHeart : regularHeart} /> {postLikes.length}</p>
-                    <p className='CommentICON'> <FontAwesomeIcon onClick={props.clickComments} icon={faMessage} />&nbsp;&nbsp;{props.post.comment.length}</p>
+                    <p className='CommentICON'> <FontAwesomeIcon onClick={props.clickComments} icon={faMessage} />&nbsp;&nbsp;{(props.post.comment ?? []).length}</p>
                 </div>
-                <div className='CommentICON'><FontAwesomeIcon icon={faBookmark} /></div>
+                <BookmarkButton postId={props.post.id} />
             </div>
         </>
     )

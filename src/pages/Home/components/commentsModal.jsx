@@ -72,7 +72,7 @@ let getformValue = (e) => {
           </div>
           <form className="commentsForm" onSubmit={getformValue}>
             <div className="commentUserPicDiv">
-              <img className="commentUserPic" src={currentUser.imageProfile} alt="" />
+              <img className="commentUserPic" src={currentUser.imageProfile?.trim() || undefined} alt="" />
             </div>
             <div className="commentsFormInputDiv">
               <textarea
