@@ -94,7 +94,7 @@ function App() {
                         />
 
                         <Route path="/explore" element={<Explore />} />
-                        <Route path="/post" element={<Post />} />
+                        <Route path="/post" element={<Home />} />
 
                         <Route path="*" element={<ErrorPage />} />
                     </Routes>
