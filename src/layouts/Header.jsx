@@ -148,7 +148,7 @@ function Header() {
                         ) : (
                             <span>
                                 {currentUser.username
-                                    ? currentUser.username.charAt(0).toUpperCase()
+                                    ? currentUser.name.charAt(0).toUpperCase()
                                     : <FiUser />
                                 }
                             </span>
@@ -237,7 +237,7 @@ function Header() {
                                     />
                                 ) : (
                                     <span>
-                                        {currentUser.username?.charAt(0).toUpperCase()
+                                        {currentUser.name?.charAt(0).toUpperCase()
                                             || <FiUser />
                                         }
                                     </span>
